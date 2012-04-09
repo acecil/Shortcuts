@@ -28,6 +28,9 @@
 #endif
 
 static const int SHORCUT_HOTKEY = 100;
+static const int MAX_DISPLAY_ITEMS = 20;
+static const int LISTBOX_HEIGHT = 4;
+static const int ITEM_HEIGHT = 8;
 
 ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(ShortcutsDlg::IDD, pParent),
@@ -73,6 +76,9 @@ BOOL ShortcutsDlg::OnInitDialog()
 
 	/* Hot key for displaying window. */
 	RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, MOD_WIN, 'Q');
+
+	/* Set initial size. */
+	OnEnChangeEntry();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -128,6 +134,28 @@ void ShortcutsDlg::OnEnChangeEntry()
 	/* Get items. */
 	selectedItems = items->GetItems(currApp, search.GetBuffer());
 	shortcutList.ResetContent();
+
+	/* Resize list box and dialog. */
+	int numItems = min(selectedItems.size(), MAX_DISPLAY_ITEMS);
+	int listH = (numItems > 0) ? LISTBOX_HEIGHT + numItems * ITEM_HEIGHT : 0;
+	CRect newListRect(0, 0, 0, listH);
+	MapDialogRect(&newListRect);
+	CRect listRect;
+	shortcutList.GetWindowRect(&listRect);
+	ScreenToClient(&listRect);
+	listRect.bottom = listRect.top + newListRect.bottom;
+	shortcutList.SetWindowPos(NULL, 0, 0, listRect.Width(), listRect.Height(),
+		SWP_NOZORDER | SWP_NOMOVE);
+
+	CRect dlgRect;
+	GetWindowRect(&dlgRect);
+	ScreenToClient(&dlgRect);
+	dlgRect.bottom = listRect.bottom;
+	SetWindowPos(NULL, 0, 0, dlgRect.Width(), dlgRect.Height(),
+		SWP_NOZORDER | SWP_NOMOVE);
+
+
+	/* Refill list box. */
 	for(auto &i : selectedItems)
 	{
 		shortcutList.AddString(items->ItemToString(i).c_str());

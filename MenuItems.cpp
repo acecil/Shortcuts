@@ -324,9 +324,20 @@ MenuItems::~MenuItems()
 
 vector<Item> MenuItems::GetItems(wstring application, wstring text)
 {
+	/* Show no items when no text. */
+	if(trim(text).length() == 0)
+	{
+		return vector<Item>();
+	}
+
 	transform(begin(text), end(text), begin(text), ::tolower);
-	auto& all = pimpl->allitems[application];
-	auto& items = all.items;
+	auto& ait = pimpl->allitems.find(application);
+	if( ait == pimpl->allitems.end() )
+	{
+		/* Application not found. */
+		return vector<Item>();
+	}
+	auto& items = ait->second.items;
 	set<Item> matches;
 
 	/* Split words from text into vector. */
@@ -342,7 +353,7 @@ vector<Item> MenuItems::GetItems(wstring application, wstring text)
 		}
 	}
 
-	/* Try to match all words from name, descriptio and shortcut. */
+	/* Try to match all words from name, description and shortcut. */
 	for(auto &it : items)
 	{
 		wstring lname = it.name;
@@ -510,11 +521,11 @@ wstring MenuItems::KeysFromItem(Item item, wstring sep)
 
 wstring MenuItems::ItemToString(Item item)
 {
-	wstring disp(item.name);
-	disp += L" (";
-	disp += KeysFromItem(item, L" + ");
-	disp += L")";
-	return disp;
+	wstringstream ss;
+	ss << KeysFromItem(item, L"+");
+	ss << ": ";
+	ss << item.desc;
+	return ss.str();
 }
 
 void MenuItems::Save()

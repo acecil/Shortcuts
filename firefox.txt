@@ -1,0 +1,79 @@
+Back | Load previous page in history | Alt Left; Backspace
+Forward | Load next page in history | Alt Right; Shift Backspace
+Home | Load homepage | Alt Home
+OpenFile | Open a file | Ctrl O
+Reload | Reload the current page | F5; Ctrl R
+ReloadNoCache | Reload the current page overriding the cache | Ctrl F5; Ctrl Shift R
+Stop | Stop loading the page | Esc
+GoToBottom | Go to the end of the current page | End
+GoToTop | Go to the start of the current page | Home
+NextFrame | Move to the next frame | F6
+PreviousFrame | Move to the previous frame | Shift F6
+Print | Print the current page | Ctrl P
+SaveAs | Save the current page as | Ctrl S
+ZoomIn | Enlarge the items on the current page | Ctrl +
+ZoomOut | Shrink the items on the current page | Ctrl -
+ZoomReset | Reset the size of items on the current page | Ctrl 0
+Copy | Copy the current selection | Ctrl C
+Cut | Cut the current selection | Ctrl X
+Delete | Delete the current selection | Del
+Paste | Paste the current selection | Ctrl V
+Redo | Redo the last action | Ctrl Y
+SelectAll | Select all items on the current page | Ctrl A
+Undo | Undo the last action | Ctrl Z
+Find | Search for text within the current page | Ctrl F
+FindAgain | Find the next location of the last search term | F3; Ctrl G
+FindPrevious | Find the previous location of the last search term | Shift F3; Ctrl Shift G
+QuickFindLinks | Quick find within link text only | '
+QuickFind | Quick find within all text | /
+CloseFind | Close the find/search or quick find bar | Esc
+SearchBar | Display the search bar | Ctrl K
+CloseTab | Close the current tab | Ctrl W; Ctrl F4
+CloseWindow | Close the current window | Ctrl Shift W; Alt F4
+MoveTabLeft | Move current tab to the left | Ctrl Left; Ctrl Up
+MoveTabRight | Move current tab to the right | Ctrl Right; Ctrl Down
+MoveTabStart | Move current tab to the start | Ctrl Home
+MoveTabEnd | Move current tab to the end | Ctrl End
+NewTab | Open a new tab | Ctrl T
+NewWindow | Open a new window | Ctrl N
+NextTab | Switch to the next tab to the right | Ctrl Tab; Ctrl PageDown
+PreviousTab | Switch to the previous tab to the left | Ctrl Shift Tab; Ctrl PageUp
+UndoCloseTab | Reopen the last closed tab | Ctrl Shift T
+UndoCloseWindow | Reopen the last closed window | Ctrl Shift N
+SelectTab1 | Select the first open tab | Ctrl 1
+SelectTab2 | Select the second open tab | Ctrl 2
+SelectTab3 | Select the third open tab | Ctrl 3
+SelectTab4 | Select the fourth open tab | Ctrl 4
+SelectTab5 | Select the fifth open tab | Ctrl 5
+SelectTab6 | Select the sixth open tab | Ctrl 6
+SelectTab7 | Select the seventh open tab | Ctrl 7
+SelectTab8 | Select the eighth open tab | Ctrl 8
+SelectTabLast | Select the last open tab | Ctrl 9
+ViewTabGroups | Open the tab groups view | Ctrl Shift E
+CloseTabGroups | Close the tab groups view | Esc
+NextTabGroup | Switch to the next tab group | Ctrl `
+PreviousTabGroup | Switch to the previous tab group | Ctrl Shift `
+HistorySidebar | Open the history sidebar | Ctrl H
+HistoryWindow | Open the history window | Ctrl Shift H
+BookmarkAll | Bookmark all currently open tabs | Ctrl Shift D
+Bookmark | Bookmark the current page | Ctrl D
+BookmarkSidebar | Open the bookmarks sidebar | Ctrl B; Ctrl I
+BookmarksWindow | Open the bookmarks window | Ctrl Shift B
+Downloads | View list of downloaded files | Ctrl J
+Addons | View list of add-ons | Ctrl Shift A
+WebConsole | View the web console | Ctrl Shift K
+Inspect | Inspect the element under the cursor | Ctrl Shift I
+Scratchpad | Open the scratch pad | Shift F4
+StyleEditor | Open the style editor | Shift F7
+PageSource | View the current page source | Ctrl U
+ErrorConsole | Open the error console | Ctrl Shift J
+PrivateBrowsing | Toggle private browsing | Ctrl Shift P
+ClearHistory | Clear recent history | Ctrl Shift Del
+Fullscreen | Toggle full screen | F11
+ToggleMenuBar | Toggle menu bar (when hidden) | Alt; F10
+AddonBar | Show/Hide add-on bar | Ctrl /
+CaretBrowsing | Enable/disable caret browsing | F7
+LocationBar | Select the location bar | Alt D; Ctrl L
+
+
+

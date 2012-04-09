@@ -178,6 +178,8 @@ MenuItems::MenuItems()
 	pimpl->keys[L"{"] = VK_OEM_4;
 	pimpl->keys[L"]"] = VK_OEM_6;
 	pimpl->keys[L"}"] = VK_OEM_6;
+	pimpl->keys[L"'"] = VK_OEM_7;
+	pimpl->keys[L"`"] = VK_OEM_3;
 
 	/* Load configuration files. */
 	wpath p(initial_path<wpath>());

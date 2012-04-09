@@ -1,3 +1,23 @@
+Help | Display help | F1
+Copy | Copy the selected item | Ctrl C; Ctrl Insert
+Cut | Cut the selected item | Ctrl X
+Paste | Paste the selected item | Ctrl V; Shift Insert
+Undo | Undo an action | Ctrl Z
+Redo | Redo an action | Ctrl Y
+Recycle | Delete the selected item and move it to the Recycle Bin | Delete; Ctrl D
+Delete | Delete the selected item without moving to the Recycle Bin | Shift Delete
+Rename | Rename the selected item | F2
+SelectAll | Select all items in a document or window | Ctrl A
+Search | Search for a file or folder | F3
+Properties | Display properties for the selected item | Alt Enter
+SystemMenu | Open the shortcut menu for the active window | Alt Spacebar
+CloseDocument | Close the active document | Ctrl F4
+NextElement | Cycle through screen elements in a window or on the desktop | F6
+ShortcutMenu | Display the shortcut menu for the selected item | Shift F10
+ActivateMenubar | Activate the menu bar in the active program | F10
+Refresh | Refresh the active window | F5; Ctrl R
+Cancel | Cancel the current task | Esc
+OpenTaskManager | Open Task Manager | Ctrl Shift Esc
 OpenNewWindow | Open a new window | Ctrl N
 CloseWindow | Close the current window | Ctrl W
 CreateNewFolder | Create a new folder | Ctrl Shift N

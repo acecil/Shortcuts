@@ -1,0 +1,10 @@
+Shortcuts: A shortcut utility written by Andrew Gascoyne-Cecil.
+
+Shortcuts is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+To show or hide the Shorcuts application enter the global shortcut Win + Q.
+Shortcuts displays a list of shortcuts matching a search string for the application that has the focus. Hopefully this tool is useful for learning shortcuts for applications and executing less commonly used commands without searching through menus.
+
+Shortcuts relies on configuration files to display shortcuts for each application. Currently supported applications are Windows Explorer, Visual Studio 2005, Google Chrome and Firefox.
+
+Contact: Andrew Gascoyne-Cecil <gascoyne@gmail.com>

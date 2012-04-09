@@ -46,7 +46,7 @@ inline bool operator<(const Item& lhs, const Item& rhs)
 {
 	if( lhs.count == rhs.count )
 	{
-		return (lhs.name < rhs.name);
+		return (lhs.name > rhs.name);
 	}
 	return (lhs.count < rhs.count);
 }
@@ -59,7 +59,7 @@ public:
 
 	vector<Item> GetItems(wstring application, wstring text);
 	void Launch(HWND hwnd, wstring application, Item item);
-	wstring KeysFromItem(Item item);
+	wstring KeysFromItem(Item item, wstring sep=L" ");
 	wstring ItemToString(Item item);
 	void Save();
 

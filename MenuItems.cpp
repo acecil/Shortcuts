@@ -29,6 +29,7 @@
 #include <functional> 
 #include <locale>
 #include <set>
+#include <iterator>
 using namespace std::tr2::sys;
 
 #include "MenuItems.h"
@@ -286,7 +287,7 @@ MenuItems::MenuItems()
 		vector<wstring> sparts;
 		while(getline(sps, spart, PART_DELIM))
 		{
-			sparts.push_back(spart);
+			sparts.push_back(trim(spart));
 		}
 		if( sparts.size() > 2 )
 		{
@@ -301,7 +302,9 @@ MenuItems::MenuItems()
 			}
 			for(auto& i : it->second.items)
 			{
-				if( i.name == sparts[2] )
+				wstring lname = i.name;
+				transform(begin(lname), end(lname), begin(lname), ::tolower);
+				if( lname == sparts[1] )
 				{
 					wstringstream cnt(sparts[2]);
 					cnt >> i.count;
@@ -324,28 +327,59 @@ vector<Item> MenuItems::GetItems(wstring application, wstring text)
 	auto& items = all.items;
 	set<Item> matches;
 
-	/* Try to match name. */
-	for(auto it = begin(items); it != end(items); ++it)
+	/* Split words from text into vector. */
+	vector<wstring> words;
+	wstringstream iss(text);
+	wstring word;
+	while(getline(iss, word, L' '))
 	{
-		wstring lname = it->name;
-		transform(begin(lname), end(lname), begin(lname), ::tolower);
-		if(lname.find(text) != wstring::npos)
+		trim(word);
+		if( !word.empty() )
 		{
-			matches.insert(*it);
+			words.push_back(word);
 		}
 	}
 
-	/* Try to match description. */
-	for(auto it = begin(items); it != end(items); ++it)
+	/* Try to match all words from name, descriptio and shortcut. */
+	for(auto &it : items)
 	{
-		if(it->desc.find(text) != wstring::npos)
+		wstring lname = it.name;
+		wstring desc = it.desc;
+		wstring shortcut = KeysFromItem(it, L" + ");
+		transform(begin(lname), end(lname), begin(lname), ::tolower);
+		transform(begin(desc), end(desc), begin(desc), ::tolower);
+		transform(begin(shortcut), end(shortcut), begin(shortcut), ::tolower);
+
+		bool foundAll = true;
+		for(auto& w : words)
 		{
-			matches.insert(*it);
+			bool found = false;
+			if(lname.find(w) != wstring::npos)
+			{
+				found = true;
+			}
+			if(desc.find(w) != wstring::npos)
+			{
+				found = true;
+			}
+			if(shortcut.find(w) != wstring::npos)
+			{
+				found = true;
+			}
+			if(!found)
+			{
+				foundAll = false;
+				break;
+			}
+		}
+		if(foundAll)
+		{
+			matches.insert(it);
 		}
 	}
 
 	vector<Item> matchVec;
-	copy(begin(matches), end(matches), back_inserter(matchVec));
+	copy(matches.rbegin(), matches.rend(), back_inserter(matchVec));
 	return matchVec;
 }
 
@@ -406,7 +440,7 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 	Save();
 }
 
-wstring MenuItems::KeysFromItem(Item item)
+wstring MenuItems::KeysFromItem(Item item, wstring sep)
 {
 	wstring keystr;
 	bool firstlist = true;
@@ -434,29 +468,29 @@ wstring MenuItems::KeysFromItem(Item item)
 			bool done = false;
 			if(k.first & KEY_CTRL)
 			{
-				if(done) keystr += L" ";
+				if(done) keystr += sep;
 				keystr += L"Ctrl";
 				done = true;
 			}
 			if(k.first & KEY_SHIFT)
 			{
-				if(done) keystr += L" ";
+				if(done) keystr += sep;
 				keystr += L"Shift";
 				done = true;
 			}
 			if(k.first & KEY_ALT)
 			{
-				if(done) keystr += L" ";
+				if(done) keystr += sep;
 				keystr += L"Alt";
 				done = true;
 			}
 			if(k.first & KEY_SUPER)
 			{
-				if(done) keystr += L" ";
+				if(done) keystr += sep;
 				keystr += L"Win";
 				done = true;
 			}
-			if(done) keystr += L" ";
+			if(done) keystr += sep;
 			for(auto &l : pimpl->keys)
 			{
 				if(l.second == k.second)
@@ -476,7 +510,7 @@ wstring MenuItems::ItemToString(Item item)
 {
 	wstring disp(item.name);
 	disp += L" (";
-	disp += KeysFromItem(item);
+	disp += KeysFromItem(item, L" + ");
 	disp += L")";
 	return disp;
 }

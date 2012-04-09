@@ -150,8 +150,8 @@ void ShortcutsDlg::OnOK()
 		Item currItem = selectedItems[currItemIdx];
 		async([&](){ items->Launch(currWin, currApp, currItem); });
 
-		/* Clear the edit box. */
-		entryBtn.SetWindowTextW(L"");
+		/* Select text in the edit box. */
+		entryBtn.SetSel(0, entryBtn.GetWindowTextLengthW());
 	}
 
 	/* Hide window. */

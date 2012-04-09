@@ -128,7 +128,6 @@
     <Text Include="devenv.txt" />
     <Text Include="explorer.txt" />
     <Text Include="GPL" />
-    <Text Include="_stats.conf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

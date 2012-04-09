@@ -18,8 +18,8 @@
 //
 
 #include "stdafx.h"
-#include "shortcuts.h"
-#include "shortcutsDlg.h"
+#include "Shortcuts.h"
+#include "ShortcutsDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

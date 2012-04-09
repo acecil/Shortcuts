@@ -18,8 +18,8 @@
 //
 
 #include "stdafx.h"
-#include "shortcuts.h"
-#include "shortcutsDlg.h"
+#include "Shortcuts.h"
+#include "ShortcutsDlg.h"
 #include "afxdialogex.h"
 #include <TlHelp32.h>
 

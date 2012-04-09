@@ -22,6 +22,7 @@
 #include <future>
 using namespace std;
 
+#include "EditBox.h"
 #include "MenuItems.h"
 
 // ShortcutsDlg dialog
@@ -45,12 +46,14 @@ protected:
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
-	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
-	afx_msg void OnEnChangeEntry();
+	void OnPaint();
+	HCURSOR OnQueryDragIcon();
+	void OnEnChangeEntry();
 	virtual void OnOK();
 	virtual void OnCancel();
-	afx_msg void OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2);
+	void OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2);
+	void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 	DECLARE_MESSAGE_MAP()
 
 private:
@@ -59,7 +62,7 @@ private:
 	vector<Item> selectedItems;
 	HWND currWin;
 	wstring currApp;
-	CEdit entryBtn;
+	EditBox entryBtn;
 	CListBox shortcutList;
 
 	void switchWinState();

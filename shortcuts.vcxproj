@@ -98,6 +98,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EditBox.h" />
     <ClInclude Include="MenuItems.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shortcuts.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EditBox.cpp" />
     <ClCompile Include="MenuItems.cpp" />
     <ClCompile Include="shortcuts.cpp" />
     <ClCompile Include="shortcutsDlg.cpp" />
@@ -127,7 +129,9 @@
     <Text Include="chrome.txt" />
     <Text Include="devenv.txt" />
     <Text Include="explorer.txt" />
+    <Text Include="firefox.txt" />
     <Text Include="GPL" />
+    <Text Include="winword.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

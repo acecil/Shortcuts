@@ -55,6 +55,8 @@ BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_EN_CHANGE(IDC_EDIT1, &ShortcutsDlg::OnEnChangeEntry)
 	ON_WM_HOTKEY()
+	ON_WM_KEYDOWN()
+	ON_WM_KEYUP()
 END_MESSAGE_MAP()
 
 
@@ -168,6 +170,34 @@ void ShortcutsDlg::OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2)
 	if( nHotKeyId == SHORCUT_HOTKEY )
 	{
 		switchWinState();
+	}
+}
+
+void ShortcutsDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	if((nChar == VK_UP) || (nChar == VK_DOWN))
+	{
+		/* Pass to list box. */
+		shortcutList.SendMessage(WM_KEYDOWN, nChar, (nRepCnt << 16) | (nFlags & 0xFF));
+	}
+	else
+	{
+		/* Pass to base class. */
+		CDialog::OnKeyDown(nChar, nRepCnt, nFlags);
+	}
+}
+
+void ShortcutsDlg::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	if((nChar == VK_UP) || (nChar == VK_DOWN))
+	{
+		/* Pass to list box. */
+		shortcutList.SendMessage(WM_KEYUP, nChar, (nRepCnt << 16) | (nFlags & 0xFF));
+	}
+	else
+	{
+		/* Pass to base class. */
+		CDialog::OnKeyUp(nChar, nRepCnt, nFlags);
 	}
 }
 

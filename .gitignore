@@ -1,0 +1,10 @@
+Debug/*
+Release/*
+ipch/*
+*.aps
+*.opensdf
+*.sdf
+*.v11.suo
+*.vcxproj.filters
+*.vcxproj.user
+_stats.conf

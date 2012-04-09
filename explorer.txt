@@ -1,0 +1,18 @@
+OpenNewWindow | Open a new window | Ctrl N
+CloseWindow | Close the current window | Ctrl W
+CreateNewFolder | Create a new folder | Ctrl Shift N
+MoveToEnd | Move to bottom of active window | End
+MoveToHome | Mov to top of active window | Home
+MaxMin | Maximize or minimize the active window | F11
+RotatePictureClockwise | Rotate a picture clockwise | Ctrl .
+RotatePictureAnticlockwise | Rotate a picture anti-clockwise | Ctrl ,
+Collapse | Collapse the current selection | Left
+OpenProperties | Open the properties dialog box for selected item | Alt Enter
+PreviewPane | Display the preview pane | Alt P
+PreviousFolder | View the previous folder | Alt Left; Backspace
+Expand | Display the current selection or select the first subfolder | Right
+NextFolder | View the next folder | Alt Right
+ParentFolder | View the parent folder | Alt Up
+DisplayFolders | Display all folders above the selected folder | Ctrl Shift E
+AddressBar | Select the address bar | Alt D
+Search | Select the search box | Ctrl E; Ctrl F

@@ -425,16 +425,24 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 			inputs.push_back(input);
 
 			/* Send key downs. */
-			::SendInput(inputs.size(), &inputs[0], sizeof(INPUT));
+			UINT numSent = 0;
+			while( numSent != inputs.size() )
+			{
+				numSent += ::SendInput(inputs.size() - numSent, &inputs[numSent], sizeof(INPUT));
+			}
 
-			Sleep(15);
+			Sleep(50);
 		
 			for(auto& i: inputs)
 			{
 				i.ki.dwFlags = KEYEVENTF_KEYUP;
 			}
 			/* Send key ups. */
-			::SendInput(inputs.size(), &inputs[0], sizeof(INPUT));
+			numSent = 0;
+			while( numSent != inputs.size() )
+			{
+				numSent += ::SendInput(inputs.size() - numSent, &inputs[numSent], sizeof(INPUT));
+			}
 		}
 	}
 

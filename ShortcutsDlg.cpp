@@ -134,7 +134,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	if( !currApp.empty() )
 	{
 		hintApp[0] = ::toupper(hintApp[0]);
-		hint = L"Showing shortcuts for " + hintApp;
+		hint = L"Shortcuts for " + hintApp;
 	}
 	entryBtn.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
 
@@ -258,8 +258,8 @@ void ShortcutsDlg::switchWinState(bool show)
 		}
 		if( currApp != app )
 		{
-			/* Clear current selection. */
-			entryBtn.Clear();
+			/* Clear entry box. */
+			entryBtn.SetWindowText(L"");
 		}
 		currApp = app;
 	}
@@ -287,10 +287,6 @@ void ShortcutsDlg::switchWinState(bool show)
 wstring ShortcutsDlg::getProcFocus(HWND &hwnd)
 {
     hwnd = ::GetForegroundWindow();
-	wchar_t className[256];
-	GetClassName(hwnd, className, sizeof(className));
-	
-
 	DWORD procId;
 	::GetWindowThreadProcessId(hwnd, &procId);
 	HANDLE snapshot = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);

@@ -1,3 +1,5 @@
+# Google chrome shortcuts
+
 NewWindow | Open a new window | Ctrl N
 NewTab | Open a new tab | Ctrl T
 NewIncognitoWindow | Open a new icognito window | Ctrl Shift N

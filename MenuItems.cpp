@@ -207,6 +207,13 @@ MenuItems::MenuItems()
 		wstring line;
 		while(getline(fs, line))
 		{
+			/* Ignore empty lines and lines starting with '#'. */
+			wstring trimLine = trim(line);
+			if( trimLine.empty() || (trimLine[0] == '#') )
+			{
+				continue;
+			}
+
 			/* Parse each line of the file into segments. */
 			wstringstream ss(line);
 			wstring segment;
@@ -217,18 +224,15 @@ MenuItems::MenuItems()
 			}
 
 			/* Parse item name. */
-			if(segments.size() > 0)
+			if(segments.size() > 1)
 			{
 				/* We have a shortcut. */
 				Item item;
 				item.name = trim(segments[0]);
 				item.count = 0;
 
-				/* We have a description. */
-				if(segments.size() > 1)
-				{
-					item.desc = trim(segments[1]);
-				}
+				/* Parse description. */
+				item.desc = trim(segments[1]);
 
 				/* We have shortcut keys. */
 				if(segments.size() > 2)
@@ -283,6 +287,13 @@ MenuItems::MenuItems()
 	wstring sline;
 	while(getline(fst, sline))
 	{
+		/* Skip comment and empty lines. */
+		wstring trimLine = trim(sline);
+		if( sline.empty() || (sline[0] == '#') )
+		{
+			continue;
+		}
+
 		/* Split line on delimiter to separate app/shortcut/count. */
 		wstring spart;
 		wstringstream sps(sline);

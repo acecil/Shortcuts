@@ -1,3 +1,5 @@
+# Visual Studio 2005 shortucts
+
 NavigateForward | Move to next location | Ctrl Shift -
 NavigateBackwards | Move to previous location | Ctrl -
 GotoCommandLine | Go to the command line | Ctrl /

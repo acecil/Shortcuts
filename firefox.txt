@@ -1,3 +1,5 @@
+# Firefox shortcuts
+
 Back | Load previous page in history | Alt Left; Backspace
 Forward | Load next page in history | Alt Right; Shift Backspace
 Home | Load homepage | Alt Home

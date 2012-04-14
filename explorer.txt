@@ -1,3 +1,5 @@
+# Windows Explorer shortcuts
+
 Help | Display help | F1
 Copy | Copy the selected item | Ctrl C; Ctrl Insert
 Cut | Cut the selected item | Ctrl X

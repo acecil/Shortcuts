@@ -1,3 +1,8 @@
+#pragma once
+
+
+// ListBox
+
 //	
 //	(c) 2012 by Andrew Gascoyne-Cecil.
 //	
@@ -17,51 +22,28 @@
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#pragma once
-
 #include <string>
-#include <list>
-#include <vector>
-#include <memory>
 using namespace std;
 
-enum Modifier : unsigned char
+class ListBox : public CListBox
 {
-	KEY_NOMOD	= 0x0,
-	KEY_CTRL	= 0x1,
-	KEY_SHIFT	= 0x2,
-	KEY_ALT		= 0x4,
-	KEY_SUPER   = 0x8
-};
+	DECLARE_DYNAMIC(ListBox)
 
-struct Item
-{
-	wstring name;
-	wstring desc;
-	list<vector<pair<unsigned char, unsigned char>>> keys;
-	unsigned int count;
-};
-
-inline bool operator<(const Item& lhs, const Item& rhs)
-{
-	if( lhs.count == rhs.count )
-	{
-		return (lhs.name > rhs.name);
-	}
-	return (lhs.count < rhs.count);
-}
-
-class MenuItems
-{
 public:
-	explicit MenuItems();
-	virtual ~MenuItems();
+	ListBox();
+	virtual ~ListBox();
 
-	vector<Item> GetItems(wstring application, wstring text);
-	void Launch(HWND hwnd, wstring application, Item item);
-	wstring KeysFromItem(Item item, wstring sep=L" ");
-	void Save();
+	void AddString(wstring description, wstring shortcut);
+	void DeleteString(wstring description);
+	void ResetContent();
+
+protected:
+	DECLARE_MESSAGE_MAP()
+	void OnDestroy();
 
 private:
-	struct impl; unique_ptr<impl> pimpl;
+	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 };
+
+

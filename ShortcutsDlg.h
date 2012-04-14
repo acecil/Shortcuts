@@ -23,6 +23,7 @@
 using namespace std;
 
 #include "EditBox.h"
+#include "ListBox.h"
 #include "MenuItems.h"
 
 // ShortcutsDlg dialog
@@ -63,8 +64,8 @@ private:
 	vector<Item> selectedItems;
 	HWND currWin;
 	wstring currApp;
-	EditBox entryBtn;
-	CListBox shortcutList;
+	EditBox entryBox;
+	ListBox shortcutList;
 
 	void switchWinState(bool show);
 	wstring getProcFocus(HWND &hwnd);

@@ -541,15 +541,6 @@ wstring MenuItems::KeysFromItem(Item item, wstring sep)
 	return keystr;
 }
 
-wstring MenuItems::ItemToString(Item item)
-{
-	wstringstream ss;
-	ss << KeysFromItem(item, L"+");
-	ss << ": ";
-	ss << item.desc;
-	return ss.str();
-}
-
 void MenuItems::Save()
 {
 	wpath pstat(initial_path<wpath>());

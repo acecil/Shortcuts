@@ -49,7 +49,7 @@ ShortcutsDlg::~ShortcutsDlg()
 void ShortcutsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EDIT1, entryBtn);
+	DDX_Control(pDX, IDC_EDIT1, entryBox);
 	DDX_Control(pDX, IDC_LIST1, shortcutList);
 }
 
@@ -136,11 +136,11 @@ void ShortcutsDlg::OnEnChangeEntry()
 		hintApp[0] = ::toupper(hintApp[0]);
 		hint = L"Shortcuts for " + hintApp;
 	}
-	entryBtn.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
+	entryBox.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
 
 	/* Get text from entry box. */
 	CString search;
-	entryBtn.GetWindowTextW(search);
+	entryBox.GetWindowTextW(search);
 	
 	/* Get items. */
 	selectedItems = items->GetItems(currApp, search.GetBuffer());
@@ -169,7 +169,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	/* Refill list box. */
 	for(auto &i : selectedItems)
 	{
-		shortcutList.AddString(items->ItemToString(i).c_str());
+		shortcutList.AddString(i.desc, items->KeysFromItem(i));
 	}
 
 	/* Select first item. */
@@ -259,7 +259,7 @@ void ShortcutsDlg::switchWinState(bool show)
 		if( currApp != app )
 		{
 			/* Clear entry box. */
-			entryBtn.SetWindowText(L"");
+			entryBox.SetWindowText(L"");
 		}
 		currApp = app;
 	}
@@ -271,9 +271,9 @@ void ShortcutsDlg::switchWinState(bool show)
 	ShowWindow(show ? SW_SHOW : SW_HIDE);
 	if(show)
 	{
-		entryBtn.SetFocus();
+		entryBox.SetFocus();
 		/* Select text in the edit box. */
-		entryBtn.SetSel(0, entryBtn.GetWindowTextLengthW());
+		entryBox.SetSel(0, entryBox.GetWindowTextLengthW());
 		SetForegroundWindow();
 	}
 	else

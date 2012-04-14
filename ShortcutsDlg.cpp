@@ -128,6 +128,16 @@ void ShortcutsDlg::OnEnChangeEntry()
 		items = move(unique_ptr<MenuItems>(futureItems.get()));
 	}
 
+	/* Set hint text. */
+	wstring hintApp = currApp;
+	wstring hint = L"No shortcuts available";
+	if( !currApp.empty() )
+	{
+		hintApp[0] = ::toupper(hintApp[0]);
+		hint = L"Showing shortcuts for " + hintApp;
+	}
+	entryBtn.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
+
 	/* Get text from entry box. */
 	CString search;
 	entryBtn.GetWindowTextW(search);
@@ -246,6 +256,11 @@ void ShortcutsDlg::switchWinState(bool show)
 		{
 			app = app.substr(0, app.length() - 4);
 		}
+		if( currApp != app )
+		{
+			/* Clear current selection. */
+			entryBtn.Clear();
+		}
 		currApp = app;
 	}
 
@@ -272,6 +287,10 @@ void ShortcutsDlg::switchWinState(bool show)
 wstring ShortcutsDlg::getProcFocus(HWND &hwnd)
 {
     hwnd = ::GetForegroundWindow();
+	wchar_t className[256];
+	GetClassName(hwnd, className, sizeof(className));
+	
+
 	DWORD procId;
 	::GetWindowThreadProcessId(hwnd, &procId);
 	HANDLE snapshot = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);

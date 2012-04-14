@@ -123,6 +123,7 @@
     <None Include="res\shortcuts.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\Downloads\shortcuts.ico" />
     <Image Include="res\shortcuts.ico" />
   </ItemGroup>
   <ItemGroup>

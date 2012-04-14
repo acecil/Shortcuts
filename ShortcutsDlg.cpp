@@ -56,6 +56,7 @@ void ShortcutsDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_ACTIVATE()
 	ON_EN_CHANGE(IDC_EDIT1, &ShortcutsDlg::OnEnChangeEntry)
 	ON_WM_HOTKEY()
 	ON_WM_KEYDOWN()
@@ -179,25 +180,31 @@ void ShortcutsDlg::OnOK()
 	{
 		Item currItem = selectedItems[currItemIdx];
 		async([&](){ items->Launch(currWin, currApp, currItem); });
-
-		/* Select text in the edit box. */
-		entryBtn.SetSel(0, entryBtn.GetWindowTextLengthW());
 	}
 
 	/* Hide window. */
-	switchWinState();
+	switchWinState(false);
 }
 
 void ShortcutsDlg::OnCancel()
 {
-	switchWinState();
+	switchWinState(false);
+}
+
+void ShortcutsDlg::OnActivate(UINT nState, CWnd *pWndOther, BOOL bMinimized)
+{
+	/* Hide dialog when another window is activated. */
+	if( nState == WA_INACTIVE )
+	{
+		switchWinState(false);
+	}
 }
 
 void ShortcutsDlg::OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2)
 {
 	if( nHotKeyId == SHORCUT_HOTKEY )
 	{
-		switchWinState();
+		switchWinState(!IsWindowVisible());
 	}
 }
 
@@ -229,25 +236,29 @@ void ShortcutsDlg::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 }
 
-void ShortcutsDlg::switchWinState()
+void ShortcutsDlg::switchWinState(bool show)
 {
 	/* Get the current application that has focus. */
-	wstring app = getProcFocus(currWin);
-	if( (app.length() > 4) && (app.substr(app.length() - 4, 4) == L".exe") )
+	if(show)
 	{
-		app = app.substr(0, app.length() - 4);
+		wstring app = getProcFocus(currWin);
+		if( (app.length() > 4) && (app.substr(app.length() - 4, 4) == L".exe") )
+		{
+			app = app.substr(0, app.length() - 4);
+		}
+		currApp = app;
 	}
-	currApp = app;
 
 	/* Prepopulate list. */
 	OnEnChangeEntry();
 
 	/* Show or hide our window. */
-	int cmdShow = IsWindowVisible() ? SW_HIDE : SW_SHOW;
-	ShowWindow(cmdShow);
-	if( cmdShow == SW_SHOW )
+	ShowWindow(show ? SW_SHOW : SW_HIDE);
+	if(show)
 	{
 		entryBtn.SetFocus();
+		/* Select text in the edit box. */
+		entryBtn.SetSel(0, entryBtn.GetWindowTextLengthW());
 		SetForegroundWindow();
 	}
 	else

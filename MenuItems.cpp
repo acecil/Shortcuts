@@ -431,6 +431,9 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 				numSent += ::SendInput(inputs.size() - numSent, &inputs[numSent], sizeof(INPUT));
 			}
 
+			/* Sleep for a short time to gaurantee both keydown and keyup messages
+			 * are received separately.
+			 */
 			Sleep(50);
 		
 			for(auto& i: inputs)

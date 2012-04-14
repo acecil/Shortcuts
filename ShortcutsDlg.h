@@ -51,6 +51,7 @@ protected:
 	void OnEnChangeEntry();
 	virtual void OnOK();
 	virtual void OnCancel();
+	void OnActivate(UINT nState, CWnd *pWndOther, BOOL bMinimized);
 	void OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2);
 	void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
@@ -65,6 +66,6 @@ private:
 	EditBox entryBtn;
 	CListBox shortcutList;
 
-	void switchWinState();
+	void switchWinState(bool show);
 	wstring getProcFocus(HWND &hwnd);
 };

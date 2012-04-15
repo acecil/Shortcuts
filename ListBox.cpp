@@ -196,31 +196,31 @@ namespace
 				idx = text.find(i, idx + 1);
 			}
 		}
-		/* Merge overlaps. */
-		for(auto& i = begin(locs); i != end(locs); )
-		{
-			if( distance(i, begin(locs)) > 0 )
-			{
-				auto& prev = i;
-				--prev;
-				if((prev->first + prev->second) > i->first)
-				{
-					/* Merge j and i remove j. */
-					prev->second += i->first - prev->first;
+		/* TODO: Merge overlaps. */
+		//for(auto& i = begin(locs); i != end(locs); )
+		//{
+		//	if( distance(i, begin(locs)) > 0 )
+		//	{
+		//		auto& prev = i;
+		//		--prev;
+		//		if((prev->first + prev->second) > i->first)
+		//		{
+		//			/* Merge j and i remove j. */
+		//			prev->second += i->first - prev->first;
 
-					locs.erase(i++);
-				}
-				else
-				{
-					++i;
-				}
+		//			locs.erase(i++);
+		//		}
+		//		else
+		//		{
+		//			++i;
+		//		}
 
-			}
-			else
-			{
-				++i;
-			}
-		}
+		//	}
+		//	else
+		//	{
+		//		++i;
+		//	}
+		//}
 		return locs;
 	}
 

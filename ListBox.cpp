@@ -23,7 +23,8 @@
 
 #include <functional>
 #include <memory>
-#include <set>
+#include <map>
+#include <algorithm>
 using namespace std;
 
 namespace {
@@ -67,6 +68,9 @@ namespace {
 		CWnd* _wnd;
 		CDC* _dc;
 	};
+
+	map<size_t, size_t> findWords(wstring text, vector<wstring> words);
+	void drawString(CDC* dc, CFont* font, CFont* bFont, wstring text, map<size_t, size_t> locs, LPRECT lpRect, UINT format);
 }
 
 IMPLEMENT_DYNAMIC(ListBox, CListBox)
@@ -129,56 +133,30 @@ void ListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	/* Inset text. */
 	lpDrawItemStruct->rcItem.left += 5;
+	lpDrawItemStruct->rcItem.right -= 5;
+
+	/* Search for words in shortcut. */
+	map<size_t, size_t> slocs = findWords(item->_shortcut, _words);;
+	
+	/* Search for words in description. */
+	map<size_t, size_t> dlocs = findWords(item->_description, _words);
 	
 	/* Calculate rectangle for shortcut. */
 	CRect shortRect(lpDrawItemStruct->rcItem);
-	dc->DrawText(item->_shortcut.c_str(), -1, &shortRect, DT_CALCRECT);
-
-	/* Search for words in description. */
-	set<pair<size_t, size_t>> locs;
-	for(auto& i: _words)
-	{
-		size_t idx = item->_description.find(i);
-		locs.insert(make_pair(idx, i.size()));
-	}
+	drawString(dc, &_normalFont, &_boldFont, item->_shortcut, slocs, &shortRect, DT_CALCRECT);
 
 	/* Draw the description - cropping to prevent overlap with shortcut. */
 	CRect descRect(lpDrawItemStruct->rcItem);
 	descRect.right -= shortRect.Width() + 5;
-
-	size_t lastIdx = 0;
-	for(auto& l: locs)
-	{
-		size_t idx = l.first;
-		size_t len = l.second;
-
-		if( idx > lastIdx )
-		{
-			SetFont(&_normalFont);
-			CRect rect(descRect);
-			wstring sub(item->_description.substr(lastIdx, idx - lastIdx));
-			dc->DrawText(sub.c_str(), -1, &rect, DT_CALCRECT);
-			dc->DrawText(sub.c_str(), -1, &rect, 0);
-			descRect.left = rect.right;
-		}
-
-		//SetFont(&_boldFont);
-		CRect wrect(descRect);
-		wstring sub(item->_description.substr(idx, len));
-		//dc->DrawText(sub.c_str(), -1, &wrect, DT_CALCRECT);
-		//dc->DrawText(sub.c_str(), -1, &wrect, 0);
-		descRect.left = wrect.right;
-
-		lastIdx = idx + len;
-	}
-	/* Draw any remaining portion. */
-	SetFont(&_normalFont);
-	wstring sub(item->_description.substr(lastIdx, string::npos));
-	//dc->DrawText(sub.c_str(), -1, &descRect, 0);
+	drawString(dc, &_normalFont, &_boldFont, item->_description, dlocs, &descRect, 0);
 
 	/* Draw the shortcut - red and right aligned. */
+	CRect fullRect(lpDrawItemStruct->rcItem);
+	int shortW = shortRect.Width();
+	shortRect.left += fullRect.Width() - shortW;
+	shortRect.right += fullRect.Width() - shortW;
 	SetColor setFgColor2(::SetTextColor, *dc, RGB(255, 0, 0));
-	dc->DrawText(item->_shortcut.c_str(), -1, &lpDrawItemStruct->rcItem, DT_RIGHT);
+	drawString(dc, &_normalFont, &_boldFont, item->_shortcut, slocs, &shortRect, 0);
 }
 
 void ListBox::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
@@ -201,4 +179,100 @@ void ListBox::DeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct)
 	/* Delete data pointer. */
 	ListItem* ptr(reinterpret_cast<ListItem*>(lpDeleteItemStruct->itemData));
 	delete ptr;
+}
+
+namespace
+{
+	map<size_t, size_t> findWords(wstring text, vector<wstring> words)
+	{
+		map<size_t, size_t> locs;
+		transform(begin(text), end(text), begin(text), ::tolower);
+		for(auto& i: words)
+		{
+			size_t idx = text.find(i);
+			while(idx != std::string::npos)
+			{
+				locs[idx] = max(locs[idx], i.size());
+				idx = text.find(i, idx + 1);
+			}
+		}
+		/* Merge overlaps. */
+		for(auto& i = begin(locs); i != end(locs); )
+		{
+			if( distance(i, begin(locs)) > 0 )
+			{
+				auto& prev = i;
+				--prev;
+				if((prev->first + prev->second) > i->first)
+				{
+					/* Merge j and i remove j. */
+					prev->second += i->first - prev->first;
+
+					locs.erase(i++);
+				}
+				else
+				{
+					++i;
+				}
+
+			}
+			else
+			{
+				++i;
+			}
+		}
+		return locs;
+	}
+
+	void drawString(CDC* dc, CFont* font, CFont* bFont, wstring text, map<size_t, size_t> locs, LPRECT lpRect, UINT format)
+	{
+		CRect rect(*lpRect);
+		int right = rect.left;
+		const wchar_t *rtext = text.c_str();
+		const size_t textLen = text.length();
+		size_t lastIdx = 0;
+		for(auto& l: locs)
+		{
+			size_t idx = l.first;
+			size_t len = l.second;
+
+			if( idx > lastIdx )
+			{
+				dc->SelectObject(font);
+				CRect frect(rect);
+				dc->DrawText(rtext + lastIdx, idx - lastIdx, &frect, format | DT_CALCRECT);
+				if( !(format & DT_CALCRECT) )
+				{
+					dc->DrawText(rtext + lastIdx, idx - lastIdx, &rect, format);
+				}
+				rect.left = min(rect.right, frect.right);
+				right = rect.left;
+			}
+
+			dc->SelectObject(bFont);
+			CRect wrect(rect);
+			dc->DrawText(rtext + idx, len, &wrect, format | DT_CALCRECT);
+			if( !(format & DT_CALCRECT) )
+			{
+				dc->DrawText(rtext + idx, len, &rect, format);
+			}
+			rect.left = min(rect.right, wrect.right);
+			right = rect.left;
+
+			lastIdx = idx + len;
+		}
+		/* Draw any remaining portion. */
+		dc->SelectObject(font);
+		if( lastIdx < textLen )
+		{
+			CRect erect(rect);
+			dc->DrawText(rtext + lastIdx, textLen - lastIdx, &erect, format | DT_CALCRECT);
+			if( !(format & DT_CALCRECT) )
+			{
+				dc->DrawText(rtext + lastIdx, textLen - lastIdx, &rect, format);
+			}
+			right = min(rect.right, erect.right);
+		}
+		lpRect->right = right;
+	}
 }

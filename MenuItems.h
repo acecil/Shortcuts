@@ -23,7 +23,6 @@
 #include <list>
 #include <vector>
 #include <memory>
-using namespace std;
 
 enum Modifier : unsigned char
 {
@@ -36,9 +35,9 @@ enum Modifier : unsigned char
 
 struct Item
 {
-	wstring name;
-	wstring desc;
-	list<vector<pair<unsigned char, unsigned char>>> keys;
+	std::wstring name;
+	std::wstring desc;
+	std::list<std::vector<std::pair<unsigned char, unsigned char>>> keys;
 	unsigned int count;
 };
 
@@ -57,11 +56,11 @@ public:
 	explicit MenuItems();
 	virtual ~MenuItems();
 
-	vector<Item> GetItems(wstring application, vector<wstring> text);
-	void Launch(HWND hwnd, wstring application, Item item);
-	wstring KeysFromItem(Item item, wstring sep=L" ");
+	std::vector<Item> GetItems(std::wstring application, std::vector<std::wstring> text);
+	void Launch(HWND hwnd, std::wstring application, Item item);
+	std::wstring KeysFromItem(Item item, std::wstring sep=L" ");
 	void Save();
 
 private:
-	struct impl; unique_ptr<impl> pimpl;
+	struct impl; std::unique_ptr<impl> pimpl;
 };

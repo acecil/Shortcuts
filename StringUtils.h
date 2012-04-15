@@ -17,13 +17,14 @@
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include <string>
-using namespace std;
+#pragma once
 
-bool isspace(const wstring& str);
-wstring &ltrim(wstring &s);
-wstring &rtrim(wstring &s);
-wstring &trim(wstring &s);
-bool endsWith (wstring const &fullString, wstring const &ending);
-void replaceAll(wstring &s, const wstring &from, const wstring &to);
+#include <string>
+
+bool isspace(const std::wstring& str);
+std::wstring &ltrim(std::wstring &s);
+std::wstring &rtrim(std::wstring &s);
+std::wstring &trim(std::wstring &s);
+bool endsWith (std::wstring const &fullString, std::wstring const &ending);
+void replaceAll(std::wstring &s, const std::wstring &from, const std::wstring &to);
 unsigned char countbits(unsigned char b);

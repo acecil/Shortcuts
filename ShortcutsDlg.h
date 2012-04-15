@@ -20,7 +20,6 @@
 
 #include <memory>
 #include <future>
-using namespace std;
 
 #include "EditBox.h"
 #include "ListBox.h"
@@ -59,14 +58,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 private:
-	future<MenuItems*> futureItems;
-	unique_ptr<MenuItems> items;
-	vector<Item> selectedItems;
+	std::future<MenuItems*> futureItems;
+	std::unique_ptr<MenuItems> items;
+	std::vector<Item> selectedItems;
 	HWND currWin;
-	wstring currApp;
+	std::wstring currApp;
 	EditBox entryBox;
 	ListBox shortcutList;
 
 	void switchWinState(bool show);
-	wstring getProcFocus(HWND &hwnd);
+	std::wstring getProcFocus(HWND &hwnd);
 };

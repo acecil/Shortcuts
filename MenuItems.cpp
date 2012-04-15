@@ -30,27 +30,32 @@
 #include <locale>
 #include <set>
 #include <iterator>
-using namespace std::tr2::sys;
 
 #include "StringUtils.h"
 #include "MenuItems.h"
 
-static wchar_t PART_DELIM = '|';
-static wchar_t ALT_KEY_DELIM = ';';
-static wchar_t KEY_DELIM = ',';
-static wchar_t *STATS_FILENAME = L"_stats.conf";
+using namespace std::tr2::sys;
+using namespace std;
 
-struct EnumWinDesc
+namespace
 {
-	vector<HWND> hwnds;
-	DWORD procId;
-};
+	const wchar_t PART_DELIM = '|';
+	const wchar_t ALT_KEY_DELIM = ';';
+	const wchar_t KEY_DELIM = ',';
+	const wchar_t *STATS_FILENAME = L"_stats.conf";
 
-struct ItemList
-{
-	wstring path;
-	list<Item> items;
-};
+	struct EnumWinDesc
+	{
+		vector<HWND> hwnds;
+		DWORD procId;
+	};
+
+	struct ItemList
+	{
+		wstring path;
+		list<Item> items;
+	};
+}
 
 struct MenuItems::impl
 {

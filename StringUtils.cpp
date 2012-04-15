@@ -18,10 +18,13 @@
 //
 
 #include "stdafx.h"
+#include "Shortcuts.h"
 
 #include <algorithm>
 
 #include "StringUtils.h"
+
+using namespace std;
 
 bool isspace(const wstring& str)
 {

@@ -22,9 +22,10 @@
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#pragma once
+
 #include <string>
 #include <vector>
-using namespace std;
 
 class ListBox : public CListBox
 {
@@ -34,8 +35,8 @@ public:
 	ListBox();
 	virtual ~ListBox();
 
-	void SetSearchWords(vector<wstring> words) { _words = words; }
-	void AddString(wstring description, wstring shortcut);
+	void SetSearchWords(std::vector<std::wstring> words) { _words = words; }
+	void AddString(std::wstring description, std::wstring shortcut);
 
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -44,7 +45,7 @@ private:
 	bool _fontsSet;
 	CFont _normalFont;
 	CFont _boldFont;
-	vector<wstring> _words;
+	std::vector<std::wstring> _words;
 
 	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);

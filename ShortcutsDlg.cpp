@@ -27,14 +27,19 @@
 
 #include "StringUtils.h"
 
+using namespace std;
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-static const int SHORCUT_HOTKEY = 100;
-static const int MAX_DISPLAY_ITEMS = 20;
-static const int LISTBOX_HEIGHT = 4;
-static const int ITEM_HEIGHT = 8;
+namespace
+{
+	const int SHORCUT_HOTKEY = 100;
+	const int MAX_DISPLAY_ITEMS = 20;
+	const int LISTBOX_HEIGHT = 4;
+	const int ITEM_HEIGHT = 10;
+}
 
 ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(ShortcutsDlg::IDD, pParent),

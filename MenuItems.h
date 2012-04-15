@@ -57,7 +57,7 @@ public:
 	explicit MenuItems();
 	virtual ~MenuItems();
 
-	vector<Item> GetItems(wstring application, wstring text);
+	vector<Item> GetItems(wstring application, vector<wstring> text);
 	void Launch(HWND hwnd, wstring application, Item item);
 	wstring KeysFromItem(Item item, wstring sep=L" ");
 	void Save();

@@ -1,8 +1,3 @@
-#pragma once
-
-
-// ListBox
-
 //	
 //	(c) 2012 by Andrew Gascoyne-Cecil.
 //	
@@ -23,32 +18,12 @@
 //
 
 #include <string>
-#include <vector>
 using namespace std;
 
-class ListBox : public CListBox
-{
-	DECLARE_DYNAMIC(ListBox)
-
-public:
-	ListBox();
-	virtual ~ListBox();
-
-	void SetSearchWords(vector<wstring> words) { _words = words; }
-	void AddString(wstring description, wstring shortcut);
-
-protected:
-	DECLARE_MESSAGE_MAP()
-
-private:
-	bool _fontsSet;
-	CFont _normalFont;
-	CFont _boldFont;
-	vector<wstring> _words;
-
-	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
-	virtual void DeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
-};
-
-
+bool isspace(const wstring& str);
+wstring &ltrim(wstring &s);
+wstring &rtrim(wstring &s);
+wstring &trim(wstring &s);
+bool endsWith (wstring const &fullString, wstring const &ending);
+void replaceAll(wstring &s, const wstring &from, const wstring &to);
+unsigned char countbits(unsigned char b);

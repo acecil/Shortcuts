@@ -23,6 +23,10 @@
 #include "afxdialogex.h"
 #include <TlHelp32.h>
 
+#include <sstream>
+
+#include "StringUtils.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -142,9 +146,28 @@ void ShortcutsDlg::OnEnChangeEntry()
 	CString search;
 	entryBox.GetWindowTextW(search);
 	
+	/* Split entry box text into words. */
+	wstring text = search.GetBuffer();
+	text = trim(text);
+	transform(begin(text), end(text), begin(text), ::tolower);
+	vector<wstring> words;
+	wstringstream iss(text);
+	wstring word;
+	while(getline(iss, word, L' '))
+	{
+		trim(word);
+		if( !word.empty() )
+		{
+			words.push_back(word);
+		}
+	}
+
 	/* Get items. */
-	selectedItems = items->GetItems(currApp, search.GetBuffer());
+	selectedItems = items->GetItems(currApp, words);
 	shortcutList.ResetContent();
+
+	/* Pass words to list box. */
+	shortcutList.SetSearchWords(words);
 
 	/* Resize list box and dialog. */
 	int numItems = min(selectedItems.size(), MAX_DISPLAY_ITEMS);
@@ -169,7 +192,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	/* Refill list box. */
 	for(auto &i : selectedItems)
 	{
-		shortcutList.AddString(i.desc, items->KeysFromItem(i));
+		shortcutList.AddString(i.desc, items->KeysFromItem(i, L"+"));
 	}
 
 	/* Select first item. */

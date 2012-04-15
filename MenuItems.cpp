@@ -32,6 +32,7 @@
 #include <iterator>
 using namespace std::tr2::sys;
 
+#include "StringUtils.h"
 #include "MenuItems.h"
 
 static wchar_t PART_DELIM = '|';
@@ -58,14 +59,6 @@ struct MenuItems::impl
 	map<unsigned char, unsigned char> modvk;
 	map<wstring, ItemList> allitems;
 };
-
-static bool isspace(const wstring& str);
-static inline wstring &ltrim(wstring &s);
-static inline wstring &rtrim(wstring &s);
-static inline wstring &trim(wstring &s);
-static bool endsWith (wstring const &fullString, wstring const &ending);
-static void replaceAll(wstring &s, const wstring &from, const wstring &to);
-static unsigned char countbits(unsigned char b);
 
 MenuItems::MenuItems()
 	: pimpl(new impl())
@@ -333,15 +326,14 @@ MenuItems::~MenuItems()
 	Save();
 }
 
-vector<Item> MenuItems::GetItems(wstring application, wstring text)
+vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 {
 	/* Show no items when no text. */
-	if(trim(text).length() == 0)
+	if(words.empty())
 	{
 		return vector<Item>();
 	}
 
-	transform(begin(text), end(text), begin(text), ::tolower);
 	auto& ait = pimpl->allitems.find(application);
 	if( ait == pimpl->allitems.end() )
 	{
@@ -350,19 +342,6 @@ vector<Item> MenuItems::GetItems(wstring application, wstring text)
 	}
 	auto& items = ait->second.items;
 	set<Item> matches;
-
-	/* Split words from text into vector. */
-	vector<wstring> words;
-	wstringstream iss(text);
-	wstring word;
-	while(getline(iss, word, L' '))
-	{
-		trim(word);
-		if( !word.empty() )
-		{
-			words.push_back(word);
-		}
-	}
 
 	/* Try to match all words from name, description and shortcut. */
 	for(auto &it : items)
@@ -555,56 +534,4 @@ void MenuItems::Save()
 			fst << s.count << endl;
 		}
 	}
-}
-
-static bool isspace(const wstring& str)
-{
-	auto it = begin(str);
-	do {
-		if (it == end(str)) return true;
-	} while (*it >= 0 && *it <= 0x7f && isspace(*(it++)));
-	return false;
-}
-
-static inline wstring &ltrim(wstring &s) {
-	s.erase(s.begin(), find_if(s.begin(), s.end(), [](int i){ return !isspace(i); }));
-	return s;
-}
-
-static inline wstring &rtrim(wstring &s) {
-	s.erase(find_if(s.rbegin(), s.rend(), [](int i){ return !isspace(i); }).base(), s.end());
-	return s;
-}
-
-static inline wstring &trim(wstring &s) {
-	return ltrim(rtrim(s));
-}
-
-static bool endsWith (wstring const &fullString, wstring const &ending)
-{
-	if (fullString.length() >= ending.length()) {
-		return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
-	} else {
-		return false;
-	}
-}
- 
-static void replaceAll(wstring &s, const wstring &from, const wstring &to)
-{
-	size_t pos = 0;
-	while((pos = s.find(from, pos)) != wstring::npos) {
-		s.replace(pos, from.length(), to);
-		pos += to.length();
-	}
-}
-
-static unsigned char countbits(unsigned char b)
-{
-	unsigned char count;
-	for(count = 0; b != 0; count++)
-	{
-		b &= b - 1;
-	}
-
-	return count;
 }

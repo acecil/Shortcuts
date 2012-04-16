@@ -1,5 +1,9 @@
 Below are the significant changes between versions.
 
+V0.0.4
+#13: Add automatic release script that packages together config files and executable.
+Increase window width.
+
 V0.0.3
 #1: Improve layout of text in listbox.
 #7: Fix bug with showing/hiding Shortcuts window.

@@ -42,7 +42,7 @@ with open("VERSION", "r") as f:
 majorMatch = re.search("MAJOR_VERSION ([0-9])", versionLines)
 minorMatch = re.search("MINOR_VERSION ([0-9])", versionLines)
 microMatch = re.search("MICRO_VERSION ([0-9])", versionLines)
-version = majorMatch.group(1) + "." + minorMatch.group(1) + "." + microMatch.group(1)
+version = majorMatch.group(1) + "-" + minorMatch.group(1) + "-" + microMatch.group(1)
 
 # Make sure directory for release exists and is empty
 relDir = "Shortcuts-V" + version

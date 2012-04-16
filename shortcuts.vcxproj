@@ -134,8 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\shortcuts.ico" />
+    <Image Include="res\shortcuts.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="CHANGELOG" />
     <Text Include="chrome.txt" />
     <Text Include="devenv.txt" />
     <Text Include="explorer.txt" />

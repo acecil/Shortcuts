@@ -1,0 +1,15 @@
+Below are the significant changes between versions.
+
+V0.0.3
+#1: Improve layout of text in listbox.
+#7: Fix bug with showing/hiding Shortcuts window.
+#2: Show hint text when Shortcuts window displayed.
+#6: Fix bug with when text is selected.
+#9: Add custom icon.
+
+V0.0.2
+Increase timeout between keydown and keyup messages.
+Resize listbox based on number of shortcuts available.
+
+V0.0.1
+Initial version.

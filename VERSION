@@ -1,1 +1,11 @@
-0.0.3
+/* Configure the current version of the Shortcuts application. */
+
+#define MAJOR_VERSION 0
+#define MINOR_VERSION 0
+#define MICRO_VERSION 3
+
+#define xstr(s) str(s)
+#define str(s) #s
+
+#define VERSION_STRING xstr(MAJOR_VERSION) "." xstr(MINOR_VERSION) "." xstr(MICRO_VERSION)
+

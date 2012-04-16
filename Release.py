@@ -22,6 +22,7 @@
 import os
 import shutil
 import zipfile
+import re
 
 # Function for zipping tree of files
 def zipdir(basedir, archivename):
@@ -34,8 +35,14 @@ def zipdir(basedir, archivename):
 				z.write(absfn, zfn)
 
 # Read version from VERSION file.
+versionLines = ""
 with open("VERSION", "r") as f:
-	version = f.read()
+	for line in f:
+		versionLines += line
+majorMatch = re.search("MAJOR_VERSION ([0-9])", versionLines)
+minorMatch = re.search("MINOR_VERSION ([0-9])", versionLines)
+microMatch = re.search("MICRO_VERSION ([0-9])", versionLines)
+version = majorMatch.group(1) + "." + minorMatch.group(1) + "." + microMatch.group(1)
 
 # Make sure directory for release exists and is empty
 relDir = "Shortcuts-V" + version
@@ -49,7 +56,7 @@ os.mkdir(configDir)
 configFiles = os.listdir("Config")
 for fileName in configFiles:
 	fullFileName = os.path.join("Config", fileName)
-	if (os.path.isfile(fullFileName)):
+	if fullFileName.endswith(".txt") and (os.path.isfile(fullFileName)):
 		shutil.copy(fullFileName, configDir)
 
 # Copy README, CHANGELOG and GPL to release directory

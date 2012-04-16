@@ -102,6 +102,12 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>python Release.py</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Creating release package...</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EditBox.h" />
@@ -134,7 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\shortcuts.ico" />
-    <Image Include="res\shortcuts.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG" />
@@ -143,6 +148,8 @@
     <Text Include="explorer.txt" />
     <Text Include="firefox.txt" />
     <Text Include="GPL" />
+    <Text Include="Release.py" />
+    <Text Include="VERSION" />
     <Text Include="winword.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

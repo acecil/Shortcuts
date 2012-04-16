@@ -42,6 +42,7 @@ namespace
 	const wchar_t PART_DELIM = '|';
 	const wchar_t ALT_KEY_DELIM = ';';
 	const wchar_t KEY_DELIM = ',';
+	const wstring CONFIG_DIR(L"Config");
 	const wchar_t *STATS_FILENAME = L"_stats.conf";
 
 	struct EnumWinDesc
@@ -181,13 +182,15 @@ MenuItems::MenuItems()
 
 	/* Load configuration files. */
 	wpath p(initial_path<wpath>());
+	p /= CONFIG_DIR;
 	for(wdirectory_iterator di(p); di != wdirectory_iterator(); ++di)
 	{
 		/* Ignore directories. */
 		if( is_directory(di->status()) ) continue;
 
 		/* Get the full path. */
-		wstring fullpath = di->path().file_string();
+		wpath configPath(CONFIG_DIR);
+		wstring fullpath = configPath / di->path();
 
 		/* Ignore everthing except text files. */
 		if( !endsWith(fullpath, L".txt") ) continue;
@@ -280,6 +283,7 @@ MenuItems::MenuItems()
 
 	/* Load stats file. */
 	wpath pstat(initial_path<wpath>());
+	pstat /= CONFIG_DIR;
 	pstat /= STATS_FILENAME;
 	wifstream fst(pstat.file_string());
 	wstring sline;
@@ -528,6 +532,7 @@ wstring MenuItems::KeysFromItem(Item item, wstring sep)
 void MenuItems::Save()
 {
 	wpath pstat(initial_path<wpath>());
+	pstat /= CONFIG_DIR;
 	pstat /= STATS_FILENAME;
 	wofstream fst(pstat.file_string(), ios::trunc | ios::out);
 	for(auto& app : pimpl->allitems)

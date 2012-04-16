@@ -1,6 +1,8 @@
 Debug/*
 Release/*
 ipch/*
+Shortcuts-V*/*
+Shortcuts-V*.zip
 *.aps
 *.opensdf
 *.sdf

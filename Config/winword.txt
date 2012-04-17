@@ -63,5 +63,29 @@ ReplaceText | Replace text, specific formatting and special items | Ctrl H
 GoToLocation | Go to a page, bookmark, footnote, table, comment, graphics, or other location | Ctrl G
 CycleLocations | Switch between the last four places that have been edited | Alt Ctrl Z
 BrowseOptions | Open a list of browse options | Alt Ctrl Home
+BrowsePrevious | Move to the previous browse object | Ctrl PgUp
+BrowseNext | Move to the next browse object | Ctrl PgDown
+PrintLayoutView | Switch to Print Layout view | Alt Ctrl P
+OutlineView | Switch to Outline view | Alt Ctrl O
+DraftView | Switch to draft view | Alt Ctrl N
+PromoteParagrah | Promote a paragraph | Alt Shift Left
+DemoteParagraph | Demote a paragraph | Alt Shift Right
+DemoteToBody | Demote to body text | Ctrl Shift N
+MoveParasUp | Move selected paragraphs up | Alt Shift Up
+MoveParasDown | Move selected paragraphs down | Alt Shift Down
+ExpandUnderHeading | Expand text under a heading | Alt Shift +
+CollapseUnderHeading | Collapse text under a heading | Alt Shift -
+ExpandCollapseAll | Expand or collapse all text or headings | Alt Shift A
+ShowHideFormatting | Hide or display character formatting |
+ShowFirstLine | Show the first line of body text or all body text | Alt Shift L
+ShowHeadings1 | Show all headings with the Heading 1 style | Alt Shift 1
+ShowHeadings2 | Show all headings up to Heading 2 style | Alt Shift 2
+ShowHeadings3 | Show all headings up to Heading 3 style | Alt Shift 3
+ShowHeadings4 | Show all headings up to Heading 4 style | Alt Shift 4
+ShowHeadings5 | Show all headings up to Heading 5 style | Alt Shift 5
+ShowHeadings6 | Show all headings up to Heading 6 style | Alt Shift 6
+ShowHeadings7 | Show all headings up to Heading 7 style | Alt Shift 7
+ShowHeadings8 | Show all headings up to Heading 8 style | Alt Shift 8
+ShowHeadings9 | Show all headings up to Heading 9 style | Alt Shift 9
 
 

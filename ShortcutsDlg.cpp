@@ -337,5 +337,7 @@ wstring ShortcutsDlg::getProcFocus(HWND &hwnd)
 		}
 		CloseHandle(snapshot);
 	}
+	/* Convert process name to lower case. */
+	transform(begin(procName), end(procName), begin(procName), ::tolower);
 	return procName;
 }

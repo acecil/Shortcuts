@@ -1,5 +1,9 @@
 Below are the significant changes between versions.
 
+V0.0.5
+#19: Convert process name to lower case for comparison.
+#20: Include shortcuts for Visual Studio Express.
+
 V0.0.4
 #13: Add automatic release script that packages together config files and executable.
 Increase window width.

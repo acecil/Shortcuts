@@ -37,6 +37,7 @@ namespace
 {
 	const int SHORCUT_HOTKEY = 100;
 	const int MAX_DISPLAY_ITEMS = 20;
+	const int LISTBOX_OFFSET = 2;
 	const int LISTBOX_HEIGHT = 4;
 	const int ITEM_HEIGHT = 10;
 }
@@ -194,10 +195,16 @@ void ShortcutsDlg::OnEnChangeEntry()
 	CRect dlgRect;
 	GetWindowRect(&dlgRect);
 	ScreenToClient(&dlgRect);
-	dlgRect.bottom = listRect.bottom;
+	if( numItems > 0 )
+	{
+		dlgRect.bottom = listRect.bottom;
+	}
+	else
+	{
+		dlgRect.bottom = listRect.top - LISTBOX_OFFSET;
+	}
 	SetWindowPos(NULL, 0, 0, dlgRect.Width(), dlgRect.Height(),
 		SWP_NOZORDER | SWP_NOMOVE);
-
 
 	/* Refill list box. */
 	for(auto &i : selectedItems)

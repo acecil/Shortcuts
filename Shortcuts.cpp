@@ -66,9 +66,14 @@ BOOL ShortcutsApp::InitInstance()
 
 	CWinApp::InitInstance();
 
+	/* Start dialog initially hidden. */
 	ShortcutsDlg dlg;
-	m_pMainWnd = &dlg;
-	dlg.DoModal();
+	if(dlg.Create(ShortcutsDlg::IDD))
+	{
+	   dlg.ShowWindow(SW_HIDE);
+	   m_pMainWnd = &dlg;
+	   dlg.RunModalLoop();
+	}
 	
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.

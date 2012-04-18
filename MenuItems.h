@@ -56,6 +56,7 @@ public:
 	explicit MenuItems();
 	virtual ~MenuItems();
 
+	bool IsConfigAvailable(std::wstring application);
 	std::vector<Item> GetItems(std::wstring application, std::vector<std::wstring> text);
 	void Launch(HWND hwnd, std::wstring application, Item item);
 	std::wstring KeysFromItem(Item item, std::wstring sep=L" ");

@@ -42,8 +42,7 @@ namespace
 }
 
 ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(ShortcutsDlg::IDD, pParent),
-	currApp(L"devenv")
+	: CDialogEx(ShortcutsDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	futureItems = async([](){ return new MenuItems(); });
@@ -87,8 +86,8 @@ BOOL ShortcutsDlg::OnInitDialog()
 	/* Hot key for displaying window. */
 	RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, MOD_WIN, 'Q');
 
-	/* Set initial size. */
-	OnEnChangeEntry();
+	/* Set initial state. */
+	switchWinState(false);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -144,6 +143,12 @@ void ShortcutsDlg::OnEnChangeEntry()
 	{
 		hintApp[0] = ::toupper(hintApp[0]);
 		hint = L"Shortcuts for " + hintApp;
+	}
+	if( !items->IsConfigAvailable(currApp) )
+	{
+		hint = L"No shortcuts available for ";
+		hint += hintApp;
+		entryBox.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
 	}
 	entryBox.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
 

@@ -335,6 +335,11 @@ MenuItems::~MenuItems()
 	Save();
 }
 
+bool MenuItems::IsConfigAvailable(wstring application)
+{
+	return (pimpl->allitems.find(application) != end(pimpl->allitems));
+}
+
 vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 {
 	/* Show no items when no text. */

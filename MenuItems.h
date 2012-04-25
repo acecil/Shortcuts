@@ -23,21 +23,13 @@
 #include <list>
 #include <vector>
 #include <memory>
-
-enum Modifier : unsigned char
-{
-	KEY_NOMOD	= 0x0,
-	KEY_CTRL	= 0x1,
-	KEY_SHIFT	= 0x2,
-	KEY_ALT		= 0x4,
-	KEY_SUPER   = 0x8
-};
+#include "KeyCombiAlt.h"
 
 struct Item
 {
 	std::wstring name;
 	std::wstring desc;
-	std::list<std::vector<std::pair<unsigned char, unsigned char>>> keys;
+	KeyCombiAlt keys;
 	unsigned int count;
 };
 
@@ -59,9 +51,9 @@ public:
 	bool IsConfigAvailable(std::wstring application);
 	std::vector<Item> GetItems(std::wstring application, std::vector<std::wstring> text);
 	void Launch(HWND hwnd, std::wstring application, Item item);
-	std::wstring KeysFromItem(Item item, std::wstring sep=L" ");
 	void Save();
-
+	
 private:
 	struct impl; std::unique_ptr<impl> pimpl;
+
 };

@@ -20,6 +20,8 @@
 #include "stdafx.h"
 #include "Shortcuts.h"
 #include "ShortcutsDlg.h"
+#include "ConfigDlg.h"
+#include "Config.h"
 #include "afxdialogex.h"
 #include <TlHelp32.h>
 
@@ -40,26 +42,8 @@ namespace
 	const int LISTBOX_OFFSET = 2;
 	const int LISTBOX_HEIGHT = 4;
 	const int ITEM_HEIGHT = 10;
-}
-
-ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(ShortcutsDlg::IDD, pParent)
-{
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	futureItems = async([](){ return new MenuItems(); });
-}
-
-ShortcutsDlg::~ShortcutsDlg()
-{
-	UnregisterHotKey(GetSafeHwnd(), 100);
-}
-
-
-void ShortcutsDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EDIT1, entryBox);
-	DDX_Control(pDX, IDC_LIST1, shortcutList);
+	const wstring DEFAULT_CONFIG(L"_config.conf");
+	const wstring DEFAULT_HOTKEY(L"Win Q");
 }
 
 BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
@@ -70,10 +54,30 @@ BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
 	ON_WM_HOTKEY()
 	ON_WM_KEYDOWN()
 	ON_WM_KEYUP()
+	ON_BN_CLICKED(IDC_SETTINGS_BTN, &ShortcutsDlg::OnBnClickedSettingsBtn)
 END_MESSAGE_MAP()
 
+ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(ShortcutsDlg::IDD, pParent),
+	config(new Config(DEFAULT_CONFIG))
+{
+	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	futureItems = async([](){ return new MenuItems(); });
+}
 
-// ShortcutsDlg message handlers
+ShortcutsDlg::~ShortcutsDlg()
+{
+	/* Make sure we unregister the hotkey. */
+	UnregisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY);
+}
+
+void ShortcutsDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, entryBox);
+	DDX_Control(pDX, IDC_LIST1, shortcutList);
+	DDX_Control(pDX, IDC_SETTINGS_BTN, settingsBtn);
+}
 
 BOOL ShortcutsDlg::OnInitDialog()
 {
@@ -84,8 +88,16 @@ BOOL ShortcutsDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	/* Set icon for settings button. */
+	HICON settingsIcon = (HICON)LoadImage(AfxGetInstanceHandle(), 
+		MAKEINTRESOURCE(IDI_SETTINGS), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
+	settingsBtn.SetIcon(settingsIcon);
+
+	/* Get configuration hotkey (or default if not set). */
+	KeyCombi key(config->GetSetParam<KeyCombi>(L"hotkey", KeyCombi(DEFAULT_HOTKEY)));
+
 	/* Hot key for displaying window. */
-	RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, MOD_WIN, 'Q');
+	RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, key.mods(), key.key());
 
 	/* Set initial state. */
 	switchWinState(false);
@@ -209,7 +221,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	/* Refill list box. */
 	for(auto &i : selectedItems)
 	{
-		shortcutList.AddString(i.desc, items->KeysFromItem(i, L"+"));
+		shortcutList.AddString(i.desc, i.keys.str(L"+"));
 	}
 
 	/* Select first item. */
@@ -301,7 +313,11 @@ void ShortcutsDlg::switchWinState(bool show)
 			/* Clear entry box. */
 			entryBox.SetWindowText(L"");
 		}
-		currApp = app;
+		/* Ignore our own configuration window. */
+		if( app != L"shortcuts" )
+		{
+			currApp = app;
+		}
 	}
 
 	/* Prepopulate list. */
@@ -353,3 +369,32 @@ wstring ShortcutsDlg::getProcFocus(HWND &hwnd)
 	transform(begin(procName), end(procName), begin(procName), ::tolower);
 	return procName;
 }
+
+void ShortcutsDlg::OnBnClickedSettingsBtn()
+{
+	/* Display configuration dialog. */
+	ConfigDlg configDlg(this, *config);
+	if( configDlg.DoModal() == IDOK )
+	{
+		Config configChanges(configDlg.GetChanges());
+		
+		/* Go through configuration applying changes. */
+		for(auto& c: configChanges)
+		{
+			/* Apply change. */
+			if( c.first == L"hotkey" )
+			{
+				KeyCombi key(configChanges.GetParam<KeyCombi>(L"hotkey"));
+				UnregisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY);
+				RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, key.mods(), key.key());
+			}
+
+			/* Save config change. */
+			config->SetParam(c.first, c.second);
+		}
+
+		/* Save configuration. */
+		config->Save();
+	}
+}
+

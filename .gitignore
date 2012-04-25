@@ -1,3 +1,5 @@
+Config/_stats.conf
+Config/_config.conf
 Debug/*
 Release/*
 ipch/*
@@ -9,4 +11,5 @@ Shortcuts-V*.zip
 *.v11.suo
 *.vcxproj.filters
 *.vcxproj.user
-_stats.conf
+Thumbs.db
+*/Thumbs.db

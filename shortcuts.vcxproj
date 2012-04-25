@@ -110,7 +110,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="ConfigDlg.h" />
     <ClInclude Include="EditBox.h" />
+    <ClInclude Include="KeyCombi.h" />
+    <ClInclude Include="KeyCombiAlt.h" />
+    <ClInclude Include="KeyCombiMulti.h" />
     <ClInclude Include="ListBox.h" />
     <ClInclude Include="MenuItems.h" />
     <ClInclude Include="Resource.h" />
@@ -121,7 +126,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="ConfigDlg.cpp" />
     <ClCompile Include="EditBox.cpp" />
+    <ClCompile Include="KeyCombi.cpp" />
+    <ClCompile Include="KeyCombiAlt.cpp" />
+    <ClCompile Include="KeyCombiMulti.cpp" />
     <ClCompile Include="ListBox.cpp" />
     <ClCompile Include="MenuItems.cpp" />
     <ClCompile Include="Shortcuts.cpp" />
@@ -140,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\shortcuts.ico" />
+    <Image Include="res\settings.ico" />
+    <Image Include="res\shortcuts.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CHANGELOG" />

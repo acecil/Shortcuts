@@ -32,6 +32,7 @@
 #include <iterator>
 
 #include "StringUtils.h"
+#include "KeyCombiAlt.h"
 #include "MenuItems.h"
 
 using namespace std::tr2::sys;
@@ -39,9 +40,7 @@ using namespace std;
 
 namespace
 {
-	const wchar_t PART_DELIM = '|';
-	const wchar_t ALT_KEY_DELIM = ';';
-	const wchar_t KEY_DELIM = ',';
+	const wchar_t PART_DELIM(L'|');
 	const wstring CONFIG_DIR(L"Config");
 	const wchar_t *STATS_FILENAME = L"_stats.conf";
 
@@ -56,12 +55,11 @@ namespace
 		wstring path;
 		list<Item> items;
 	};
+	
 }
 
 struct MenuItems::impl
 {
-	map<wstring, Modifier> modifiers;
-	map<wstring, unsigned char> keys;
 	map<unsigned char, unsigned char> modvk;
 	map<wstring, ItemList> allitems;
 };
@@ -70,115 +68,10 @@ MenuItems::MenuItems()
 	: pimpl(new impl())
 {
 	/* Fill string -> modifier/key maps. */
-	pimpl->modifiers[L"ctrl"] = KEY_CTRL;
-	pimpl->modifiers[L"control"] = KEY_CTRL;
-	pimpl->modifiers[L"alt"] = KEY_ALT;
-	pimpl->modifiers[L"shift"] = KEY_SHIFT;
-	pimpl->modifiers[L"shft"] = KEY_SHIFT;
-	pimpl->modifiers[L"super"] = KEY_SUPER;
-	pimpl->modifiers[L"win"] = KEY_SUPER;
-	pimpl->modifiers[L"windows"] = KEY_SUPER;
-	pimpl->modvk[KEY_CTRL] = VK_CONTROL;
-	pimpl->modvk[KEY_ALT] = VK_MENU;
-	pimpl->modvk[KEY_SHIFT] = VK_SHIFT;
-	pimpl->modvk[KEY_SUPER] = VK_LWIN;
-	pimpl->keys[L"a"] = 'A';
-	pimpl->keys[L"b"] = 'B';
-	pimpl->keys[L"c"] = 'C';
-	pimpl->keys[L"d"] = 'D';
-	pimpl->keys[L"e"] = 'E';
-	pimpl->keys[L"f"] = 'F';
-	pimpl->keys[L"g"] = 'G';
-	pimpl->keys[L"h"] = 'H';
-	pimpl->keys[L"i"] = 'I';
-	pimpl->keys[L"j"] = 'J';
-	pimpl->keys[L"k"] = 'K';
-	pimpl->keys[L"l"] = 'L';
-	pimpl->keys[L"m"] = 'M';
-	pimpl->keys[L"n"] = 'N';
-	pimpl->keys[L"o"] = 'O';
-	pimpl->keys[L"p"] = 'P';
-	pimpl->keys[L"q"] = 'Q';
-	pimpl->keys[L"r"] = 'R';
-	pimpl->keys[L"s"] = 'S';
-	pimpl->keys[L"t"] = 'T';
-	pimpl->keys[L"u"] = 'U';
-	pimpl->keys[L"v"] = 'V';
-	pimpl->keys[L"w"] = 'W';
-	pimpl->keys[L"x"] = 'X';
-	pimpl->keys[L"y"] = 'Y';
-	pimpl->keys[L"z"] = 'Z';
-	pimpl->keys[L"0"] = '0';
-	pimpl->keys[L"1"] = '1';
-	pimpl->keys[L"2"] = '2';
-	pimpl->keys[L"3"] = '3';
-	pimpl->keys[L"4"] = '4';
-	pimpl->keys[L"5"] = '5';
-	pimpl->keys[L"6"] = '6';
-	pimpl->keys[L"7"] = '7';
-	pimpl->keys[L"8"] = '8';
-	pimpl->keys[L"9"] = '9';
-	pimpl->keys[L"+"] = VK_ADD;
-	pimpl->keys[L"add"] = VK_ADD;
-	pimpl->keys[L"plus"] = VK_ADD;
-	pimpl->keys[L"-"] = VK_SUBTRACT;
-	pimpl->keys[L"subtract"] = VK_SUBTRACT;
-	pimpl->keys[L"minus"] = VK_SUBTRACT;
-	pimpl->keys[L"tab"] = VK_TAB;
-	pimpl->keys[L"pgup"] = VK_PRIOR;
-	pimpl->keys[L"pageup"] = VK_PRIOR;
-	pimpl->keys[L"pgdown"] = VK_NEXT;
-	pimpl->keys[L"pagedown"] = VK_NEXT;
-	pimpl->keys[L"f1"] = VK_F1;
-	pimpl->keys[L"f2"] = VK_F2;
-	pimpl->keys[L"f3"] = VK_F3;
-	pimpl->keys[L"f4"] = VK_F4;
-	pimpl->keys[L"f5"] = VK_F5;
-	pimpl->keys[L"f6"] = VK_F6;
-	pimpl->keys[L"f7"] = VK_F7;
-	pimpl->keys[L"f8"] = VK_F8;
-	pimpl->keys[L"f9"] = VK_F9;
-	pimpl->keys[L"f10"] = VK_F10;
-	pimpl->keys[L"f11"] = VK_F11;
-	pimpl->keys[L"f12"] = VK_F12;
-	pimpl->keys[L"left"] = VK_LEFT;
-	pimpl->keys[L"right"] = VK_RIGHT;
-	pimpl->keys[L"up"] = VK_UP;
-	pimpl->keys[L"down"] = VK_DOWN;
-	pimpl->keys[L"back"] = VK_BACK;
-	pimpl->keys[L"backspace"] = VK_BACK;
-	pimpl->keys[L"home"] = VK_HOME;
-	pimpl->keys[L"esc"] = VK_ESCAPE;
-	pimpl->keys[L"escape"] = VK_ESCAPE;
-	pimpl->keys[L"del"] = VK_DELETE;
-	pimpl->keys[L"delete"] = VK_DELETE;
-	pimpl->keys[L"enter"] = VK_RETURN;
-	pimpl->keys[L"return"] = VK_RETURN;
-	pimpl->keys[L"ret"] = VK_RETURN;
-	pimpl->keys[L"space"] = VK_SPACE;
-	pimpl->keys[L"spacebar"] = VK_SPACE;
-	pimpl->keys[L"home"] = VK_HOME;
-	pimpl->keys[L"end"] = VK_END;
-	pimpl->keys[L"insert"] = VK_INSERT;
-	pimpl->keys[L"."] = VK_OEM_PERIOD;
-	pimpl->keys[L"period"] = VK_OEM_PERIOD;
-	pimpl->keys[L","] = VK_OEM_COMMA;
-	pimpl->keys[L"comma"] = VK_OEM_COMMA;
-	pimpl->keys[L"/"] = VK_DIVIDE;
-	pimpl->keys[L"slash"] = VK_DIVIDE;
-	pimpl->keys[L"divide"] = VK_DIVIDE;
-	pimpl->keys[L"\\"] = VK_OEM_102;
-	pimpl->keys[L"backslash"] = VK_OEM_102;
-	pimpl->keys[L"pause"] = VK_PAUSE;
-	pimpl->keys[L"break"] = VK_PAUSE;
-	pimpl->keys[L"insert"] = VK_INSERT;
-	pimpl->keys[L"ins"] = VK_INSERT;
-	pimpl->keys[L"["] = VK_OEM_4;
-	pimpl->keys[L"{"] = VK_OEM_4;
-	pimpl->keys[L"]"] = VK_OEM_6;
-	pimpl->keys[L"}"] = VK_OEM_6;
-	pimpl->keys[L"'"] = VK_OEM_7;
-	pimpl->keys[L"`"] = VK_OEM_3;
+	pimpl->modvk[MOD_CONTROL] = VK_CONTROL;
+	pimpl->modvk[MOD_ALT] = VK_MENU;
+	pimpl->modvk[MOD_SHIFT] = VK_SHIFT;
+	pimpl->modvk[MOD_WIN] = VK_LWIN;
 
 	/* Load configuration files. */
 	wpath p(initial_path<wpath>());
@@ -238,41 +131,7 @@ MenuItems::MenuItems()
 				/* We have shortcut keys. */
 				if(segments.size() > 2)
 				{
-					wstring mkeysstr;
-					wstringstream ss2(segments[2]);
-					while(getline(ss2, mkeysstr, ALT_KEY_DELIM))
-					{
-						wstring keysstr;
-						wstringstream ss3(mkeysstr);
-						vector<pair<unsigned char, unsigned char>> keylist;
-						while(getline(ss3, keysstr, KEY_DELIM))
-						{
-							transform(begin(keysstr), end(keysstr), begin(keysstr), ::tolower);
-							wstringstream ss3(trim(keysstr));
-							wstring keystr;
-							unsigned char mod = KEY_NOMOD;
-							unsigned char k = 0;
-							while(ss3 >> keystr)
-							{
-								auto modit = pimpl->modifiers.find(keystr);
-								auto keyit = pimpl->keys.find(keystr);
-								if( modit != end(pimpl->modifiers) )
-								{
-									mod += modit->second;
-								}
-								else if( keyit != end(pimpl->keys) )
-								{
-									k = keyit->second;
-								}
-								else
-								{
-									/* Key not found. */
-								}
-							}
-							keylist.push_back(make_pair(mod, k));
-						}
-						item.keys.push_back(keylist);
-					}
+					item.keys = KeyCombiAlt(segments[2]);
 				}
 
 				/* Save the item in the item list. */
@@ -362,7 +221,7 @@ vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 	{
 		wstring lname = it.name;
 		wstring desc = it.desc;
-		wstring shortcut = KeysFromItem(it, L" + ");
+		wstring shortcut = it.keys.str(L" + ");
 		transform(begin(lname), end(lname), begin(lname), ::tolower);
 		transform(begin(desc), end(desc), begin(desc), ::tolower);
 		transform(begin(shortcut), end(shortcut), begin(shortcut), ::tolower);
@@ -415,7 +274,7 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 			vector<INPUT> inputs;
 			for(unsigned char c = 1; c != 0; c <<= 1)
 			{
-				if(c & k.first)
+				if(c & k.mods())
 				{
 					INPUT input = {0};
 					input.type = INPUT_KEYBOARD;
@@ -425,7 +284,7 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 			}
 			INPUT input = {0};
 			input.type = INPUT_KEYBOARD;
-			input.ki.wVk = k.second;
+			input.ki.wVk = k.key();
 			inputs.push_back(input);
 
 			/* Send key downs. */
@@ -468,72 +327,6 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 	Save();
 }
 
-wstring MenuItems::KeysFromItem(Item item, wstring sep)
-{
-	wstring keystr;
-	bool firstlist = true;
-	for(auto& kl : item.keys)
-	{
-		bool first = true;
-		if(firstlist)
-		{
-			firstlist = false;
-		}
-		else
-		{
-			keystr += L"; ";
-		}
-		for(auto& k : kl)
-		{
-			if(first)
-			{
-				first = false;
-			}
-			else
-			{
-				keystr += L", ";
-			}
-			bool done = false;
-			if(k.first & KEY_CTRL)
-			{
-				if(done) keystr += sep;
-				keystr += L"Ctrl";
-				done = true;
-			}
-			if(k.first & KEY_SHIFT)
-			{
-				if(done) keystr += sep;
-				keystr += L"Shift";
-				done = true;
-			}
-			if(k.first & KEY_ALT)
-			{
-				if(done) keystr += sep;
-				keystr += L"Alt";
-				done = true;
-			}
-			if(k.first & KEY_SUPER)
-			{
-				if(done) keystr += sep;
-				keystr += L"Win";
-				done = true;
-			}
-			if(done) keystr += sep;
-			for(auto &l : pimpl->keys)
-			{
-				if(l.second == k.second)
-				{
-					wstring ch = l.first;
-					ch[0] = ::toupper(ch[0]);
-					keystr += ch;
-					break;
-				}
-			}
-		}
-	}
-	return keystr;
-}
-
 void MenuItems::Save()
 {
 	wpath pstat(initial_path<wpath>());
@@ -550,3 +343,4 @@ void MenuItems::Save()
 		}
 	}
 }
+

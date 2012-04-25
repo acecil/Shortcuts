@@ -16,35 +16,32 @@
 //	You should have received a copy of the GNU General Public License
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
-
 #pragma once
 
 #include <string>
 #include <vector>
+#include <ostream>
+#include "KeyCombiMulti.h"
 
-class ListBox : public CListBox
+class KeyCombiAlt
 {
-	DECLARE_DYNAMIC(ListBox)
-
 public:
-	ListBox();
-	virtual ~ListBox();
+	KeyCombiAlt(){}
+	KeyCombiAlt(std::wstring text);
+	~KeyCombiAlt();
+	std::wstring str(std::wstring sep) const;
 
-	void SetSearchWords(std::vector<std::wstring> words) { _words = words; }
-	void AddString(std::wstring description, std::wstring shortcut);
-
-protected:
-	DECLARE_MESSAGE_MAP()
+	size_t size() { return _keys.size(); }
+	KeyCombiMulti& front() { return _keys.front(); }
+	const KeyCombiMulti& front() const { return _keys.front(); }
 
 private:
-	bool _fontsSet;
-	CFont _normalFont;
-	CFont _boldFont;
-	std::vector<std::wstring> _words;
-
-	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
-	virtual void DeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
+	std::vector<KeyCombiMulti> _keys;
 };
 
+inline std::wostream& operator<<(std::wostream& os, const KeyCombiAlt& obj) 
+{ 
+  os << obj.str(L" ");
+  return os;
+} 
 

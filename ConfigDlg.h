@@ -16,28 +16,22 @@
 //	You should have received a copy of the GNU General Public License
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
+
 #pragma once
-
-#include <memory>
-#include <future>
-
-#include "EditBox.h"
-#include "ListBox.h"
-#include "MenuItems.h"
 #include "afxwin.h"
 
-class Config;
+#include "Config.h"
 
-// ShortcutsDlg dialog
-class ShortcutsDlg : public CDialogEx
+class ConfigDlg : public CDialogEx
 {
-// Construction
 public:
-	ShortcutsDlg(CWnd* pParent = NULL);	// standard constructor
-	virtual ~ShortcutsDlg();
+	ConfigDlg(CWnd* pParent,
+			  const Config& oldCfg);
+	virtual ~ConfigDlg();
+	Config GetChanges() const;
 
 // Dialog Data
-	enum { IDD = IDD_SHORTCUTS_DIALOG };
+	enum { IDD = IDD_CONFIG_DIALOG };
 
 protected:
 	HICON m_hIcon;
@@ -46,28 +40,24 @@ protected:
 	virtual BOOL OnInitDialog();
 	void OnPaint();
 	HCURSOR OnQueryDragIcon();
-	void OnEnChangeEntry();
-	virtual void OnOK();
-	virtual void OnCancel();
-	void OnActivate(UINT nState, CWnd *pWndOther, BOOL bMinimized);
-	void OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2);
-	void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
+	void OnBnClickedCloseBtn();
 	DECLARE_MESSAGE_MAP()
 
 private:
-	std::future<MenuItems*> futureItems;
-	std::unique_ptr<MenuItems> items;
-	std::vector<Item> selectedItems;
-	HWND currWin;
-	std::wstring currApp;
-	EditBox entryBox;
-	CButton settingsBtn;
-	ListBox shortcutList;
-	std::unique_ptr<Config> config;
+	const Config& oldConfig;
+	Config configChanges;
+	CButton winModCheck;
+	CButton ctrlModCheck;
+	CButton altModCheck;
+	CButton shiftModCheck;
+	CComboBox keyCombo;
 
-	void switchWinState(bool show);
-	std::wstring getProcFocus(HWND &hwnd);
-	void OnBnClickedSettingsBtn();
-
+	void OnBnClickedWinCheck();
+	void OnBnClickedCtrlCheck();
+	void OnBnClickedAltCheck();
+	void OnBnClickedShiftCheck();
+	void OnCbnSelchangeLaunchCombo();
+	void setHotkey();
 };
+
+

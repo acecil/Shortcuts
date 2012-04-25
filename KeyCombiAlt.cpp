@@ -17,34 +17,54 @@
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "stdafx.h"
 
-#include <string>
-#include <vector>
+#include <sstream>
+#include <algorithm>
+#include "StringUtils.h"
 
-class ListBox : public CListBox
+#include "KeyCombiAlt.h"
+
+using namespace std;
+
+namespace
 {
-	DECLARE_DYNAMIC(ListBox)
+	const wchar_t ALT_KEY_DELIM(L';');
+}
 
-public:
-	ListBox();
-	virtual ~ListBox();
+KeyCombiAlt::KeyCombiAlt(wstring text)
+{
+	wstringstream ss(text);
+	wstring part;
+	while(getline(ss, part, ALT_KEY_DELIM))
+	{
+		transform(begin(part), end(part), begin(part), ::tolower);
+		trim(part);
+		_keys.push_back(KeyCombiMulti(part));
+	}
+}
 
-	void SetSearchWords(std::vector<std::wstring> words) { _words = words; }
-	void AddString(std::wstring description, std::wstring shortcut);
+KeyCombiAlt::~KeyCombiAlt(void)
+{
+}
 
-protected:
-	DECLARE_MESSAGE_MAP()
+wstring KeyCombiAlt::str(wstring sep) const
+{
+	wstringstream ss;
+	bool first = true;
+	for(auto& i: _keys)
+	{
+		if( first )
+		{
+			first = false;
+		}
+		else
+		{
+			ss << L" " << ALT_KEY_DELIM << L" ";
+		}
+		ss << i.str(sep);
+	}
 
-private:
-	bool _fontsSet;
-	CFont _normalFont;
-	CFont _boldFont;
-	std::vector<std::wstring> _words;
-
-	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
-	virtual void DeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
-};
-
+	return ss.str();
+}
 

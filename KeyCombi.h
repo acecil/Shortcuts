@@ -16,35 +16,30 @@
 //	You should have received a copy of the GNU General Public License
 //	along with Shortcuts.  If not, see <http://www.gnu.org/licenses/>.
 //
-
 #pragma once
 
 #include <string>
-#include <vector>
+#include <ostream>
 
-class ListBox : public CListBox
+class KeyCombi
 {
-	DECLARE_DYNAMIC(ListBox)
-
 public:
-	ListBox();
-	virtual ~ListBox();
-
-	void SetSearchWords(std::vector<std::wstring> words) { _words = words; }
-	void AddString(std::wstring description, std::wstring shortcut);
-
-protected:
-	DECLARE_MESSAGE_MAP()
+	explicit KeyCombi(unsigned char mods=0, unsigned char key=0);
+	explicit KeyCombi(std::wstring text);
+	~KeyCombi();
+	std::wstring str(std::wstring sep) const;
+	unsigned char mods(void) const { return _mods; }
+	unsigned char key(void) const { return _key; }
+	std::wstring keystr(void) const { return _keystr; }
 
 private:
-	bool _fontsSet;
-	CFont _normalFont;
-	CFont _boldFont;
-	std::vector<std::wstring> _words;
-
-	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
-	virtual void DeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct);
+	unsigned char _mods;
+	unsigned char _key;
+	std::wstring _keystr;
 };
 
-
+inline std::wostream& operator<<(std::wostream& os, const KeyCombi& obj) 
+{ 
+  os << obj.str(L" ");
+  return os;
+} 

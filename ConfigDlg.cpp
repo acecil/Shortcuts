@@ -90,11 +90,11 @@ BOOL ConfigDlg::OnInitDialog()
 	shiftModCheck.SetCheck((key.mods() & MOD_SHIFT) ? BST_CHECKED : BST_UNCHECKED);
 	altModCheck.SetCheck((key.mods() & MOD_ALT) ? BST_CHECKED : BST_UNCHECKED);
 
-	//int sel = keyCombo.FindStringExact(0, key.second);
-	//if( sel != CB_ERR )
-	//{
-	//	keyCombo.SetCurSel(sel);
-	//}
+	int sel = keyCombo.FindStringExact(0, key.keystr().c_str());
+	if( sel != CB_ERR )
+	{
+		keyCombo.SetCurSel(sel);
+	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

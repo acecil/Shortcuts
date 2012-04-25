@@ -38,19 +38,19 @@ public:
 	{
 		std::wstringstream ss;
 		ss << value;
-		params[name] = ss.str();
+		_params[name] = ss.str();
 	}
 	template<>
 	void SetParam<std::wstring>(std::wstring name, std::wstring value)
 	{
-		params[name] = value;
+		_params[name] = value;
 	}
 	template<typename T>
 	typename std::enable_if<std::is_same<std::wstring, T>::value, T>::type
 		GetParam(std::wstring name) const
 	{
-		auto& it = params.find(name);
-		if( it == params.end() )
+		auto& it = _params.find(name);
+		if( it == _params.end() )
 		{
 			return std::wstring();
 		}
@@ -62,8 +62,8 @@ public:
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetParam(std::wstring name) const
 	{
-		auto& it = params.find(name);
-		if( it == params.end() )
+		auto& it = _params.find(name);
+		if( it == _params.end() )
 		{
 			return T();
 		}
@@ -82,8 +82,8 @@ public:
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetParam(std::wstring name) const
 	{
-		auto& it = params.find(name);
-		if( it == params.end() )
+		auto& it = _params.find(name);
+		if( it == _params.end() )
 		{
 			return T();
 		}
@@ -94,11 +94,11 @@ public:
 	typename std::enable_if<std::is_same<std::wstring, T>::value, T>::type
 		GetSetParam(std::wstring name, std::wstring def)
 	{
-		auto& it = params.find(name);
-		if( it == params.end() )
+		auto& it = _params.find(name);
+		if( it == _params.end() )
 		{
 			SetParam(name, def);
-			it = params.find(name);
+			it = _params.find(name);
 		}
 
 		return it->second;
@@ -108,11 +108,11 @@ public:
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetSetParam(std::wstring name, T def)
 	{
-		auto& it = params.find(name);
-		if( it == params.end() )
+		auto& it = _params.find(name);
+		if( it == _params.end() )
 		{
 			SetParam(name, def);
-			it = params.find(name);
+			it = _params.find(name);
 		}
 
 		std::wstringstream ss(it->second);
@@ -129,22 +129,22 @@ public:
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetSetParam(std::wstring name, T def)
 	{
-		auto& it = params.find(name);
-		if( it == params.end() )
+		auto& it = _params.find(name);
+		if( it == _params.end() )
 		{
 			SetParam(name, def);
-			it = params.find(name);
+			it = _params.find(name);
 		}
 
 		return T(it->second);
 	}
 
-	std::map<std::wstring, std::wstring>::iterator begin() { return params.begin(); }
-	std::map<std::wstring, std::wstring>::iterator end() { return params.end(); }
-	std::map<std::wstring, std::wstring>::const_iterator begin() const { return params.cbegin(); }
-	std::map<std::wstring, std::wstring>::const_iterator end() const { return params.cend(); }
+	std::map<std::wstring, std::wstring>::iterator begin() { return _params.begin(); }
+	std::map<std::wstring, std::wstring>::iterator end() { return _params.end(); }
+	std::map<std::wstring, std::wstring>::const_iterator begin() const { return _params.cbegin(); }
+	std::map<std::wstring, std::wstring>::const_iterator end() const { return _params.cend(); }
 	
 private:
-	std::map<std::wstring, std::wstring> params;
+	std::map<std::wstring, std::wstring> _params;
 };
 

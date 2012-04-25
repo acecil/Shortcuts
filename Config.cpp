@@ -57,7 +57,7 @@ Config::Config(wstring filename)
 		}
 
 		/* Check line matches format. */
-		wregex rx(L"([^=]+)=([.]*)");
+		wregex rx(L"([^=]+)=(.*)", regex_constants::extended);
 		wsmatch match;
 		if( !regex_match(sline, match, rx) )
 		{
@@ -66,7 +66,9 @@ Config::Config(wstring filename)
 		}
 		
 		/* Save key/value pair. */
-		params[match[0]] = match[1];
+		wstring key(match[1]);
+		wstring value(match[2]);
+		_params[trim(key)] = trim(value);
 	}
 }
 
@@ -81,7 +83,7 @@ void Config::Save(std::wstring filename)
 	p /= CONFIG_DIR;
 	p /= filename;
 	wofstream fst(p.file_string());
-	for(auto& i: params)
+	for(auto& i: _params)
 	{
 		fst << i.first << L" = " << i.second << endl;
 	}

@@ -60,7 +60,7 @@ wstring KeyCombiAlt::str(wstring sep) const
 		}
 		else
 		{
-			ss << L" " << ALT_KEY_DELIM << L" ";
+			ss << ALT_KEY_DELIM << L" ";
 		}
 		ss << i.str(sep);
 	}

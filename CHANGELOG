@@ -1,9 +1,10 @@
 Below are the significant changes between versions.
 
-V0.0.6
+V0.1.0
 #21: Start application hidden.
 #22: Indicate when no shortcuts available for application.
 Shrink window to text box size when no items.
+#4: Add configuration dialog allowing app exit and global shortcut config.
 
 V0.0.5
 #19: Convert process name to lower case for comparison.

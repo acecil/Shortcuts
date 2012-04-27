@@ -44,6 +44,7 @@ namespace
 	const int ITEM_HEIGHT = 10;
 	const wstring DEFAULT_CONFIG(L"_config.conf");
 	const wstring DEFAULT_HOTKEY(L"Win Q");
+
 }
 
 BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
@@ -317,6 +318,9 @@ void ShortcutsDlg::switchWinState(bool show)
 		if( app != L"shortcuts" )
 		{
 			currApp = app;
+
+			/* Update stored list of menu items. */
+			items->UpdateMenuItems(currApp, currWin);
 		}
 	}
 

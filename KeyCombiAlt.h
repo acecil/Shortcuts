@@ -31,9 +31,12 @@ public:
 	~KeyCombiAlt();
 	std::wstring str(std::wstring sep) const;
 
-	size_t size() { return _keys.size(); }
+	size_t size() const { return _keys.size(); }
+	bool empty() const { return _keys.empty(); }
 	KeyCombiMulti& front() { return _keys.front(); }
 	const KeyCombiMulti& front() const { return _keys.front(); }
+	void push_back(const KeyCombiMulti& item) { _keys.push_back(item); }
+	void push_back(KeyCombiMulti&& item) { _keys.push_back(item); }
 
 private:
 	std::vector<KeyCombiMulti> _keys;

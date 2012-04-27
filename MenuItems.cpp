@@ -30,6 +30,7 @@
 #include <locale>
 #include <set>
 #include <iterator>
+#include <tuple>
 
 #include "StringUtils.h"
 #include "KeyCombiAlt.h"
@@ -49,13 +50,28 @@ namespace
 		vector<HWND> hwnds;
 		DWORD procId;
 	};
+	
+	struct TopWinInfo
+	{
+		HWND hwnd;
+		DWORD procId;
+	};
 
 	struct ItemList
 	{
 		wstring path;
-		list<Item> items;
+		map<wstring, Item> items;
 	};
-	
+
+	struct MenuItem
+	{
+		UINT command;
+		wstring text;
+		bool accelerator;
+	};
+
+	void getAllMenuItems(vector<MenuItem>& menuItems, bool acc, std::wstring item, HMENU menu);
+	BOOL CALLBACK enumWindowsProc(HWND hwnd, LPARAM lParam);	
 }
 
 struct MenuItems::impl
@@ -94,7 +110,7 @@ MenuItems::MenuItems()
 		transform(begin(appname), end(appname), begin(appname), ::tolower);
 		ItemList &il = pimpl->allitems[appname.substr(0, appname.length() - 4)];
 		il.path = fullpath;
-		list<Item> &items = il.items;
+		auto& items = il.items;
 
 		/* Read the file line by line. */
 		wifstream fs(fullpath);
@@ -135,7 +151,7 @@ MenuItems::MenuItems()
 				}
 
 				/* Save the item in the item list. */
-				items.push_back(item);
+				items[item.name] = item;
 			}
 		}
 	}
@@ -174,16 +190,11 @@ MenuItems::MenuItems()
 				/* App not found. */
 				continue;
 			}
-			for(auto& i : it->second.items)
+			auto& iit = it->second.items.find(sparts[1]);
+			if( iit == end(it->second.items) )
 			{
-				wstring lname = i.name;
-				transform(begin(lname), end(lname), begin(lname), ::tolower);
-				if( lname == sparts[1] )
-				{
-					wstringstream cnt(sparts[2]);
-					cnt >> i.count;
-					break;
-				}
+				wstringstream cnt(sparts[2]);
+				cnt >> iit->second.count;
 			}
 		}
 	}
@@ -194,9 +205,74 @@ MenuItems::~MenuItems()
 	Save();
 }
 
+void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin)
+{
+	/* Find top-level window for the current process. */
+	DWORD procId;
+	::GetWindowThreadProcessId(currWin, &procId);
+	TopWinInfo topWinInfo = { NULL, procId };
+	::EnumWindows(enumWindowsProc, (LPARAM)&topWinInfo);
+	ItemList& items = pimpl->allitems[application];
+	vector<MenuItem> menuItems;
+	getAllMenuItems(menuItems, true, wstring(), ::GetMenu(topWinInfo.hwnd));
+	getAllMenuItems(menuItems, true, wstring(), ::GetSystemMenu(topWinInfo.hwnd, FALSE));
+
+	/* Add menu items to item list. */
+	for(auto& m : menuItems)
+	{
+		vector<wchar_t> acc;
+		wstring desc(m.text);
+		/* Split text into name and shortcut. */
+		auto ampPos = wstring::npos;
+		while( (ampPos = desc.find(L"&")) != wstring::npos )
+		{
+			if( m.accelerator )
+			{
+				acc.push_back(desc[ampPos+1]);
+			}
+			desc.replace(ampPos, 1, L"");
+		}
+		wstring shDesc(desc);
+		wstring shstring;
+		auto mit = desc.find('\t');
+		if( mit != wstring::npos )
+		{
+			shDesc = desc.substr(0, mit);
+			shstring = desc.substr(mit + 1, wstring::npos);
+			replace(begin(shstring), end(shstring), L'+', L' ');
+		}
+
+		KeyCombiAlt shShort(shstring);
+		if( shShort.empty() && !acc.empty() )
+		{
+			/* Use accelerators for shortcut. */
+			wstring alt(L"Alt ");
+			KeyCombiMulti keyMulti;
+			for(auto &i : acc)
+			{
+				keyMulti.push_back(KeyCombi(alt + wstring(1, i)));
+				alt.clear();
+			}
+			shShort.push_back(keyMulti);
+		}
+
+		/* Use text for name and description. */
+		Item& item = items.items[shDesc];
+		item.desc = shDesc;
+		item.name = shDesc;
+		item.keys = shShort;
+		item.command = m.command;
+	}
+}
+
 bool MenuItems::IsConfigAvailable(wstring application)
 {
-	return (pimpl->allitems.find(application) != end(pimpl->allitems));
+	auto &it = pimpl->allitems.find(application);
+	if( it == end(pimpl->allitems) )
+	{
+		return false;
+	}
+	return !it->second.items.empty();
 }
 
 vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
@@ -219,9 +295,9 @@ vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 	/* Try to match all words from name, description and shortcut. */
 	for(auto &it : items)
 	{
-		wstring lname = it.name;
-		wstring desc = it.desc;
-		wstring shortcut = it.keys.str(L" + ");
+		wstring lname = it.second.name;
+		wstring desc = it.second.desc;
+		wstring shortcut = it.second.keys.str(L" + ");
 		transform(begin(lname), end(lname), begin(lname), ::tolower);
 		transform(begin(desc), end(desc), begin(desc), ::tolower);
 		transform(begin(shortcut), end(shortcut), begin(shortcut), ::tolower);
@@ -250,7 +326,7 @@ vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 		}
 		if(foundAll)
 		{
-			matches.insert(it);
+			matches.insert(it.second);
 		}
 	}
 
@@ -266,8 +342,12 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 
 	Sleep(15);
 
-	/* Send keys for shortcut. */
-	if( item.keys.size() > 0 )
+	/* Send keys/command for shortcut/menu item. */
+	if( item.command != 0 )
+	{
+		::SendMessage(hwnd, WM_COMMAND, item.command, 0);
+	}
+	else if( item.keys.size() > 0 )
 	{
 		for(auto& k: item.keys.front())
 		{
@@ -317,9 +397,9 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 	for(auto& i: items.items)
 	{
 		/* Assume item name is unique within app. */
-		if(i.name == item.name)
+		if(i.second.name == item.name)
 		{
-			++i.count;
+			++i.second.count;
 		}
 	}
 
@@ -338,9 +418,69 @@ void MenuItems::Save()
 		for(auto& s : app.second.items)
 		{
 			fst << app.first << " | ";
-			fst << s.name << " | ";
-			fst << s.count << endl;
+			fst << s.second.name << " | ";
+			fst << s.second.count << endl;
 		}
+	}
+}
+
+namespace
+{
+	void getAllMenuItems(vector<MenuItem>& menuItems, bool acc, std::wstring name, HMENU menu)
+	{
+		int menuItemCount = GetMenuItemCount(menu);
+		for(int c = 0; c < menuItemCount; ++c)
+		{
+			MENUITEMINFO menuItemInfo = {0};
+			menuItemInfo.cbSize = sizeof(MENUITEMINFO);
+			menuItemInfo.fMask = MIIM_STRING | MIIM_ID;
+			if( (GetMenuItemInfo(menu, c, TRUE, &menuItemInfo) != 0)
+				&& (menuItemInfo.cch > 0) )
+			{
+				vector<TCHAR> menuItemString(menuItemInfo.cch + 1);
+				++menuItemInfo.cch;
+				menuItemInfo.dwTypeData = &menuItemString[0];
+				if( GetMenuItemInfo(menu, c, TRUE, &menuItemInfo) != 0 )
+				{
+					wstring menuname(menuItemInfo.dwTypeData);
+					wstring subname(name);
+					if( !subname.empty() )
+					{
+						subname += L" > ";
+					}
+					if( menuname.find(L'&') == wstring::npos )
+					{
+						acc = false;
+					}
+					subname += menuname;
+					HMENU subMenu = NULL;
+					if((subMenu = ::GetSubMenu(menu, c)) != NULL)
+					{
+						getAllMenuItems(menuItems, acc, subname, subMenu);
+					}
+					else
+					{
+						MenuItem menuItem = { menuItemInfo.wID, subname, acc };
+						menuItems.push_back(menuItem);
+					}
+				}
+			}
+		}
+	}
+
+	BOOL CALLBACK enumWindowsProc(HWND hwnd, LPARAM lParam)
+	{
+		TopWinInfo* topWinInfo = (TopWinInfo*)lParam;
+		DWORD procId = 0;
+		::GetWindowThreadProcessId(hwnd, &procId);
+		if( (procId == topWinInfo->procId) &&
+			::GetMenu(hwnd) )
+		{
+			topWinInfo->hwnd = hwnd;
+			return FALSE;
+		}
+
+		return TRUE;
 	}
 }
 

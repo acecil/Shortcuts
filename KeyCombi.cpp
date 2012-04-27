@@ -251,12 +251,23 @@ namespace
 		keys[L"break"] = VK_PAUSE;
 		keys[L"insert"] = VK_INSERT;
 		keys[L"ins"] = VK_INSERT;
-		keys[L"["] = VK_OEM_4;
-		keys[L"{"] = VK_OEM_4;
-		keys[L"]"] = VK_OEM_6;
-		keys[L"}"] = VK_OEM_6;
-		keys[L"'"] = VK_OEM_7;
-		keys[L"`"] = VK_OEM_3;
+		keys[L"["] = MapVirtualKey('[', MAPVK_VSC_TO_VK);
+		keys[L"{"] = MapVirtualKey('{', MAPVK_VSC_TO_VK);
+		keys[L"]"] = MapVirtualKey(']', MAPVK_VSC_TO_VK);
+		keys[L"}"] = MapVirtualKey('}', MAPVK_VSC_TO_VK);
+		keys[L"'"] = MapVirtualKey('\'', MAPVK_VSC_TO_VK);
+		keys[L"`"] = MapVirtualKey('`', MAPVK_VSC_TO_VK);
+		keys[L"~"] = MapVirtualKey('~', MAPVK_VSC_TO_VK);
+		keys[L"num0"] = VK_NUMPAD0;
+		keys[L"num1"] = VK_NUMPAD1;
+		keys[L"num2"] = VK_NUMPAD2;
+		keys[L"num3"] = VK_NUMPAD3;
+		keys[L"num4"] = VK_NUMPAD4;
+		keys[L"num5"] = VK_NUMPAD5;
+		keys[L"num6"] = VK_NUMPAD6;
+		keys[L"num7"] = VK_NUMPAD7;
+		keys[L"num8"] = VK_NUMPAD8;
+		keys[L"num9"] = VK_NUMPAD9;
 		return keys;
 	}
 }

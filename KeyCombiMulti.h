@@ -35,6 +35,8 @@ public:
 	std::vector<KeyCombi>::iterator end() { return _keys.end(); }
 	std::vector<KeyCombi>::const_iterator begin() const { return _keys.cbegin(); }
 	std::vector<KeyCombi>::const_iterator end() const { return _keys.cend(); }
+	void push_back(const KeyCombi& item) { _keys.push_back(item); }
+	void push_back(KeyCombi&& item) { _keys.push_back(item); }
 
 private:
 	std::vector<KeyCombi> _keys;

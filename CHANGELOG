@@ -1,5 +1,9 @@
 Below are the significant changes between versions.
 
+V0.2.0
+#16: Get menu items automatically from applications using HMENUs.
+Improve initial position.
+
 V0.1.0
 #21: Start application hidden.
 #22: Indicate when no shortcuts available for application.

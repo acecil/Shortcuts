@@ -1,4 +1,4 @@
-//	
+﻿//	
 //	(c) 2012 by Andrew Gascoyne-Cecil.
 //	
 //	This file is part of Shortcuts.
@@ -433,9 +433,10 @@ namespace
 		{
 			MENUITEMINFO menuItemInfo = {0};
 			menuItemInfo.cbSize = sizeof(MENUITEMINFO);
-			menuItemInfo.fMask = MIIM_STRING | MIIM_ID;
+			menuItemInfo.fMask = MIIM_STRING | MIIM_ID | MIIM_STATE;
 			if( (GetMenuItemInfo(menu, c, TRUE, &menuItemInfo) != 0)
-				&& (menuItemInfo.cch > 0) )
+				&& (menuItemInfo.cch > 0) 
+				&& !(menuItemInfo.fState & MFS_DISABLED) )
 			{
 				vector<TCHAR> menuItemString(menuItemInfo.cch + 1);
 				++menuItemInfo.cch;
@@ -446,7 +447,7 @@ namespace
 					wstring subname(name);
 					if( !subname.empty() )
 					{
-						subname += L" > ";
+						subname += L" → ";
 					}
 					if( menuname.find(L'&') == wstring::npos )
 					{

@@ -220,15 +220,21 @@ void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin)
 	/* Add menu items to item list. */
 	for(auto& m : menuItems)
 	{
-		vector<wchar_t> acc;
+		bool sysCommand = false;
+		vector<wstring> acc;
 		wstring desc(m.text);
 		/* Split text into name and shortcut. */
+		if( m.accelerator && (desc.find(L"→") == wstring::npos) )
+		{
+			acc.push_back(L"spacebar");
+			sysCommand = true;
+		}
 		auto ampPos = wstring::npos;
 		while( (ampPos = desc.find(L"&")) != wstring::npos )
 		{
 			if( m.accelerator )
 			{
-				acc.push_back(desc[ampPos+1]);
+				acc.push_back(wstring(1, desc[ampPos+1]));
 			}
 			desc.replace(ampPos, 1, L"");
 		}
@@ -250,7 +256,7 @@ void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin)
 			KeyCombiMulti keyMulti;
 			for(auto &i : acc)
 			{
-				keyMulti.push_back(KeyCombi(alt + wstring(1, i)));
+				keyMulti.push_back(KeyCombi(alt + i));
 				alt.clear();
 			}
 			shShort.push_back(keyMulti);
@@ -262,6 +268,7 @@ void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin)
 		item.name = shDesc;
 		item.keys = shShort;
 		item.command = m.command;
+		item.sysCommand = sysCommand;
 	}
 }
 
@@ -345,7 +352,7 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 	/* Send keys/command for shortcut/menu item. */
 	if( item.command != 0 )
 	{
-		::SendMessage(hwnd, WM_COMMAND, item.command, 0);
+		::SendMessage(hwnd, item.sysCommand ? WM_SYSCOMMAND : WM_COMMAND, item.command, 0);
 	}
 	else if( item.keys.size() > 0 )
 	{

@@ -45,6 +45,27 @@ namespace
 	const wstring DEFAULT_CONFIG(L"_config.conf");
 	const wstring DEFAULT_HOTKEY(L"Win Q");
 
+	template<typename T>
+	struct Pos
+	{
+		Pos(T _x, T _y)
+			: x(_x), y(_y) {}
+		Pos(wstring str)
+		{
+			wstringstream ss(str);
+			ss >> x;
+			ss >> y;
+		}
+		T x;
+		T y;
+	};
+
+	template<typename T>
+	inline std::wostream& operator<<(std::wostream& os, const Pos<T>& obj) 
+	{ 
+	  os << obj.x << L" " << obj.y;
+	  return os;
+	}
 }
 
 BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
@@ -100,7 +121,8 @@ BOOL ShortcutsDlg::OnInitDialog()
 	/* Hot key for displaying window. */
 	RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, key.mods(), key.key());
 
-	/* Set initial state. */
+	setInitialPosition();
+
 	switchWinState(false);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -297,6 +319,16 @@ void ShortcutsDlg::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		/* Pass to base class. */
 		CDialog::OnKeyUp(nChar, nRepCnt, nFlags);
 	}
+}
+
+void ShortcutsDlg::setInitialPosition()
+{
+	CRect rect;
+	GetWindowRect(&rect);
+	auto defX(::GetSystemMetrics(SM_CXSCREEN) / 2 - rect.Width() / 2);
+	auto defY(::GetSystemMetrics(SM_CYSCREEN) / 3);
+	auto initialPos(config->GetParam<Pos<int>>(L"initial-pos", Pos<int>(defX, defY)));
+	SetWindowPos(NULL, initialPos.x, initialPos.y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 }
 
 void ShortcutsDlg::switchWinState(bool show)

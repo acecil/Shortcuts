@@ -66,6 +66,7 @@ private:
 	ListBox shortcutList;
 	std::unique_ptr<Config> config;
 
+	void setInitialPosition();
 	void switchWinState(bool show);
 	std::wstring getProcFocus(HWND &hwnd);
 	void OnBnClickedSettingsBtn();

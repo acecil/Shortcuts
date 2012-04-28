@@ -47,12 +47,12 @@ public:
 	}
 	template<typename T>
 	typename std::enable_if<std::is_same<std::wstring, T>::value, T>::type
-		GetParam(std::wstring name) const
+		GetParam(std::wstring name, T def=T()) const
 	{
 		auto& it = _params.find(name);
 		if( it == _params.end() )
 		{
-			return std::wstring();
+			return def;
 		}
 
 		return it->second;
@@ -60,12 +60,12 @@ public:
 	template<typename T>
 	typename std::enable_if<std::is_reference<decltype(*static_cast<std::wostream *>(0) >> *static_cast<T *>(0) )>::value
 		&& !std::is_same<std::wstring, T>::value, T>::type
-		GetParam(std::wstring name) const
+		GetParam(std::wstring name, T def=T()) const
 	{
 		auto& it = _params.find(name);
 		if( it == _params.end() )
 		{
-			return T();
+			return def;
 		}
 
 		std::wstringstream ss(it->second);
@@ -80,12 +80,12 @@ public:
 	template<typename T>
 	typename std::enable_if<!std::is_reference<decltype(*static_cast<std::wostream *>(0) >> *static_cast<T *>(0) )>::value
 		&& !std::is_same<std::wstring, T>::value, T>::type
-		GetParam(std::wstring name) const
+		GetParam(std::wstring name, T def=T()) const
 	{
 		auto& it = _params.find(name);
 		if( it == _params.end() )
 		{
-			return T();
+			return def;
 		}
 
 		return T(it->second);

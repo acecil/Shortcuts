@@ -32,6 +32,7 @@ struct Item
 	KeyCombiAlt keys;
 	unsigned int count;
 	WORD command;
+	bool sysCommand;
 };
 
 inline bool operator<(const Item& lhs, const Item& rhs)

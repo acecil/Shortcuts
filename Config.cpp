@@ -74,7 +74,6 @@ Config::Config(wstring filename)
 
 Config::~Config(void)
 {
-	Save();
 }
 
 void Config::Save(std::wstring filename)

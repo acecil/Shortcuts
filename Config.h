@@ -25,11 +25,14 @@
 #include <ostream>
 #include <sstream>
 
-namespace has_extraction_operator_impl {
+namespace has_extraction_operator_impl
+{
+
   typedef char no;
   typedef char yes[2];
 
-  struct any_t {
+  struct any_t
+  {
     template<typename T> any_t( T const& );
   };
 
@@ -39,7 +42,8 @@ namespace has_extraction_operator_impl {
   no test( no );
 
   template<typename T>
-  struct has_extraction_operator {
+  struct has_extraction_operator
+  {
     static std::wistream &s;
     static T &t;
     static bool const value = sizeof( test(s >> t) ) == sizeof( yes );
@@ -47,9 +51,9 @@ namespace has_extraction_operator_impl {
 }
 
 template<typename T>
-struct has_extraction_operator :
-  has_extraction_operator_impl::has_extraction_operator<T> {
-};
+struct has_extraction_operator
+	: has_extraction_operator_impl::has_extraction_operator<T>
+{};
 
 class Config
 {

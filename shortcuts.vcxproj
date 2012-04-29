@@ -110,6 +110,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ColourButton.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigDlg.h" />
     <ClInclude Include="ConfigParams.h" />
@@ -127,6 +128,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColourButton.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigDlg.cpp" />
     <ClCompile Include="ConfigParams.cpp" />

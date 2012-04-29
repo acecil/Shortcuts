@@ -96,6 +96,9 @@ BOOL ConfigDlg::OnInitDialog()
 		keyCombo.SetCurSel(sel);
 	}
 
+	textColBtn.SetColour(getParam<COLORREF>(TEXT_COL_PARAM));
+	shortcutColBtn.SetColour(getParam<COLORREF>(SHORTCUT_COL_PARAM));
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -198,24 +201,20 @@ void ConfigDlg::setHotkey()
 
 void ConfigDlg::OnBnClickedTextColBtn()
 {
-	COLORREF oldCol = oldConfig.GetParam<COLORREF>(TEXT_COL_PARAM);
-	COLORREF newCol = configChanges.GetParam<COLORREF>(TEXT_COL_PARAM, oldCol);
-
-	CColorDialog dlg(newCol);
+	CColorDialog dlg(getParam<COLORREF>(TEXT_COL_PARAM));
 	if( dlg.DoModal() == IDOK )
 	{
 		configChanges.SetParam<COLORREF>(TEXT_COL_PARAM, dlg.GetColor());
+		textColBtn.SetColour(dlg.GetColor());
 	}
 }
 
 void ConfigDlg::OnBnClickedShortcutColBtn()
 {
-	COLORREF oldCol = oldConfig.GetParam<COLORREF>(SHORTCUT_COL_PARAM);
-	COLORREF newCol = configChanges.GetParam<COLORREF>(SHORTCUT_COL_PARAM, oldCol);
-
-	CColorDialog dlg(newCol);
+	CColorDialog dlg(getParam<COLORREF>(SHORTCUT_COL_PARAM));
 	if( dlg.DoModal() == IDOK )
 	{
 		configChanges.SetParam<COLORREF>(SHORTCUT_COL_PARAM, dlg.GetColor());
+		shortcutColBtn.SetColour(dlg.GetColor());
 	}
 }

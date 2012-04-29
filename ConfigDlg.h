@@ -20,6 +20,7 @@
 #pragma once
 #include "afxwin.h"
 
+#include "ColourButton.h"
 #include "Config.h"
 
 class ConfigDlg : public CDialogEx
@@ -51,6 +52,8 @@ private:
 	CButton altModCheck;
 	CButton shiftModCheck;
 	CComboBox keyCombo;
+	ColourButton textColBtn;
+	ColourButton shortcutColBtn;
 
 	void OnBnClickedWinCheck();
 	void OnBnClickedCtrlCheck();
@@ -60,9 +63,13 @@ private:
 	void OnBnClickedTextColBtn();
 	void OnBnClickedShortcutColBtn();
 	void setHotkey();
-	CButton textColBtn;
-	CButton shortcutColBtn;
 
+	template<typename T>
+	T getParam(std::wstring name)
+	{
+		T oldParam = oldConfig.GetParam<T>(name);
+		return configChanges.GetParam<T>(name, oldParam);
+	}
 };
 
 

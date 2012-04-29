@@ -23,15 +23,11 @@
 #include "Config.h"
 #include "KeyCombi.h"
 #include "MenuItems.h"
+#include "ConfigParams.h"
 
 #include <string>
 
 using namespace std;
-
-namespace
-{
-	const wstring HOTKEY_PARAM(L"hotkey");
-};
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -44,6 +40,8 @@ BEGIN_MESSAGE_MAP(ConfigDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_ALT_CHECK, &ConfigDlg::OnBnClickedAltCheck)
 	ON_BN_CLICKED(IDC_SHIFT_CHECK, &ConfigDlg::OnBnClickedShiftCheck)
 	ON_CBN_SELCHANGE(IDC_LAUNCH_COMBO, &ConfigDlg::OnCbnSelchangeLaunchCombo)
+	ON_BN_CLICKED(ID_TEXT_COL_BTN, &ConfigDlg::OnBnClickedTextColBtn)
+	ON_BN_CLICKED(ID_SHORTCUT_COL_BTN, &ConfigDlg::OnBnClickedShortcutColBtn)
 END_MESSAGE_MAP()
 
 ConfigDlg::ConfigDlg(CWnd* pParent,
@@ -71,6 +69,8 @@ void ConfigDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ALT_CHECK, altModCheck);
 	DDX_Control(pDX, IDC_SHIFT_CHECK, shiftModCheck);
 	DDX_Control(pDX, IDC_LAUNCH_COMBO, keyCombo);
+	DDX_Control(pDX, ID_TEXT_COL_BTN, textColBtn);
+	DDX_Control(pDX, ID_SHORTCUT_COL_BTN, shortcutColBtn);
 }
 
 BOOL ConfigDlg::OnInitDialog()
@@ -194,4 +194,28 @@ void ConfigDlg::setHotkey()
 	hotkey += keyString;
 
 	configChanges.SetParam(HOTKEY_PARAM, hotkey);
+}
+
+void ConfigDlg::OnBnClickedTextColBtn()
+{
+	COLORREF oldCol = oldConfig.GetParam<COLORREF>(TEXT_COL_PARAM);
+	COLORREF newCol = configChanges.GetParam<COLORREF>(TEXT_COL_PARAM, oldCol);
+
+	CColorDialog dlg(newCol);
+	if( dlg.DoModal() == IDOK )
+	{
+		configChanges.SetParam<COLORREF>(TEXT_COL_PARAM, dlg.GetColor());
+	}
+}
+
+void ConfigDlg::OnBnClickedShortcutColBtn()
+{
+	COLORREF oldCol = oldConfig.GetParam<COLORREF>(SHORTCUT_COL_PARAM);
+	COLORREF newCol = configChanges.GetParam<COLORREF>(SHORTCUT_COL_PARAM, oldCol);
+
+	CColorDialog dlg(newCol);
+	if( dlg.DoModal() == IDOK )
+	{
+		configChanges.SetParam<COLORREF>(SHORTCUT_COL_PARAM, dlg.GetColor());
+	}
 }

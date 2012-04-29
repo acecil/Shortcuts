@@ -18,16 +18,19 @@
 //
 
 #include "stdafx.h"
-#include "Shortcuts.h"
-#include "ShortcutsDlg.h"
-#include "ConfigDlg.h"
-#include "Config.h"
-#include "afxdialogex.h"
-#include <TlHelp32.h>
 
 #include <sstream>
 
+#include "afxdialogex.h"
+#include <TlHelp32.h>
+
+#include "Shortcuts.h"
+#include "ConfigDlg.h"
+#include "Config.h"
 #include "StringUtils.h"
+#include "ConfigParams.h"
+
+#include "ShortcutsDlg.h"
 
 using namespace std;
 
@@ -44,6 +47,8 @@ namespace
 	const int ITEM_HEIGHT = 10;
 	const wstring DEFAULT_CONFIG(L"_config.conf");
 	const wstring DEFAULT_HOTKEY(L"Win Q");
+	const COLORREF DEFAULT_TEXT_COL(RGB(0, 0, 0));
+	const COLORREF DEFAULT_SHORTCUT_COL(RGB(255, 0, 0));
 
 	template<typename T>
 	struct Pos
@@ -116,7 +121,10 @@ BOOL ShortcutsDlg::OnInitDialog()
 	settingsBtn.SetIcon(settingsIcon);
 
 	/* Get configuration hotkey (or default if not set). */
-	KeyCombi key(config->GetSetParam<KeyCombi>(L"hotkey", KeyCombi(DEFAULT_HOTKEY)));
+	KeyCombi key(config->GetSetParam<KeyCombi>(HOTKEY_PARAM, KeyCombi(DEFAULT_HOTKEY)));
+
+	shortcutList.SetTextColour(config->GetSetParam<COLORREF>(TEXT_COL_PARAM, DEFAULT_TEXT_COL));
+	shortcutList.SetShortcutColour(config->GetSetParam<COLORREF>(SHORTCUT_COL_PARAM, DEFAULT_SHORTCUT_COL));
 
 	/* Hot key for displaying window. */
 	RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, key.mods(), key.key());
@@ -327,7 +335,7 @@ void ShortcutsDlg::setInitialPosition()
 	GetWindowRect(&rect);
 	auto defX(::GetSystemMetrics(SM_CXSCREEN) / 2 - rect.Width() / 2);
 	auto defY(::GetSystemMetrics(SM_CYSCREEN) / 3);
-	auto initialPos(config->GetParam<Pos<int>>(L"initial-pos", Pos<int>(defX, defY)));
+	auto initialPos(config->GetParam<Pos<int>>(INITIAL_POS_PARAM, Pos<int>(defX, defY)));
 	SetWindowPos(NULL, initialPos.x, initialPos.y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 }
 
@@ -418,11 +426,19 @@ void ShortcutsDlg::OnBnClickedSettingsBtn()
 		for(auto& c: configChanges)
 		{
 			/* Apply change. */
-			if( c.first == L"hotkey" )
+			if( c.first == HOTKEY_PARAM )
 			{
-				KeyCombi key(configChanges.GetParam<KeyCombi>(L"hotkey"));
+				KeyCombi key(configChanges.GetParam<KeyCombi>(HOTKEY_PARAM));
 				UnregisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY);
 				RegisterHotKey(GetSafeHwnd(), SHORCUT_HOTKEY, key.mods(), key.key());
+			}
+			else if( c.first == TEXT_COL_PARAM )
+			{
+				shortcutList.SetTextColour(configChanges.GetParam<COLORREF>(TEXT_COL_PARAM));
+			}
+			else if( c.first == SHORTCUT_COL_PARAM )
+			{
+				shortcutList.SetShortcutColour(configChanges.GetParam<COLORREF>(SHORTCUT_COL_PARAM));
 			}
 
 			/* Save config change. */
@@ -430,7 +446,7 @@ void ShortcutsDlg::OnBnClickedSettingsBtn()
 		}
 
 		/* Save configuration. */
-		config->Save();
+		config->Save(DEFAULT_CONFIG);
 	}
 }
 

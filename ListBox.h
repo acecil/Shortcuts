@@ -32,6 +32,8 @@ public:
 
 	void SetSearchWords(std::vector<std::wstring> words) { _words = words; }
 	void AddString(std::wstring description, std::wstring shortcut);
+	void SetTextColour(COLORREF textCol) { _textCol = textCol; }
+	void SetShortcutColour(COLORREF shortcutCol) { _shortcutCol = shortcutCol; }
 
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -40,6 +42,8 @@ private:
 	bool _fontsSet;
 	CFont _normalFont;
 	CFont _boldFont;
+	COLORREF _textCol;
+	COLORREF _shortcutCol;
 	std::vector<std::wstring> _words;
 
 	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);

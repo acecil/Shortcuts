@@ -79,7 +79,9 @@ BEGIN_MESSAGE_MAP(ListBox, CListBox)
 END_MESSAGE_MAP()
 
 ListBox::ListBox()
-	: _fontsSet(FALSE)
+	: _fontsSet(FALSE),
+	_textCol(::GetSysColor(COLOR_WINDOWTEXT)),
+	_shortcutCol(RGB(255, 0, 0))
 {
 }
 
@@ -111,7 +113,7 @@ void ListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 
 	/* Choose colors. */
-	COLORREF frontColor(::GetSysColor(COLOR_WINDOWTEXT));
+	COLORREF frontColor(_textCol);
 	COLORREF backColor(::GetSysColor(COLOR_WINDOW));
 
 	/* If this item is selected, set the background color 
@@ -155,7 +157,7 @@ void ListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	int shortW = shortRect.Width();
 	shortRect.left += fullRect.Width() - shortW;
 	shortRect.right += fullRect.Width() - shortW;
-	SetColor setFgColor2(::SetTextColor, *dc, RGB(255, 0, 0));
+	SetColor setFgColor2(::SetTextColor, *dc, _shortcutCol);
 	drawString(dc, &_normalFont, &_boldFont, item->_shortcut, slocs, &shortRect, 0);
 }
 

@@ -25,18 +25,44 @@
 #include <ostream>
 #include <sstream>
 
+namespace has_extraction_operator_impl {
+  typedef char no;
+  typedef char yes[2];
+
+  struct any_t {
+    template<typename T> any_t( T const& );
+  };
+
+  no operator>>( std::wistream const&, any_t const& );
+
+  yes& test( std::wistream& );
+  no test( no );
+
+  template<typename T>
+  struct has_extraction_operator {
+    static std::wistream &s;
+    static T &t;
+    static bool const value = sizeof( test(s >> t) ) == sizeof( yes );
+  };
+}
+
+template<typename T>
+struct has_extraction_operator :
+  has_extraction_operator_impl::has_extraction_operator<T> {
+};
+
 class Config
 {
 public:
 	Config(std::wstring filename=std::wstring());
 	~Config(void);
 	
-	void Save(std::wstring filename=L"_config.conf"); 
+	void Save(std::wstring filename); 
 
 	template<typename T>
 	void SetParam(std::wstring name, T value)
 	{
-		std::wstringstream ss;
+		std::wostringstream ss;
 		ss << value;
 		_params[name] = ss.str();
 	}
@@ -58,7 +84,7 @@ public:
 		return it->second;
 	}
 	template<typename T>
-	typename std::enable_if<std::is_reference<decltype(*static_cast<std::wostream *>(0) >> *static_cast<T *>(0) )>::value
+	typename std::enable_if<has_extraction_operator<T>::value
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetParam(std::wstring name, T def=T()) const
 	{
@@ -68,7 +94,7 @@ public:
 			return def;
 		}
 
-		std::wstringstream ss(it->second);
+		std::wistringstream ss(it->second);
 		T val;
 		if( !(ss >> val) )
 		{
@@ -78,7 +104,7 @@ public:
 		return val;
 	}
 	template<typename T>
-	typename std::enable_if<!std::is_reference<decltype(*static_cast<std::wostream *>(0) >> *static_cast<T *>(0) )>::value
+	typename std::enable_if<!has_extraction_operator<T>::value
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetParam(std::wstring name, T def=T()) const
 	{
@@ -104,7 +130,7 @@ public:
 		return it->second;
 	}
 	template<typename T>
-	typename std::enable_if<std::is_reference<decltype(*static_cast<std::wostream *>(0) >> *static_cast<T *>(0) )>::value
+	typename std::enable_if<has_extraction_operator<T>::value
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetSetParam(std::wstring name, T def)
 	{
@@ -115,7 +141,7 @@ public:
 			it = _params.find(name);
 		}
 
-		std::wstringstream ss(it->second);
+		std::wistringstream ss(it->second);
 		T val;
 		if( !(ss >> val) )
 		{
@@ -125,7 +151,7 @@ public:
 		return val;
 	}
 	template<typename T>
-	typename std::enable_if<!std::is_reference<decltype(*static_cast<std::wostream *>(0) >> *static_cast<T *>(0) )>::value
+	typename std::enable_if<!has_extraction_operator<T>::value
 		&& !std::is_same<std::wstring, T>::value, T>::type
 		GetSetParam(std::wstring name, T def)
 	{

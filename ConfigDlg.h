@@ -57,7 +57,12 @@ private:
 	void OnBnClickedAltCheck();
 	void OnBnClickedShiftCheck();
 	void OnCbnSelchangeLaunchCombo();
+	void OnBnClickedTextColBtn();
+	void OnBnClickedShortcutColBtn();
 	void setHotkey();
+	CButton textColBtn;
+	CButton shortcutColBtn;
+
 };
 
 

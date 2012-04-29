@@ -31,7 +31,6 @@ using namespace std;
 namespace
 {
 	const wstring CONFIG_DIR(L"Config");
-
 };
 
 Config::Config(wstring filename)

@@ -112,6 +112,7 @@
   <ItemGroup>
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigDlg.h" />
+    <ClInclude Include="ConfigParams.h" />
     <ClInclude Include="EditBox.h" />
     <ClInclude Include="KeyCombi.h" />
     <ClInclude Include="KeyCombiAlt.h" />
@@ -128,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigDlg.cpp" />
+    <ClCompile Include="ConfigParams.cpp" />
     <ClCompile Include="EditBox.cpp" />
     <ClCompile Include="KeyCombi.cpp" />
     <ClCompile Include="KeyCombiAlt.cpp" />

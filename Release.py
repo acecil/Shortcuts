@@ -60,7 +60,7 @@ for fileName in configFiles:
 		shutil.copy(fullFileName, configDir)
 
 # Copy README, CHANGELOG and GPL to release directory
-shutil.copy("README", relDir)
+shutil.copy("README.md", relDir)
 shutil.copy("CHANGELOG", relDir)
 shutil.copy("GPL", relDir)
 

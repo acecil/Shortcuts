@@ -45,7 +45,7 @@ microMatch = re.search("MICRO_VERSION ([0-9])", versionLines)
 version = majorMatch.group(1) + "-" + minorMatch.group(1) + "-" + microMatch.group(1)
 
 # Make sure directory for release exists and is empty
-relDir = "Shortcuts-V" + version
+relDir = "Releases/Shortcuts-V" + version
 if os.path.exists(relDir):
 	shutil.rmtree(relDir)
 os.mkdir(relDir)
@@ -73,4 +73,3 @@ relZipName = relDir + ".zip"
 if os.path.exists(relZipName):
 	os.remove(relZipName)
 zipdir(relDir, relZipName)
-

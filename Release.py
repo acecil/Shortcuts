@@ -73,3 +73,7 @@ relZipName = relDir + ".zip"
 if os.path.exists(relZipName):
 	os.remove(relZipName)
 zipdir(relDir, relZipName)
+
+# Remove release directory.
+shutil.rmtree(relDir)
+

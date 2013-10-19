@@ -1,8 +1,8 @@
 /* Configure the current version of the Shortcuts application. */
 
 #define SHORTCUTS_MAJOR_VERSION 0
-#define SHORTCUTS_MINOR_VERSION 2
-#define SHORTCUTS_MICRO_VERSION 1
+#define SHORTCUTS_MINOR_VERSION 3
+#define SHORTCUTS_MICRO_VERSION 0
 
 #define xstr(s) str(s)
 #define str(s) #s

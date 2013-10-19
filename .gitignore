@@ -8,7 +8,7 @@ Shortcuts-V*.zip
 *.aps
 *.opensdf
 *.sdf
-*.v11.suo
+*.v*.suo
 *.vcxproj.filters
 *.vcxproj.user
 Thumbs.db

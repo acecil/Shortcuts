@@ -98,8 +98,7 @@ MenuItems::MenuItems()
 		if( is_directory(di->status()) ) continue;
 
 		/* Get the full path. */
-		wpath configPath(CONFIG_DIR);
-		wstring fullpath = configPath / di->path();
+		wstring fullpath = di->path();
 
 		/* Ignore everthing except text files. */
 		if( !endsWith(fullpath, L".txt") ) continue;
@@ -140,6 +139,7 @@ MenuItems::MenuItems()
 				Item item;
 				item.name = trim(segments[0]);
 				item.count = 0;
+				item.command = 0;
 
 				/* Parse description. */
 				item.desc = trim(segments[1]);
@@ -191,7 +191,7 @@ MenuItems::MenuItems()
 				continue;
 			}
 			auto& iit = it->second.items.find(sparts[1]);
-			if( iit == end(it->second.items) )
+			if( iit != end(it->second.items) )
 			{
 				wstringstream cnt(sparts[2]);
 				cnt >> iit->second.count;
@@ -347,12 +347,13 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 	/* Show window. */
 	SetForegroundWindow(hwnd);
 
-	Sleep(15);
+	Sleep(30);
 
 	/* Send keys/command for shortcut/menu item. */
 	if( item.command != 0 )
 	{
-		::SendMessage(hwnd, item.sysCommand ? WM_SYSCOMMAND : WM_COMMAND, item.command, 0);
+		::SendMessage(hwnd, item.sysCommand ? WM_SYSCOMMAND : WM_COMMAND,
+			item.command, 0);
 	}
 	else if( item.keys.size() > 0 )
 	{
@@ -381,10 +382,10 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 				numSent += ::SendInput(inputs.size() - numSent, &inputs[numSent], sizeof(INPUT));
 			}
 
-			/* Sleep for a short time to gaurantee both keydown and keyup messages
+			/* Sleep for a short time to guarantee both keydown and keyup messages
 			 * are received separately.
 			 */
-			Sleep(50);
+			Sleep(30);
 		
 			for(auto& i: inputs)
 			{
@@ -398,6 +399,8 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 			}
 		}
 	}
+
+	Sleep(30);
 
 	/* Increase count for this item. */
 	auto& items = pimpl->allitems[application];

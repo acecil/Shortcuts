@@ -98,6 +98,10 @@ void ListBox::AddString(wstring description, wstring shortcut)
 void ListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	ListItem* item(reinterpret_cast<ListItem*>(lpDrawItemStruct->itemData));
+	if (!item)
+	{
+		return;
+	}
 
 	CDC* dc(CDC::FromHandle(lpDrawItemStruct->hDC));
 

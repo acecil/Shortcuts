@@ -197,7 +197,7 @@ TabOrder | Modify dialog tab order | Ctrl D
 AlignBottoms | Align bottom edges of dialog items | Ctrl Shift Down
 SizeToContent | Size dialog to content | Shift F7
 CenterVertical | Center dialog items vertically | Ctrl F9
-CenterHorizontal | Center dialog items horzontally | Ctrl Shift F9
+CenterHorizontal | Center dialog items horizontally | Ctrl Shift F9
 AlignMiddles | Align dialog item middles | F9
 AlignCenters | Align dialog item centers | Shift F9
 ToggleGuides | Toggle guides in dialog editor | Ctrl G

@@ -41,7 +41,7 @@ wstring &ltrim(wstring &s) {
 }
 
 wstring &rtrim(wstring &s) {
-	s.erase(find_if(s.rbegin(), s.rend(), [](int i){ return !isspace(i); }).base(), s.end());
+	s.erase(find_if(s.rbegin(), s.rend(), [](int i){ return ((0 <= i) && (i <= 255)) ? !isspace(i) : false; }).base(), s.end());
 	return s;
 }
 

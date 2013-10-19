@@ -46,7 +46,7 @@ namespace
 	const int LISTBOX_HEIGHT = 4;
 	const int ITEM_HEIGHT = 10;
 	const wstring DEFAULT_CONFIG(L"_config.conf");
-	const wstring DEFAULT_HOTKEY(L"Win Q");
+	const wstring DEFAULT_HOTKEY(L"Win A");
 	const COLORREF DEFAULT_TEXT_COL(RGB(0, 0, 0));
 	const COLORREF DEFAULT_SHORTCUT_COL(RGB(255, 0, 0));
 
@@ -272,7 +272,7 @@ void ShortcutsDlg::OnOK()
 	if( (0 <= currItemIdx) && (currItemIdx < (int)selectedItems.size()) )
 	{
 		Item currItem = selectedItems[currItemIdx];
-		async([&](){ items->Launch(currWin, currApp, currItem); });
+		async([&](Item item){ items->Launch(currWin, currApp, item); }, currItem);
 	}
 
 	/* Hide window. */

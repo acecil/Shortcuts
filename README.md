@@ -10,7 +10,7 @@ Run the shortcuts.exe file - the application starts minimised.
 
 # Launch a shortcut
 
-Enter the global shortcut to display the application - Win + Q by default.
+Enter the global shortcut to display the application - Win + A by default.
 
 Enter some text to find the menu item or shortcut to launch.
 

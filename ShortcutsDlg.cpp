@@ -188,12 +188,6 @@ void ShortcutsDlg::OnEnChangeEntry()
 		hintApp[0] = ::toupper(hintApp[0]);
 		hint = L"Shortcuts for " + hintApp;
 	}
-	if( !items->IsConfigAvailable(currApp) )
-	{
-		hint = L"No shortcuts available for ";
-		hint += hintApp;
-		entryBox.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
-	}
 	entryBox.SendMessage(EM_SETCUEBANNER, TRUE, (LPARAM)hint.c_str());
 
 	/* Get text from entry box. */

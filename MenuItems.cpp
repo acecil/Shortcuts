@@ -284,6 +284,13 @@ bool MenuItems::IsConfigAvailable(wstring application)
 
 vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 {
+	map<wstring, Item> allItems;
+	auto winit = pimpl->allitems.find(L"windows");
+	if (winit != pimpl->allitems.end())
+	{
+		allItems = winit->second.items;
+	}
+
 	/* Show no items when no text. */
 	if(words.empty())
 	{
@@ -291,16 +298,14 @@ vector<Item> MenuItems::GetItems(wstring application, vector<wstring> words)
 	}
 
 	auto& ait = pimpl->allitems.find(application);
-	if( ait == pimpl->allitems.end() )
+	if (ait != pimpl->allitems.end())
 	{
-		/* Application not found. */
-		return vector<Item>();
+		allItems.insert(ait->second.items.begin(), ait->second.items.end());
 	}
-	auto& items = ait->second.items;
 	set<Item> matches;
 
 	/* Try to match all words from name, description and shortcut. */
-	for(auto &it : items)
+	for(auto &it : allItems)
 	{
 		wstring lname = it.second.name;
 		wstring desc = it.second.desc;
@@ -408,6 +413,15 @@ void MenuItems::Launch(HWND hwnd, wstring application, Item item)
 	{
 		/* Assume item name is unique within app. */
 		if(i.second.name == item.name)
+		{
+			++i.second.count;
+		}
+	}
+	auto& winItems = pimpl->allitems[L"windows"];
+	for (auto& i : winItems.items)
+	{
+		/* Assume item name is unique within app. */
+		if (i.second.name == item.name)
 		{
 			++i.second.count;
 		}

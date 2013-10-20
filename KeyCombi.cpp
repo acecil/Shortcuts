@@ -19,27 +19,25 @@
 
 #include "stdafx.h"
 
+#include <algorithm>
 #include <map>
 #include <sstream>
-#include <algorithm>
 #include <stdexcept>
 #include "StringUtils.h"
 
 #include "KeyCombi.h"
 
-using namespace std;
-
 namespace
 {
-	map<unsigned char, wstring> initModStrings();
-	map<wstring, unsigned char> initModifiers();
-	map<wstring, unsigned char> initKeys();
+	std::map<unsigned char, std::wstring> initModStrings();
+	std::map<std::wstring, unsigned char> initModifiers();
+	std::map<std::wstring, unsigned char> initKeys();
 	bool getMod(std::wstring text, unsigned char& mod);
 	bool getKey(std::wstring text, unsigned char& key);
 
-	map<unsigned char, wstring> modStrings(initModStrings());
-	map<wstring, unsigned char> modifiers(initModifiers());
-	map<wstring, unsigned char> keys(initKeys());
+	std::map<unsigned char, std::wstring> modStrings(initModStrings());
+	std::map<std::wstring, unsigned char> modifiers(initModifiers());
+	std::map<std::wstring, unsigned char> keys(initKeys());
 }
 
 KeyCombi::KeyCombi(unsigned char mods, unsigned char key)
@@ -57,14 +55,14 @@ KeyCombi::KeyCombi(unsigned char mods, unsigned char key)
 	}
 }
 
-KeyCombi::KeyCombi(wstring text)
+KeyCombi::KeyCombi(std::wstring text)
 	: _mods(0), _key(0)
 {
-	wstringstream ss(text);
-	wstring part;
-	while(getline(ss, part, L' '))
+	std::wstringstream ss(text);
+	std::wstring part;
+	while (std::getline(ss, part, L' '))
 	{
-		transform(begin(part), end(part), begin(part), ::tolower);
+		std::transform(std::begin(part), std::end(part), std::begin(part), ::tolower);
 		trim(part);
 		unsigned char gmod = 0;
 		unsigned char gk = 0;
@@ -85,9 +83,9 @@ KeyCombi::~KeyCombi(void)
 {
 }
 
-wstring KeyCombi::str(wstring sep) const
+std::wstring KeyCombi::str(std::wstring sep) const
 {
-	wstringstream ss;
+	std::wstringstream ss;
 
 	/* Get modifier keys as a string. */
 	for(unsigned char i = 0; i < 8; ++i)
@@ -97,7 +95,7 @@ wstring KeyCombi::str(wstring sep) const
 		{
 			if( modStrings.find(bit) == end(modStrings) )
 			{
-				throw new invalid_argument("Bad modifier key");
+				throw new std::invalid_argument("Bad modifier key");
 			}
 			ss << modStrings[bit]; 
 			ss << sep;
@@ -112,7 +110,7 @@ wstring KeyCombi::str(wstring sep) const
 
 namespace
 {
-	bool getMod(wstring text, unsigned char& mod)
+	bool getMod(std::wstring text, unsigned char& mod)
 	{
 		auto& it = modifiers.find(text);
 		if( it == end(modifiers) )
@@ -123,7 +121,7 @@ namespace
 		return true;
 	}
 
-	bool getKey(wstring text, unsigned char& key)
+	bool getKey(std::wstring text, unsigned char& key)
 	{
 		auto& it = keys.find(text);
 		if( it == end(keys) )
@@ -134,9 +132,9 @@ namespace
 		return true;
 	}
 
-	map<unsigned char, wstring> initModStrings()
+	std::map<unsigned char, std::wstring> initModStrings()
 	{
-		map<unsigned char, wstring> modStrings;
+		std::map<unsigned char, std::wstring> modStrings;
 		modStrings[MOD_CONTROL] = L"Ctrl";
 		modStrings[MOD_ALT] = L"Alt";
 		modStrings[MOD_SHIFT] = L"Shift";
@@ -144,9 +142,9 @@ namespace
 		return modStrings;
 	}
 
-	map<wstring, unsigned char> initModifiers()
+	std::map<std::wstring, unsigned char> initModifiers()
 	{
-		map<wstring, unsigned char> modifiers;
+		std::map<std::wstring, unsigned char> modifiers;
 		modifiers[L"ctrl"] = MOD_CONTROL;
 		modifiers[L"control"] = MOD_CONTROL;
 		modifiers[L"alt"] = MOD_ALT;
@@ -157,9 +155,9 @@ namespace
 		modifiers[L"windows"] = MOD_WIN;
 		return modifiers;
 	}
-	map<wstring, unsigned char> initKeys()
+	std::map<std::wstring, unsigned char> initKeys()
 	{
-		map<wstring, unsigned char> keys;
+		std::map<std::wstring, unsigned char> keys;
 		keys[L"a"] = 'A';
 		keys[L"b"] = 'B';
 		keys[L"c"] = 'C';

@@ -1,18 +1,7 @@
-# Windows 8.1 Shortcuts
+# Windows XP Shortcuts
 
-StartScreen | Open start screen | Win; Ctrl Esc
 ZoomIn | Zoom in | Ctrl +
 ZoomOut | Zoom out | Ctrl -
-OpenCharms | Open the charms bar | Win C
-SearchFiles | Open the Search charm to search files | Win F
-Share | Open the Share charm | Win H
-Settings | Open the Settings charm | Win I
-Devices | Open the Devices charm | Win K
-LockOrientation | Lock the screen orientation | Win O
-SearchEverywhere | Open the Search charm to search everywhere | Win Q
-SearchWindowsWeb | Open the Search charm to search Windows and the web | Win S
-SearchSettings | Open the Search charm to search settings | Win W
-ShowCommands | Show the commands available in this application | Win Z
 SwitchLanguage | Switch input language and keyboard layout | Win Space
 PreviousInput | Change to the previously selected input | Win Ctrl Space
 CycleRecentApps | Cycle through recently used applications (except desktop applications) | Win Tab; Win Ctrl Tab
@@ -66,14 +55,6 @@ DisplaySystemProperties | Display the System Properties dialogue box | Win Pause
 SearchForPCs | Search for PCs | Win Ctrl F
 RestoreMinimisedWindows | Restore minimised windows on the desktop | Win Shift M
 SwitchToNotifyApp | Switch to the application that displayed a message in the notification area | Win Ctrl B
-MaximiseWindow | Maximise the window | Win Up
-MinimiseWindow | Remove current application from screen or minimise the desktop window | Win Down
-LeftWindow | Maximise the app or desktop window to the left side of the screen | Win Left
-RightWindow | Maximise the app or desktop window to the right side of the screen | Win Right
-MinimiseAllButActive | Minimise all but the active desktop window | Win Home
-StretchTopBottom | Stretch the desktop window to the top and bottom of the screen | Win Shift Up
-RestoreMaintainWidth | Restore/minimise active desktop window vertically maintaining width | Win Shift Down
-MoveAppLeftScreen | Move an app or window in the desktop from one monitor to another | Win Shift Left
 OpenNarrator | Open Narrator | Win Enter
 InitiateIMEReconversion | Initiate IME reconversion | Win /
 OpenMediaCenter | Open Windows Media Center | Win Alt Enter

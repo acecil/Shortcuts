@@ -27,8 +27,6 @@
 
 #include <string>
 
-using namespace std;
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -175,7 +173,7 @@ void ConfigDlg::setHotkey()
 	{
 		return;
 	}
-	wstring hotkey;
+	std::wstring hotkey;
 	if( winModCheck.GetCheck() == BST_CHECKED )
 	{
 		hotkey += L"Win ";

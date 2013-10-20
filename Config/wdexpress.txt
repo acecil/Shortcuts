@@ -1,0 +1,213 @@
+# Visual Studio Express 2005 shortucts
+
+NavigateForward | Move to next location | Ctrl Shift -
+NavigateBackwards | Move to previous location | Ctrl -
+GotoCommandLine | Go to the command line | Ctrl /
+CodeDefinitionWindow | Go to the code definition window | Ctrl \, Ctrl D
+ErrorList | View the error list | Ctrl \, Ctrl E
+TaskList | View the task list | Ctrl \, Ctrl T
+BrowseNext | Browse to the next item | Ctrl Shift 1
+BrowsePrevious | Browse to the previous item | Ctrl Shift 2
+SelectAll | Select all | Ctrl A
+CommandWindow | View the command window | Ctrl Alt A
+AddNewItem | Add a new project item | Ctrl Shift A
+AddExistingItem | Add an existing project item | Shift Alt A
+Breakpoints | View breakpoints | Ctrl Alt B
+BreakAtFunction | Add breakpoint at current function | Ctrl B
+BuildSolution | Build solution | Ctrl Shift B
+Undo | Undo | Alt Backspace
+Cancel | Cancel current build | Ctrl Break
+CallStack | View the call stack | Ctrl Alt C
+ClassView | View the class view | Ctrl Shift C
+Disassembly | View dissembly | Ctrl Alt D
+GoToFindCombo | Go to the find combo | Ctrl D
+ShowDataSources | Show data sources | Shift Alt D
+Cut | Cut | Shift Del
+Exceptions | View the exceptions | Ctrl Alt E
+ResourceView | View the resource view | Ctrl Shift E
+FullScreen | Toggle fullscreen | Shift Alt Enter
+ActivateDocumentWindow | Activate the document window | Esc
+CloseToolWindow | Close the current tool window | Shift Esc
+Find | Find | Ctrl F
+FindInFiles | Find in files | Ctrl Shift F
+Contents | View help contents | Ctrl Alt F1
+HowDoI | How Do I? | Ctrl F1
+F1Help | View help | F1
+WindowHelp | View the help for the window | Shift F1
+ApplyCodeChanges | Apply the code changes | Alt F10
+StepOverCurrentProcess | Step over the current process | Ctrl Alt F10
+RunToCursor | Run to the cursor | Ctrl F10
+StepOver | Step over statement | F10
+StepIntoCurrentProcess | Step into the current process | Ctrl Alt F11
+ToggleDisassembly | Toggle display of disassembly | Ctrl F11
+StepOutCurrentProcess | Step out of the current process | Ctrl Shift Alt F11
+StepInto | Step into the next statement | F11
+StepOut | Step out of the current section | Shift F11
+FindSymbol | Find a symbol | Alt F12
+FindSymbolResults | View find symbol results | Ctrl Alt F12
+GoToDeclaration | Go to the declaration | Ctrl F12
+NextError | Go to the location of the next error | Ctrl Shift F12
+GoToDefinition | Go the the definition | F12
+QuickFindSymbol | Quick find symbol | Shift Alt F12
+FindAllReferences | Find all references to item | Shift F12
+Index | View help index | Ctrl Alt F2
+MoveToNavigationBar | Move to the navigation bar | Ctrl F2
+EditLabel | Edit a label | F2
+StopSearch | Stop searching | Alt F3, Alt S
+Search | Search help | Ctrl Alt F3
+FindPreviousSelected | Find the previous selected item | Ctrl Shift F3
+FindNext | Find next item | F3
+SearchResults | View help search results | Shift Alt F3
+FindPrevious | Find previous item | Shift F3
+CloseDocumentWindow | Close current document window | Ctrl F4
+PropertiesWindow | View properties window | F4
+PropertyPages | View the property pages | Shift F4
+StartWithoutDebugging | Run without debugging | Ctrl F5
+Restart | Restart debugging | Ctrl Shift F5
+Start | Start debugging | F5
+StopDebugging | Stop debugging | Shift F5
+NextPane | Move to next pane | Alt F6
+NextDocumentWindow | Move to next document window | Ctrl F6
+PreviousDocumentWindow | Move to previous document window | Ctrl Shift F6
+NextSplitPane | Move to next split pane | F6
+PreviousPane | Move to previous pane | Shift Alt F6
+PreviousSplitPane | Move to previous split pane | Shift F6
+NextToolWindowNav | Move to next tool window | Alt F7
+Compile | Compile current file | Ctrl F7
+MacroExplorer | View the macro explorer | Alt F8
+GoToNextLocation | Go to the next location | F8
+GoToPrevLocation | Go to the previous location | Shift F8
+EnableBreakpoint | Enable breakpoint at current location | Ctrl F9
+DeleteAllBreakpoints | Delete all breakpoints | Ctrl Shift F9
+ToggleBreakpoint | Toggle breakpoint at current location | F9
+QuickWatch | View the quick watch window | Shift F9
+Registers | View the registers pane | Ctrl Alt G
+GoTo | Go to line number | Ctrl G
+OpenFile | Open file | Ctrl Shift G
+Threads | View the threads pane | Ctrl Alt H
+Replace | Replace | Ctrl H
+ReplaceInFiles | Replace in files | Ctrl Shift H
+Immediate | View the immediate window | Ctrl Alt I
+Copy | Copy | Ctrl Insert
+CycleClipboardRing | Cycle through copied items from clipboard | Ctrl Shift Insert
+Paste | Paste | Shift Insert
+ObjectBrowser | View the object browser | Ctrl Alt J
+CodeSnippetsManager | View the code snippets manager | Ctrl K, Ctrl B
+NewFolder | Create a new folder | Ctrl K, Ctrl F
+GenerateMethodStub | Generate a method stub | Ctrl K, Ctrl M
+NextBookmark | Move to next bookmark | Ctrl K, Ctrl N
+PreviousBookmark | Move to previous bookmark | Ctrl K, Ctrl P
+SurroundWith | Surround a section of code | Ctrl K, Ctrl S
+BookmarkWindow | View the bookmark window | Ctrl K, Ctrl W
+InsertSnippet | Insert a snippet | Ctrl K, Ctrl X
+NextBookmarkInFolder | Move to next bookmark in folder | Ctrl Shift K, Ctrl Shift N
+PreviousBookmarkInFolder | Move to previous bookmark in folder | Ctrl Shift K, Ctrl Shift P
+SolutionExplorer | View the solution explorer | Ctrl Alt L
+NewFile | Create a new file | Ctrl N
+NewProject | Create a new project | Ctrl Shift N
+Output | View the output window | Ctrl Alt O
+OpenFile | Open a file | Ctrl O
+OpenProject | Open a project | Ctrl Shift O
+AttachToProcess | Attach to an existing process | Ctrl Alt P
+Print | Print the current file | Ctrl P
+RunTemporaryMacro | Run a temporary macro | Ctrl Shift P
+NextTab | Move to the next tab | Ctrl PageDown
+SaveSelectedItems | Save the currently selected items | Ctrl S
+SaveAll | Save all items | Ctrl Shift S
+DocumentOutline | View the document outline | Ctrl Alt T
+PreviousDocumentWindowNav | Move to the previous document | Ctrl Shift Tab
+NextDocumentWindowNav | Move to the next document | Ctrl Tab
+SelectPreviousControl | Select the previous control | Shift Tab
+SelectNextControl | Select the next control | Tab
+Autos | View the autos window | Ctrl Alt V, A
+Locals | View the locals window | Ctrl Alt V, L
+Watch | View the first watch window | Ctrl Alt W, 1
+Watch2 | View the second watch window | Ctrl Alt W, 2
+Watch3 | View the third watch window | Ctrl Alt W, 3
+Watch4 | View the fourth watch window | Ctrl Alt W, 4
+Toolbox | View the toolbox | Ctrl Alt X
+Processes | View the processes window | Ctrl Alt Z
+Redo | Redo the last action | Ctrl Shift Z
+GotoBrace | Go to the next bracket | Ctrl ]
+GotoBraceExtend | Go to the next bracket extending the selection | Ctrl Shift ]
+WordDeleteToStart | Delete back to the start of the word | Ctrl Backspace
+CopyParameterTip | Copy a parameter tip | Ctrl Shift Alt C
+WordDeleteToEnd | Delete forward to the end of the word | Ctrl Del
+ScrollLineDown | Move down to the next line | Ctrl Down
+LineDownExtendColumn | Move down a line extending the column selection | Shift Alt Down
+ToggleWordWrap | Toggle word wrap | Ctrl E, Ctrl W
+LineEnd | Move to the end of the line | End
+LineEndExtendColumn | Move to the end of the line extending the column selection | Shift Alt End
+LineEndExtend | Move to the end of the line extending the selection | Shift End
+LineOpenAbove | Add new line above current line | Ctrl Enter
+LineOpenBelow | Add new line below current line | Ctrl Shift Enter
+LineStart | Move to start of line | Home
+LineStartExtendColumn | Move to the start of the line extending the column selection | Shift Alt Home
+LineStartExtend | Move to the start of the line extending the selection | Shift Home
+IncrementalSearch | Open incremental find | Ctrl I
+ReverseIncrementalSearch | Open reverse incremental find | Ctrl Shift I
+OvertypeMode | Switch between insert and overwrite mode | Insert
+ListMembers | Display list of members | Ctrl J
+DeleteHorizontalWhiteSpace | Delete all white space around cursor | Ctrl K, Ctrl \
+CommentSelection | Comment out current selection | Ctrl K, Ctrl C
+FormatDocument | Format the current document | Ctrl K, Ctrl D
+FormatSelection | Format the current selection | Ctrl K, Ctrl F
+QuickInfo | Display quick info tooltip for item at cursor | Ctrl K, Ctrl I
+ToggleBookmark | Toggle bookmark | Ctrl K, Ctrl K
+ClearBookmarks | Remove all bookmarks | Ctrl K, Ctrl L
+UncommentSelection | Uncomment the current selection | Ctrl K, Ctrl U
+LineCut | Cut the current line | Ctrl L
+LineDelete | Delete the current line | Ctrl Shift L
+WordPrevious | Move to the previous word | Ctrl Left
+WordPreviousExtendColumn | Move to the previous word extending the column selection | Ctrl Shift Alt Left
+WordPreviousExtend | Move to the previous word extending the selection | Ctrl Shift Left
+CharLeftExtendColumn | Move to the previous character extending the column selection | Shift Alt Left
+HideSelection | Hide the current selection | Ctrl M, Ctrl H
+ToggleAllOutlining | Toggle all outlining | Ctrl M, Ctrl L
+ToggleOutliningExpansion | Toggle expansion of outlining | Ctrl M, Ctrl M
+CollapseToDefinitions | Collapse to definitions | Ctrl M, Ctrl O
+StopOutlining | Stop outlining | Ctrl M, Ctrl P
+CollapseTag | Collapse tag | Ctrl M, Ctrl T
+StopHidingCurrent | Stop hiding the current item | Ctrl M, Ctrl U
+PasteParameterTip | Past a parameter tip | Ctrl Shift Alt P
+ViewBottom | Move to end of document | Ctrl PageDown
+ViewBottomExtend | Move to end of document extending selection | Ctrl Shift PageDown
+PageDown | Move down the document | PageDown
+PageDownExtend | Move down the document extending selection | Shift PageDown
+ViewTop | Move to start of document | Ctrl PageUp
+ViewTopExtend | Move to start of document extending selection | Ctrl Shift PageUp
+PageUp | Move up the document | PageUp
+PageUpExtend | Move up the document extending selection | Shift PageUp
+ViewWhiteSpace | Toggle display of whitespace | Ctrl R, Ctrl W
+WordNext | Move to next word | Ctrl Right
+WordNextExtendColumn | Move to next word extending column selection | Ctrl Shift Alt Right
+WordNextExtend | Move to next word extending selection | Ctrl Shift Right
+CharRightExtendColumn | Move to next character extending column selection | Shift Alt Right
+ParameterInfo | Display parameter information | Ctrl Shift Space
+CompleteWord | Autocomplete word | Ctrl Space
+WordTranspose | Swap adjacent words | Ctrl Shift T
+CharTranspose | Swap adjacent characters | Ctrl T
+LineTranspose | Swap adjacent lines | Shift Alt T
+MakeUppercase | Switch selection to uppercase | Ctrl Shift U
+MakeLowercase | Switch selection to lowercase | Ctrl U
+ScrollLineUp | Move up to the previous line | Ctrl Up
+LineUpExtendColumn | Move up a line extending the column selection | Shift Alt Up
+SelectCurrentWord | Select the word at the cursor | Ctrl W
+TabOrder | Modify dialog tab order | Ctrl D
+AlignBottoms | Align bottom edges of dialog items | Ctrl Shift Down
+SizeToContent | Size dialog to content | Shift F7
+CenterVertical | Center dialog items vertically | Ctrl F9
+CenterHorizontal | Center dialog items horzontally | Ctrl Shift F9
+AlignMiddles | Align dialog item middles | F9
+AlignCenters | Align dialog item centers | Shift F9
+ToggleGuides | Toggle guides in dialog editor | Ctrl G
+ScrollColumnLeft | Scroll left | Ctrl Left
+AlignLefts | Align left edges of dialog items | Ctrl Shift Left
+CheckMnemonics | Verify dialog mnemonics | Ctrl M
+SpaceAcross | Equally space dialog items horizontally | Alt Right
+ScrollColumnRight | Scroll right | Ctrl Right
+AlignRights | Align right edges of dialog items | Ctrl Shift Right
+TestDialog | Test the current dialog | Ctrl T
+SpaceDown | Equally space dialog items vertically | Alt Up
+AlignTops | Align top edges of dialog items | Ctrl Shift Up
+

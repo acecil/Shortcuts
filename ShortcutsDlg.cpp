@@ -32,7 +32,6 @@
 
 #include "ShortcutsDlg.h"
 
-using namespace std;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -45,8 +44,8 @@ namespace
 	const int LISTBOX_OFFSET = 2;
 	const int LISTBOX_HEIGHT = 4;
 	const int ITEM_HEIGHT = 10;
-	const wstring DEFAULT_CONFIG(L"_config.conf");
-	const wstring DEFAULT_HOTKEY(L"Win A");
+	const std::wstring DEFAULT_CONFIG(L"_config.conf");
+	const std::wstring DEFAULT_HOTKEY(L"Win A");
 	const COLORREF DEFAULT_TEXT_COL(RGB(0, 0, 0));
 	const COLORREF DEFAULT_SHORTCUT_COL(RGB(255, 0, 0));
 
@@ -55,9 +54,9 @@ namespace
 	{
 		Pos(T _x, T _y)
 			: x(_x), y(_y) {}
-		Pos(wstring str)
+		Pos(std::wstring str)
 		{
-			wstringstream ss(str);
+			std::wstringstream ss(str);
 			ss >> x;
 			ss >> y;
 		}
@@ -89,7 +88,7 @@ ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
 	config(new Config(DEFAULT_CONFIG))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	futureItems = async([](){ return new MenuItems(); });
+	futureItems = std::async([](){ return new MenuItems(); });
 }
 
 ShortcutsDlg::~ShortcutsDlg()
@@ -177,12 +176,12 @@ void ShortcutsDlg::OnEnChangeEntry()
 	/* Get menu items object from async task if not already done. */
 	if( !items )
 	{
-		items = move(unique_ptr<MenuItems>(futureItems.get()));
+		items = std::move(std::unique_ptr<MenuItems>(futureItems.get()));
 	}
 
 	/* Set hint text. */
-	wstring hintApp = currApp;
-	wstring hint = L"No shortcuts available";
+	std::wstring hintApp = currApp;
+	std::wstring hint = L"No shortcuts available";
 	if( !currApp.empty() )
 	{
 		hintApp[0] = ::toupper(hintApp[0]);
@@ -195,13 +194,13 @@ void ShortcutsDlg::OnEnChangeEntry()
 	entryBox.GetWindowTextW(search);
 	
 	/* Split entry box text into words. */
-	wstring text = search.GetBuffer();
+	std::wstring text = search.GetBuffer();
 	text = trim(text);
-	transform(begin(text), end(text), begin(text), ::tolower);
-	vector<wstring> words;
-	wstringstream iss(text);
-	wstring word;
-	while(getline(iss, word, L' '))
+	std::transform(std::begin(text), std::end(text), std::begin(text), ::tolower);
+	std::vector<std::wstring> words;
+	std::wstringstream iss(text);
+	std::wstring word;
+	while (std::getline(iss, word, L' '))
 	{
 		trim(word);
 		if( !word.empty() )
@@ -258,7 +257,7 @@ void ShortcutsDlg::OnOK()
 	/* Get menu items object from async task if not already done. */
 	if( !items )
 	{
-		items = move(unique_ptr<MenuItems>(futureItems.get()));
+		items = std::move(std::unique_ptr<MenuItems>(futureItems.get()));
 	}
 
 	/* Get the currently selected item from shortcutList. */
@@ -266,7 +265,7 @@ void ShortcutsDlg::OnOK()
 	if( (0 <= currItemIdx) && (currItemIdx < (int)selectedItems.size()) )
 	{
 		Item currItem = selectedItems[currItemIdx];
-		async([&](Item item){ items->Launch(currWin, currApp, item); }, currItem);
+		std::async([&](Item item){ items->Launch(currWin, currApp, item); }, currItem);
 	}
 
 	/* Hide window. */
@@ -338,7 +337,7 @@ void ShortcutsDlg::switchWinState(bool show)
 	/* Get the current application that has focus. */
 	if(show)
 	{
-		wstring app = getProcFocus(currWin);
+		std::wstring app = getProcFocus(currWin);
 		if( (app.length() > 4) && (app.substr(app.length() - 4, 4) == L".exe") )
 		{
 			app = app.substr(0, app.length() - 4);
@@ -378,13 +377,13 @@ void ShortcutsDlg::switchWinState(bool show)
 	}
 }
 
-wstring ShortcutsDlg::getProcFocus(HWND &hwnd)
+std::wstring ShortcutsDlg::getProcFocus(HWND &hwnd)
 {
     hwnd = ::GetForegroundWindow();
 	DWORD procId;
 	::GetWindowThreadProcessId(hwnd, &procId);
 	HANDLE snapshot = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	wstring procName;
+	std::wstring procName;
 	if(snapshot)
 	{
 		PROCESSENTRY32 process = {0};

@@ -20,7 +20,7 @@
 #pragma once
 
 #include <string>
-#include <list>
+#include <map>
 #include <vector>
 #include <memory>
 #include "KeyCombiAlt.h"
@@ -58,5 +58,8 @@ public:
 	
 private:
 	struct impl; std::unique_ptr<impl> pimpl;
+
+	std::map<std::wstring, Item> GetWindowsItems();
+	void LoadItems(std::map<std::wstring, Item> &items, std::wstring app);
 
 };

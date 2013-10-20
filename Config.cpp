@@ -25,15 +25,12 @@
 #include "StringUtils.h"
 #include "Config.h"
 
-using namespace std::tr2::sys;
-using namespace std;
-
 namespace
 {
-	const wstring CONFIG_DIR(L"Config");
+	const std::wstring CONFIG_DIR(L"Config");
 };
 
-Config::Config(wstring filename)
+Config::Config(std::wstring filename)
 {
 	if( filename.empty() )
 	{
@@ -41,32 +38,32 @@ Config::Config(wstring filename)
 		return;
 	}
 
-	wpath p(initial_path<wpath>());
+	std::tr2::sys::wpath p(std::tr2::sys::initial_path<std::tr2::sys::wpath>());
 	p /= CONFIG_DIR;
 	p /= filename;
-	wifstream fst(p.file_string());
-	wstring sline;
-	while(getline(fst, sline))
+	std::wifstream fst(p.file_string());
+	std::wstring sline;
+	while (std::getline(fst, sline))
 	{
 		/* Skip comment and empty lines. */
-		wstring trimLine = trim(sline);
+		std::wstring trimLine = trim(sline);
 		if( sline.empty() || (sline[0] == '#') )
 		{
 			continue;
 		}
 
 		/* Check line matches format. */
-		wregex rx(L"([^=]+)=(.*)", regex_constants::extended);
-		wsmatch match;
-		if( !regex_match(sline, match, rx) )
+		std::wregex rx(L"([^=]+)=(.*)", std::regex_constants::extended);
+		std::wsmatch match;
+		if (!std::regex_match(sline, match, rx))
 		{
 			/* Ignore invalid lines. */
 			continue;
 		}
 		
 		/* Save key/value pair. */
-		wstring key(match[1]);
-		wstring value(match[2]);
+		std::wstring key(match[1]);
+		std::wstring value(match[2]);
 		_params[trim(key)] = trim(value);
 	}
 }
@@ -77,13 +74,13 @@ Config::~Config(void)
 
 void Config::Save(std::wstring filename)
 {
-	wpath p(initial_path<wpath>());
+	std::tr2::sys::wpath p(std::tr2::sys::initial_path<std::tr2::sys::wpath>());
 	p /= CONFIG_DIR;
 	p /= filename;
-	wofstream fst(p.file_string());
+	std::wofstream fst(p.file_string());
 	for(auto& i: _params)
 	{
-		fst << i.first << L" = " << i.second << endl;
+		fst << i.first << L" = " << i.second << std::endl;
 	}
 }
 

@@ -23,10 +23,8 @@
 
 #include "ConfigParams.h"
 
-using namespace std;
-
-const wstring HOTKEY_PARAM(L"hotkey");
-const wstring INITIAL_POS_PARAM(L"initial-pos");
-const wstring TEXT_COL_PARAM(L"text-colour");
-const wstring SHORTCUT_COL_PARAM(L"shortcut-colour");
+const std::wstring HOTKEY_PARAM(L"hotkey");
+const std::wstring INITIAL_POS_PARAM(L"initial-pos");
+const std::wstring TEXT_COL_PARAM(L"text-colour");
+const std::wstring SHORTCUT_COL_PARAM(L"shortcut-colour");
 

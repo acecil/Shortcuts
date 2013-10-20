@@ -25,20 +25,18 @@
 
 #include "KeyCombiMulti.h"
 
-using namespace std;
-
 namespace
 {
 	const wchar_t KEY_DELIM(L',');
 }
 
-KeyCombiMulti::KeyCombiMulti(wstring text)
+KeyCombiMulti::KeyCombiMulti(std::wstring text)
 {
-	wstringstream ss(text);
-	wstring part;
-	while(getline(ss, part, KEY_DELIM))
+	std::wstringstream ss(text);
+	std::wstring part;
+	while (std::getline(ss, part, KEY_DELIM))
 	{
-		transform(part.begin(), part.end(), part.begin(), ::tolower);
+		std::transform(std::begin(part), std::end(part), std::begin(part), ::tolower);
 		trim(part);
 		_keys.push_back(KeyCombi(part));
 	}
@@ -49,9 +47,9 @@ KeyCombiMulti::~KeyCombiMulti(void)
 {
 }
 
-wstring KeyCombiMulti::str(wstring sep) const
+std::wstring KeyCombiMulti::str(std::wstring sep) const
 {
-	wstringstream ss;
+	std::wstringstream ss;
 	bool first = true;
 	for(auto& i: _keys)
 	{

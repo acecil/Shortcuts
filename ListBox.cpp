@@ -21,32 +21,31 @@
 #include "shortcuts.h"
 #include "ListBox.h"
 
-#include <functional>
-#include <memory>
-#include <map>
 #include <algorithm>
-using namespace std;
+#include <functional>
+#include <map>
+#include <memory>
 
 namespace {
 	struct ListItem
 	{
-		ListItem(wstring description, wstring shortcut)
+		ListItem(std::wstring description, std::wstring shortcut)
 			: _description(description), _shortcut(shortcut) {}
-		wstring _description;
-		wstring _shortcut;
+		std::wstring _description;
+		std::wstring _shortcut;
 	};
 
 	class SetColor
 	{
 	public:
-		SetColor(function<COLORREF __stdcall(HDC, COLORREF)> f, HDC hdc, COLORREF color)
+		SetColor(std::function<COLORREF __stdcall(HDC, COLORREF)> f, HDC hdc, COLORREF color)
 			: _f(f), _hdc(hdc), _oldColor(f(hdc, color)) {}
 		~SetColor()
 		{
 			_f(_hdc, _oldColor);
 		}
 	private:
-		function<COLORREF __stdcall(HDC, COLORREF)> _f;
+		std::function<COLORREF __stdcall(HDC, COLORREF)> _f;
 		HDC _hdc;
 		COLORREF _oldColor;
 	};
@@ -69,8 +68,8 @@ namespace {
 		CDC* _dc;
 	};
 
-	map<size_t, size_t> findWords(wstring text, vector<wstring> words);
-	void drawString(CDC* dc, CFont* font, CFont* bFont, wstring text, map<size_t, size_t> locs, LPRECT lpRect, UINT format);
+	std::map<size_t, size_t> findWords(std::wstring text, std::vector<std::wstring> words);
+	void drawString(CDC* dc, CFont* font, CFont* bFont, std::wstring text, std::map<size_t, size_t> locs, LPRECT lpRect, UINT format);
 }
 
 IMPLEMENT_DYNAMIC(ListBox, CListBox)
@@ -89,7 +88,7 @@ ListBox::~ListBox()
 {
 }
 
-void ListBox::AddString(wstring description, wstring shortcut)
+void ListBox::AddString(std::wstring description, std::wstring shortcut)
 {
 	/* Create ListItem and add as pointer. */
 	CListBox::AddString((LPCTSTR)(new ListItem(description, shortcut)));
@@ -142,10 +141,10 @@ void ListBox::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	lpDrawItemStruct->rcItem.right -= 5;
 
 	/* Search for words in shortcut. */
-	map<size_t, size_t> slocs = findWords(item->_shortcut, _words);;
+	std::map<size_t, size_t> slocs = findWords(item->_shortcut, _words);;
 	
 	/* Search for words in description. */
-	map<size_t, size_t> dlocs = findWords(item->_description, _words);
+	std::map<size_t, size_t> dlocs = findWords(item->_description, _words);
 	
 	/* Calculate rectangle for shortcut. */
 	CRect shortRect(lpDrawItemStruct->rcItem);
@@ -189,10 +188,10 @@ void ListBox::DeleteItem(int nIDCtl, LPDELETEITEMSTRUCT lpDeleteItemStruct)
 
 namespace
 {
-	map<size_t, size_t> findWords(wstring text, vector<wstring> words)
+	std::map<size_t, size_t> findWords(std::wstring text, std::vector<std::wstring> words)
 	{
-		map<size_t, size_t> locs;
-		transform(begin(text), end(text), begin(text), ::tolower);
+		std::map<size_t, size_t> locs;
+		std::transform(std::begin(text), std::end(text), std::begin(text), ::tolower);
 		for(auto& i: words)
 		{
 			size_t idx = text.find(i);
@@ -229,7 +228,7 @@ namespace
 		return locs;
 	}
 
-	void drawString(CDC* dc, CFont* font, CFont* bFont, wstring text, map<size_t, size_t> locs, LPRECT lpRect, UINT format)
+	void drawString(CDC* dc, CFont* font, CFont* bFont, std::wstring text, std::map<size_t, size_t> locs, LPRECT lpRect, UINT format)
 	{
 		CRect rect(*lpRect);
 		int right = rect.left;

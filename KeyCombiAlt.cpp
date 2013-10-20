@@ -25,20 +25,18 @@
 
 #include "KeyCombiAlt.h"
 
-using namespace std;
-
 namespace
 {
 	const wchar_t ALT_KEY_DELIM(L';');
 }
 
-KeyCombiAlt::KeyCombiAlt(wstring text)
+KeyCombiAlt::KeyCombiAlt(std::wstring text)
 {
-	wstringstream ss(text);
-	wstring part;
-	while(getline(ss, part, ALT_KEY_DELIM))
+	std::wstringstream ss(text);
+	std::wstring part;
+	while (std::getline(ss, part, ALT_KEY_DELIM))
 	{
-		transform(begin(part), end(part), begin(part), ::tolower);
+		std::transform(std::begin(part), std::end(part), std::begin(part), ::tolower);
 		trim(part);
 		_keys.push_back(KeyCombiMulti(part));
 	}
@@ -48,9 +46,9 @@ KeyCombiAlt::~KeyCombiAlt(void)
 {
 }
 
-wstring KeyCombiAlt::str(wstring sep) const
+std::wstring KeyCombiAlt::str(std::wstring sep) const
 {
-	wstringstream ss;
+	std::wstringstream ss;
 	bool first = true;
 	for(auto& i: _keys)
 	{

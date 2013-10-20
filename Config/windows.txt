@@ -74,4 +74,11 @@ MinimiseAllButActive | Minimise all but the active desktop window | Win Home
 StretchTopBottom | Stretch the desktop window to the top and bottom of the screen | Win Shift Up
 RestoreMaintainWidth | Restore/minimise active desktop window vertically maintaining width | Win Shift Down
 MoveAppLeftScreen | Move an app or window in the desktop from one monitor to another | Win Shift Left
+OpenNarrator | Open Narrator | Win Enter
+InitiateIMEReconversion | Initiate IME reconversion | Win /
+OpenMediaCenter | Open Windows Media Center | Win Alt Enter
+ZoomInMagnifier | Zoom in using Magnifier | Win +
+ZoomOutMagnifier | Zoom out using Magnifier | Win -
+ExitMagnifier | Exit Magnifier | Win Esc
+
 

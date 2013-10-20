@@ -344,7 +344,7 @@ void MenuItems::Launch(HWND hwnd, std::wstring application, Item item)
 	/* Show window. */
 	SetForegroundWindow(hwnd);
 
-	Sleep(30);
+	Sleep(100);
 
 	/* Send keys/command for shortcut/menu item. */
 	if( item.command != 0 )
@@ -373,26 +373,18 @@ void MenuItems::Launch(HWND hwnd, std::wstring application, Item item)
 			inputs.push_back(input);
 
 			/* Send key downs. */
-			UINT numSent = 0;
-			while( numSent != inputs.size() )
+			for (auto& i : inputs)
 			{
-				numSent += ::SendInput(inputs.size() - numSent, &inputs[numSent], sizeof(INPUT));
+				while (::SendInput(1, &i, sizeof(INPUT)) == 0);
+				Sleep(50);
 			}
 
-			/* Sleep for a short time to guarantee both keydown and keyup messages
-			 * are received separately.
-			 */
-			Sleep(30);
-		
-			for(auto& i: inputs)
+			/* Send key ups. */
+			for (auto& i : inputs)
 			{
 				i.ki.dwFlags = KEYEVENTF_KEYUP;
-			}
-			/* Send key ups. */
-			numSent = 0;
-			while( numSent != inputs.size() )
-			{
-				numSent += ::SendInput(inputs.size() - numSent, &inputs[numSent], sizeof(INPUT));
+				while (::SendInput(1, &i, sizeof(INPUT)) == 0);
+				Sleep(50);
 			}
 		}
 	}

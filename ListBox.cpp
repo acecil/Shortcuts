@@ -54,7 +54,7 @@ namespace {
 	{
 	public:
 		AutoDC(CWnd* wnd) 
-			: _wnd(wnd), _dc(wnd ? wnd->GetDC() : NULL) {}
+			: _wnd(wnd), _dc(wnd ? wnd->GetDC() : nullptr) {}
 		~AutoDC()
 		{
 			if( _wnd && _dc )

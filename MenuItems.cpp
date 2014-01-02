@@ -205,14 +205,21 @@ MenuItems::~MenuItems()
 	Save();
 }
 
-void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin)
+void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin, WORD currVersion)
 {
 	/* Find top-level window for the current process. */
 	DWORD procId;
 	::GetWindowThreadProcessId(currWin, &procId);
-	TopWinInfo topWinInfo = { NULL, procId };
+	TopWinInfo topWinInfo = { nullptr, procId };
 	::EnumWindows(enumWindowsProc, (LPARAM)&topWinInfo);
-	ItemList& items = pimpl->allitems[application];
+
+	std::wstring verApp = application + std::to_wstring(currVersion);
+	auto it = pimpl->allitems.find(verApp);
+	if (it == pimpl->allitems.end())
+	{
+		it = pimpl->allitems.find(application);
+	}
+
 	std::vector<MenuItem> menuItems;
 	getAllMenuItems(menuItems, true, std::wstring(), ::GetMenu(topWinInfo.hwnd));
 	getAllMenuItems(menuItems, true, std::wstring(), ::GetSystemMenu(topWinInfo.hwnd, FALSE));
@@ -263,12 +270,15 @@ void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin)
 		}
 
 		/* Use text for name and description. */
-		Item& item = items.items[shDesc];
-		item.desc = shDesc;
-		item.name = shDesc;
-		item.keys = shShort;
-		item.command = m.command;
-		item.sysCommand = sysCommand;
+		if (it != pimpl->allitems.end())
+		{
+			Item& item = it->second.items[shDesc];
+			item.desc = shDesc;
+			item.name = shDesc;
+			item.keys = shShort;
+			item.command = m.command;
+			item.sysCommand = sysCommand;
+		}
 	}
 }
 
@@ -499,8 +509,8 @@ namespace
 						acc = false;
 					}
 					subname += menuname;
-					HMENU subMenu = NULL;
-					if((subMenu = ::GetSubMenu(menu, c)) != NULL)
+					HMENU subMenu = nullptr;
+					if((subMenu = ::GetSubMenu(menu, c)) != nullptr)
 					{
 						getAllMenuItems(menuItems, acc, subname, subMenu);
 					}

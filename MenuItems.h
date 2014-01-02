@@ -50,7 +50,7 @@ public:
 	explicit MenuItems();
 	virtual ~MenuItems();
 
-	void UpdateMenuItems(std::wstring application, HWND currWin);
+	void UpdateMenuItems(std::wstring application, HWND currWin, WORD currVersion);
 	bool IsConfigAvailable(std::wstring application);
 	std::vector<Item> GetItems(std::wstring application, std::vector<std::wstring> text);
 	void Launch(HWND hwnd, std::wstring application, Item item);

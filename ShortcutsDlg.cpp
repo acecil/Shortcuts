@@ -23,6 +23,8 @@
 
 #include "afxdialogex.h"
 #include <TlHelp32.h>
+#include <Psapi.h>
+#pragma comment(lib, "version")
 
 #include "Shortcuts.h"
 #include "ConfigDlg.h"
@@ -83,7 +85,7 @@ BEGIN_MESSAGE_MAP(ShortcutsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_SETTINGS_BTN, &ShortcutsDlg::OnBnClickedSettingsBtn)
 END_MESSAGE_MAP()
 
-ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=NULL*/)
+ShortcutsDlg::ShortcutsDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(ShortcutsDlg::IDD, pParent),
 	config(new Config(DEFAULT_CONFIG))
 {
@@ -225,7 +227,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	shortcutList.GetWindowRect(&listRect);
 	ScreenToClient(&listRect);
 	listRect.bottom = listRect.top + newListRect.bottom;
-	shortcutList.SetWindowPos(NULL, 0, 0, listRect.Width(), listRect.Height(),
+	shortcutList.SetWindowPos(nullptr, 0, 0, listRect.Width(), listRect.Height(),
 		SWP_NOZORDER | SWP_NOMOVE);
 
 	CRect dlgRect;
@@ -239,7 +241,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	{
 		dlgRect.bottom = listRect.top - LISTBOX_OFFSET;
 	}
-	SetWindowPos(NULL, 0, 0, dlgRect.Width(), dlgRect.Height(),
+	SetWindowPos(nullptr, 0, 0, dlgRect.Width(), dlgRect.Height(),
 		SWP_NOZORDER | SWP_NOMOVE);
 
 	/* Refill list box. */
@@ -329,7 +331,7 @@ void ShortcutsDlg::setInitialPosition()
 	auto defX(::GetSystemMetrics(SM_CXSCREEN) / 2 - rect.Width() / 2);
 	auto defY(::GetSystemMetrics(SM_CYSCREEN) / 3);
 	auto initialPos(config->GetParam<Pos<int>>(INITIAL_POS_PARAM, Pos<int>(defX, defY)));
-	SetWindowPos(NULL, initialPos.x, initialPos.y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+	SetWindowPos(nullptr, initialPos.x, initialPos.y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 }
 
 void ShortcutsDlg::switchWinState(bool show)
@@ -347,13 +349,39 @@ void ShortcutsDlg::switchWinState(bool show)
 			/* Clear entry box. */
 			entryBox.SetWindowText(L"");
 		}
+
+		/* Get full path to application. */
+		DWORD procId = 0;
+		::GetWindowThreadProcessId(currWin, &procId);
+		HANDLE hProc = ::OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, procId);
+		WCHAR path[_MAX_PATH];
+		::GetModuleFileNameEx(hProc, nullptr, path, _MAX_PATH);
+		::CloseHandle(hProc);
+
+		/* Get application version. */
+		DWORD verHandle = 0;
+		DWORD size = ::GetFileVersionInfoSize(path, &verHandle);
+		auto verInfo = std::make_unique<BYTE[]>(size);
+		if (::GetFileVersionInfo(path, verHandle, size, verInfo.get()))
+		{
+			UINT len = 0;
+			void *vsfiv = nullptr;
+			::VerQueryValue(verInfo.get(), L"\\", &vsfiv, &len);
+			auto vsfi = static_cast<VS_FIXEDFILEINFO*>(vsfiv);
+			currVersion[0] = HIWORD(vsfi->dwFileVersionMS);
+			currVersion[1] = LOWORD(vsfi->dwFileVersionMS);
+			currVersion[2] = HIWORD(vsfi->dwFileVersionLS);
+			currVersion[3] = LOWORD(vsfi->dwFileVersionLS);
+		}
+		
+
 		/* Ignore our own configuration window. */
 		if( app != L"shortcuts" )
 		{
 			currApp = app;
 
 			/* Update stored list of menu items. */
-			items->UpdateMenuItems(currApp, currWin);
+			items->UpdateMenuItems(currApp, currWin, currVersion[0]);
 		}
 	}
 

@@ -1,0 +1,150 @@
+# Microsoft Outlook 2007 shortcuts
+
+SwitchToMail | Switch to Mail | Ctrl 1
+SwitchToCalendar | Switch to Calendar | Ctrl 2
+SwitchToContacts | Switch to Contacts | Ctrl 3
+SwitchToTasks | Switch to Tasks | Ctrl 4
+SwitchToNotes | Switch to Notes | Ctrl 5
+SwitchToFolderList | Switch to Folder List in Navigation Pane | Ctrl 6
+SwitchToShortcuts | Switch to Shortcuts | Ctrl 7
+SwitchToNextMessage | Switch to next message | Ctrl .
+SwitchToPrevMessage | Switch to previous message | Ctrl ,
+NextPane | Move to next pane | F6; Ctrl Shift Tab
+NextSmallPane | Move to the next small pane | Tab
+NextFolder | Move to next folder | Ctrl Y
+Search | Go to the search box | F3; Ctrl E
+ExpandGroup | Expand a group in the Navigation Pane | Shift +
+CollapseGroup | Collapse a group in the Navigation Pane | Shift -
+NextField | Move to next field in Reading Pane | Shift Tab
+PrevField | Move to previous field in Reading Pane | Ctrl Tab
+PrevView | Go back to previous view in main window | Alt B, Alt Left; Alt Backspace
+NextView | Go forward to next view in main windows | Alt Right
+SelectInfoBar | Select the InfoBar | Ctrl Shift W
+FindMessage | Find a message or other item | Ctrl E
+ClearSearch | Clear the search results | Escape
+ExpandSearch | Expand the search to include all items | Ctrl Alt A
+ExpandSearchQuery | Expand th search query builder | Ctrl Alt W
+AdvancedFind | Use Advanced Find | Ctrl Shift F
+CreateSearchFolder | Create a new search folder | Ctrl Shift P
+SearchForText | Search for text within an item | F4
+FindNextText | Find next during text search within item | Shift F4
+FindAndReplaceText | Find and replace text | Ctrl H
+ExpandSearchDesktop | Expand search to include desktop | Ctrl Alt K
+OpenFlagDialog | Open the Flag for Follow Up dialog box to assign a flag | Ctrl Shift G
+DeleteColorCat | Delete color category | Alt D
+CreateAppointment | Create an appointment | Ctrl Shift A
+CreateContact | Create a contact | Ctrl Shift C
+CreateDistribList | Create a distribution list | Ctrl Shift L
+CreateFax | Create a fax | Ctrl Shift X
+CreateFolder | Create a folder | Ctrl Shift E
+CreateJournal | Create a Journal entry | Ctrl Shift J
+CreateMeetingRequest | Create a meeting request | Ctrl Shift Q
+CreateMessage | Create a message | Ctrl Shift M
+CreateNote | Create a note | Ctrl Shift N
+CreateOfficeDoc | Create a new Office document | Ctrl Shift H
+PostToFolder | Post to this folder | Ctrl Shift S
+PostReply | Post a reply to this folder | Ctrl T
+CreateTask | Create a task | Ctrl Shift K
+CreateTaskRequest | Create a task request | Ctrl Shift U
+Save | Save | Ctrl S; Shift F12
+SaveAndClose | Save and close | Alt S
+SaveAs | Save as | F12
+Undo | Undo | Ctrl Z; Alt Backspace
+DeleteItem | Delete an item | Ctrl D
+Print | Print | Ctrl P
+CopyItem | Copy an item | Ctrl Shift Y
+MoveItem | Move an item | Ctrl Shift V
+CheckNames | Check names | Ctrl K
+CheckSpelling | Check spelling | F7
+FlagForFollowup | Flag for follow-up | Ctrl Shift G
+Forward | Forward | Ctrl F
+SendPost | Send or post or invite all | Alt S
+TurnOnEditing | Turn on editing | F2
+LeftAlignText | Left align text | Ctrl L
+CenterText | Center text | Ctrl E
+RightAlignText | Right align text | Ctrl R
+SwitchToInbox | Switch to Inbox | Ctrl Shift I
+SwitchToOutbox | Switch to Outbox | Ctrl Shift O
+ChooseSendAccount | Choose the account from which to send a message | Ctrl Tab, Tab
+Reply | Reply to a message | Ctrl R
+ReplyAll | Reply all to a message | Ctrl Shift R
+MarkNotJunk | Mark a message as not junk | Ctrl Alt J
+DisplayBlockedContent | Display blocked external content | Ctrl Shift I
+PostToFolder | Post to a folder | Ctrl Shift S
+NormalStyle | Apply normal style | Ctrl Shift N
+CheckForMessages | Check for new messages | Ctrl M; F9
+PrevMessage | Go to the previous message | Up
+NextMessage | Go to the next message | Down
+NewMessage | Create a new message (from Mail) | Ctrl N
+NewMessageAny | Create a new message | Ctrl Shift M
+OpenMessage | Open a received message | Ctrl O
+OpenAddressBook | Open the address book | Ctrl Shift B
+ConvertToPlain | Convert an HTML or RTF message to plain text | Ctrl Shift O
+AddQuickFlag | Add a Quick Flag to an unopened message | Insert
+MarkRead | Mark as read | Ctrl Q
+MarkUnread | Mark as unread | Ctrl U
+ShowDownloadMenu | Show the menu to download pictures | Ctrl Shift W
+ForwardAttachment | Forward as attachment | Ctrl Alt F
+ShowProperties | Show the properties for the selected item | Alt Enter
+MarkDownload | Mark for download | Ctrl Alt M
+ClearMarkDownload | Clear mark for download | Ctrl Alt U
+DisplaySendReceive | Display send/receive progress | Ctrl B
+Show10Days | Show 10 days in the calender | Alt 0
+Show1Day | Show 1 day in the calendar | Alt 1
+Show2Days | Show 2 days in the calendar | Alt 2
+Show3Days | Show 3 days in the calendar | Alt 3
+Show4Days | Show 4 days in the calendar | Alt 4
+Show5Days | Show 5 days in the calendar | Alt 5
+Show6Days | Show 6 days in the calendar | Alt 6
+Show7Days | Show 7 days in the calendar | Alt 7
+Show8Days | Show 8 days in the calendar | Alt 8
+Show9Days | Show 9 days in the calendar | Alt 9
+GoToDate | Go to a date | Ctrl G
+MonthView | Switch to month view | Alt =; Ctrl Alt 4
+NextDay | Go to the next day | Ctrl Right
+NextWeek | Go the the next week | Alt Down
+NextMonth | Go to the next month | Alt PageDown
+PrevDay | Go to the previous day | Ctrl Left
+PrevWeek | Go to the previous week | Alt Up
+PrevMonth | Go to the previous month | Alt PageUp
+StartOfWeek | Go to the start of the week | Alt Home
+EndOfWeek | Go to the end of the week | Alt End
+FullWeekView | Switch to full week view | Alt -; Ctrl Alt 3
+WorkWeekView | Switch to work week view | Ctrl Alt 2
+Recurrence | Set up recurrence for an appointment or task | Ctrl G
+DialCall | Dial a new call | Ctrl Shift D
+SearchAddressBooks | Enter a name in the search address books box | F11
+ShowHideToDo | Show or hide the to-do bar | Alt F2
+AcceptTaskRequest | Accept a task request | Alt C
+DeclineTaskRequest | Decline a task request | Alt D
+FormatMenu | Display the format menu | Alt O
+FontDialog | Display the Font dialog box | Ctrl Shift P
+SwitchCase | Switch text case | Shift F3
+SmallCaps | Format letters as small capitals | Ctrl Shift K
+Bold | Make letters bold | Ctrl B
+Bullets | Add bullets | Ctrl Shift L
+Italic | Make letters italic | Ctrl I
+IncreaseIndent | Increase indent | Ctrl T
+DecreaseIndent | Decrease indent | Ctrl Shift T
+IncreaseFont | Increase font size | Ctrl ]; Ctrl Shift >
+DecreaseFont | Decrease font size | Ctrl [; Ctrl Shift <
+Cut | Cut | Ctrl X; Shift Delete
+Copy | Copy | Ctrl C
+Paste | Paste | Ctrl V; Shift Insert
+ClearFormat | Clear formatting | Ctrl Shift Z; Ctrl Spacebar
+DeleteNextWord | Delete the next word | Ctrl Shift H
+StretchPara | Stretch a paragraph to fit between the margins | Ctrl Shift J
+ApplyStyles | Apply styles | Ctrl Shift S
+HangingIndent | Create a hanging indent | Ctrl T
+InsertHyperlink | Insert a hyperlink | Ctrl K
+ReduceHangingIndent | Reduce a hanging indent | Ctrl Shift T
+RemoveFormat | Remove paragraph formatting | Ctrl Q
+PrintPreview | Print preview | Alt F, V
+Zoom | Zoom | Alt Z
+ClosePrintPreview | Close print preview | Alt C
+SendReceive | Send and receive | F9; Ctrl M
+SendReceiveFolder | Send and receive for current folder | Shift F9
+PlayMacro | Play macro | Alt F8
+SaveFormDesign | Save form design | Ctrl Alt Shift F12
+SaveFormData | Save form data | Ctrl Shift F11
+OpenVisualBasic | OpenVisualBasicEditor | Alt F11

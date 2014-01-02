@@ -33,7 +33,7 @@ class ShortcutsDlg : public CDialogEx
 {
 // Construction
 public:
-	ShortcutsDlg(CWnd* pParent = NULL);	// standard constructor
+	ShortcutsDlg(CWnd* pParent = nullptr);	// standard constructor
 	virtual ~ShortcutsDlg();
 
 // Dialog Data
@@ -61,6 +61,7 @@ private:
 	std::vector<Item> selectedItems;
 	HWND currWin;
 	std::wstring currApp;
+	WORD currVersion[4];
 	EditBox entryBox;
 	CButton settingsBtn;
 	ListBox shortcutList;

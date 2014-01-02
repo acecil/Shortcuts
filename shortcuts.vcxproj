@@ -165,7 +165,12 @@
     <Text Include="Config\devenv.txt" />
     <Text Include="Config\explorer.txt" />
     <Text Include="Config\firefox.txt" />
+    <Text Include="Config\outlook12.txt" />
     <Text Include="Config\vcexpress.txt" />
+    <Text Include="Config\windows7.txt" />
+    <Text Include="Config\windows8.1.txt" />
+    <Text Include="Config\windows8.txt" />
+    <Text Include="Config\windowsxp.txt" />
     <Text Include="Config\winword.txt" />
     <Text Include="GPL" />
     <Text Include="VERSION" />

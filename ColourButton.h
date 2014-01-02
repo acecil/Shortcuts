@@ -39,7 +39,7 @@ private:
 	HTHEME _theme;
 
 	void OpenTheme() { _theme = OpenThemeData(GetSafeHwnd(), L"Button"); }
-	void CloseTheme() { if(_theme) { CloseThemeData(_theme); _theme = NULL; } }
+	void CloseTheme() { if(_theme) { CloseThemeData(_theme); _theme = nullptr; } }
 };
 
 

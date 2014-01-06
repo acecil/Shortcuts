@@ -219,6 +219,11 @@ void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin, WORD cur
 	{
 		it = pimpl->allitems.find(application);
 	}
+	if (it == pimpl->allitems.end())
+	{
+		pimpl->allitems[application] = ItemList();
+		it = pimpl->allitems.find(application);
+	}
 
 	std::vector<MenuItem> menuItems;
 	getAllMenuItems(menuItems, true, std::wstring(), ::GetMenu(topWinInfo.hwnd));

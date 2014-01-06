@@ -1,5 +1,12 @@
 Below are the significant changes between versions.
 
+V0.3.1
+#18: Add standard Windows shortcuts specific for Windows version.
+Make SendInput() processing more robust.
+Add shortcuts for Outlook 2007.
+Support application version specific shortcuts.
+Add version and github link to configuration dialog.
+
 V0.3.0
 Fix a couple of bugs that could crash the application.
 Fix an uninitialised command variable that prevented key based shortcuts working in many cases.

@@ -47,6 +47,7 @@ protected:
 private:
 	const Config& oldConfig;
 	Config configChanges;
+	CStatic versionText;
 	CButton winModCheck;
 	CButton ctrlModCheck;
 	CButton altModCheck;
@@ -55,6 +56,7 @@ private:
 	ColourButton textColBtn;
 	ColourButton shortcutColBtn;
 
+	void OnNMClickGithubLink(NMHDR *pNMHDR, LRESULT *pResult);
 	void OnBnClickedWinCheck();
 	void OnBnClickedCtrlCheck();
 	void OnBnClickedAltCheck();

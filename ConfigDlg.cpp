@@ -24,8 +24,12 @@
 #include "KeyCombi.h"
 #include "MenuItems.h"
 #include "ConfigParams.h"
+#include "VERSION"
 
 #include <string>
+
+static const wchar_t APP_NAME[]{ L"Shortcuts" };
+static const wchar_t AUTHOR[]{ L"Andrew Gascoyne-Cecil" };
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -40,6 +44,7 @@ BEGIN_MESSAGE_MAP(ConfigDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_LAUNCH_COMBO, &ConfigDlg::OnCbnSelchangeLaunchCombo)
 	ON_BN_CLICKED(ID_TEXT_COL_BTN, &ConfigDlg::OnBnClickedTextColBtn)
 	ON_BN_CLICKED(ID_SHORTCUT_COL_BTN, &ConfigDlg::OnBnClickedShortcutColBtn)
+	ON_NOTIFY(NM_CLICK, IDC_GITHUB_LINK, &ConfigDlg::OnNMClickGithubLink)
 END_MESSAGE_MAP()
 
 ConfigDlg::ConfigDlg(CWnd* pParent,
@@ -62,6 +67,7 @@ Config ConfigDlg::GetChanges() const
 void ConfigDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_VERSION_TEXT, versionText);
 	DDX_Control(pDX, IDC_WIN_CHECK, winModCheck);
 	DDX_Control(pDX, IDC_CTRL_CHECK, ctrlModCheck);
 	DDX_Control(pDX, IDC_ALT_CHECK, altModCheck);
@@ -83,6 +89,9 @@ BOOL ConfigDlg::OnInitDialog()
 	/* Set initial state. */
 	KeyCombi key(oldConfig.GetParam<KeyCombi>(HOTKEY_PARAM));
 
+	CString versionStr;
+	versionStr.Format(L"%s V%s by %s", APP_NAME, SHORTCUTS_VERSION_WSTRING, AUTHOR);
+	versionText.SetWindowText(versionStr);
 	winModCheck.SetCheck((key.mods() & MOD_WIN) ? BST_CHECKED : BST_UNCHECKED);
 	ctrlModCheck.SetCheck((key.mods() & MOD_CONTROL) ? BST_CHECKED : BST_UNCHECKED);
 	shiftModCheck.SetCheck((key.mods() & MOD_SHIFT) ? BST_CHECKED : BST_UNCHECKED);
@@ -133,6 +142,27 @@ void ConfigDlg::OnPaint()
 HCURSOR ConfigDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+void ConfigDlg::OnNMClickGithubLink(NMHDR* pNMHDR, LRESULT *pResult)
+{
+	if (!pNMHDR)
+	{
+		*pResult = 0;
+		return;
+	}
+	if (pNMHDR->code != NM_CLICK)
+	{
+		*pResult = 0;
+		return;
+	}
+
+	NMLINK* link = reinterpret_cast<NMLINK*>(pNMHDR);
+	LITEM& item = link->item;
+
+	/* Open browser with link. */
+	ShellExecute(nullptr, L"open", item.szUrl, nullptr, nullptr, SW_SHOWNORMAL);
+	*pResult = 0;
 }
 
 void ConfigDlg::OnBnClickedCloseBtn()
@@ -216,3 +246,4 @@ void ConfigDlg::OnBnClickedShortcutColBtn()
 		shortcutColBtn.SetColour(dlg.GetColor());
 	}
 }
+

@@ -1,0 +1,47 @@
+Below are the significant changes between versions.
+
+V0.3.2
+Add installer.
+
+V0.3.1
+#18: Add standard Windows shortcuts specific for Windows version.
+Make SendInput() processing more robust.
+Add shortcuts for Outlook 2007.
+Support application version specific shortcuts.
+Add version and github link to configuration dialog.
+
+V0.3.0
+Fix a couple of bugs that could crash the application.
+Fix an uninitialised command variable that prevented key based shortcuts working in many cases.
+
+V0.2.0
+#16: Get menu items automatically from applications using HMENUs.
+Improve initial position.
+
+V0.1.0
+#21: Start application hidden.
+#22: Indicate when no shortcuts available for application.
+Shrink window to text box size when no items.
+#4: Add configuration dialog allowing app exit and global shortcut config.
+
+V0.0.5
+#19: Convert process name to lower case for comparison.
+#20: Include shortcuts for Visual Studio Express.
+
+V0.0.4
+#13: Add automatic release script that packages together config files and executable.
+Increase window width.
+
+V0.0.3
+#1: Improve layout of text in listbox.
+#7: Fix bug with showing/hiding Shortcuts window.
+#2: Show hint text when Shortcuts window displayed.
+#6: Fix bug with when text is selected.
+#9: Add custom icon.
+
+V0.0.2
+Increase timeout between keydown and keyup messages.
+Resize listbox based on number of shortcuts available.
+
+V0.0.1
+Initial version.

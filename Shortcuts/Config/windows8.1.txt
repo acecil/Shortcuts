@@ -1,0 +1,3 @@
+# Windows 8.1 Shortcuts
+
+SearchWindowsWeb | Open the Search charm to search Windows and the web | Win S

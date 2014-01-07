@@ -1,0 +1,58 @@
+# Google chrome shortcuts
+
+NewWindow | Open a new window | Ctrl N
+NewTab | Open a new tab | Ctrl T
+NewIncognitoWindow | Open a new icognito window | Ctrl Shift N
+ReopenTab | Reopen the last closed tab | Ctrl Shift T
+SwitchTab1 | Switch to tab 1 | Ctrl 1
+SwitchTab2 | Switch to tab 2 | Ctrl 2
+SwitchTab3 | Switch to tab 3 | Ctrl 3
+SwitchTab4 | Switch to tab 4 | Ctrl 4
+SwitchTab5 | Switch to tab 5 | Ctrl 5
+SwitchTab6 | Switch to tab 6 | Ctrl 6
+SwitchTab7 | Switch to tab 7 | Ctrl 7
+SwitchTab8 | Switch to tab 8 | Ctrl 8
+SwitchTabLast | Switch to the last tab | Ctrl 9
+SwitchTabNext | Switch to the next tab | Ctrl Tab; Ctrl Pagedown
+SwitchTabPrev | Switch to the previous tab | Ctrl Shift Tab; Ctrl Pageup
+CloseWindow | Close the current window | Alt F4
+CloseTab | Close the current tab | Ctrl W; Ctrl F4
+PrevPageHistory | Move to previous page in tab history | Back; Alt Larrow
+NextPageHistory | Move to next page in tab history | Shift Back; Alt Rarrow
+Home | Open homepage in current window | Alt Home
+OpenSettingsMenu | Open the wrench settings menu | Alt F; Alt E
+ToggleBookmarksBar | Toggle the bookmarks bar | Ctrl Shift B
+OpenHistory | Open the history page | Ctrl H
+OpenDownloads | Open the downloads page | Ctrl J
+OpenTaskManager | Open the task manager | Shift Esc
+FocusToolbar | Set the focus on the browser toolbar | Shift Alt T
+SwitchPane | Switch to the next keyboard accessible pane | F6; Shift F6
+OpenDeveloperTools | Open developer tools | Ctrl Shift J
+OpenClearBrowsingData | Open the clear browsing data dialog | Ctrl Shift Del
+OpenHelp | Open the help center in a new tab | F1
+SwitchUsers | Switch between multiple users | Ctrl Shift M
+HighlightUrl | Highlight URL in address bar | Ctrl L; Alt D
+StartSearch | Place a ? in the address bar | Ctrl K; Ctrl E
+DeleteTerm | Delete the term that precedes the cursor in the address bar | Ctrl Back
+PrintPage | Print the current page | Ctrl P
+SavePage | Save the current page | Ctrl S
+RefreshPage | Reload the current page | F5; Ctrl R
+StopLoading | Stop loading the current page | Esc
+OpenFindBar | Open the find bar | Ctrl F
+FindNext | Find the next match for input in find bar | Ctrl G; F3
+FindPrevious | Find the previous match for input in find bar | Ctrl Shift G; Shift F3; Shift Enter
+RefreshPageNoCache | Reload the current page ignoring cached content | Ctrl F5; Shift F5
+OpenSource | Open the source of the current page | Ctrl U
+Bookmark | Save the current page as a bookmark | Ctrl D
+BookmarkAll | Save all open pages as bookmarks in new folder | Ctrl Shift D
+ToggleFullscreen | Open/close page in fullscreen mode | F11
+ZoomIn | Enlarge everything on the page | Ctrl +
+ZoomOut | Make everything on the page smaller | Ctrl -
+ZoomReset | Return everything on the page to normal size | Ctrl 0
+ScrollPage | Scrolls down the web page | Space
+GoToTop | Move to the top of the page | Home
+GoToBottom | Move to the bottom of the page | End
+Copy | Copy highlighted content to the clipboard | Ctrl C
+Paste | Paste content from the clipboard | Ctrl V; Shift Insert
+PasteNoFormat | Paste content from the clipboard without formatting | Ctrl Shift V
+Cut | Delete highlighted content and copy to the clipboard | Ctrl X; Shift Del

@@ -1,14 +1,4 @@
-Config/_stats.conf
-Config/_config.conf
-Debug/*
-Release/*
-ipch/*
-Shortcuts-V*/*
-*.aps
 *.opensdf
 *.sdf
 *.v*.suo
-*.vcxproj.filters
-*.vcxproj.user
-Thumbs.db
-*/Thumbs.db
+ipch/*

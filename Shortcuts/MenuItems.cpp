@@ -263,7 +263,7 @@ void MenuItems::UpdateMenuItems(std::wstring application, HWND currWin, WORD cur
 		{
 			shDesc = desc.substr(0, mit);
 			shstring = desc.substr(mit + 1, std::wstring::npos);
-			replace(begin(shstring), end(shstring), L'+', L' ');
+			std::replace(std::begin(shstring), std::end(shstring), L'+', L' ');
 		}
 
 		KeyCombiAlt shShort(shstring);
@@ -303,7 +303,7 @@ bool MenuItems::IsConfigAvailable(std::wstring application)
 	return !it->second.items.empty();
 }
 
-std::vector<Item> MenuItems::GetItems(std::wstring application, std::vector<std::wstring> words)
+std::vector<Item> MenuItems::GetItems(std::wstring application, WORD currVersion, std::vector<std::wstring> words)
 {
 	/* Show no items when no text. */
 	if (words.empty())
@@ -314,7 +314,7 @@ std::vector<Item> MenuItems::GetItems(std::wstring application, std::vector<std:
 	/* Get standard windows shortcuts for the current windows version. */
 	std::map<std::wstring, Item> allItems = GetWindowsItems();
 	
-	LoadItems(allItems, application);
+	LoadItems(allItems, application, currVersion);
 
 	/* Try to match all words from name, description and shortcut. */
 	std::set<Item> matches;
@@ -323,9 +323,9 @@ std::vector<Item> MenuItems::GetItems(std::wstring application, std::vector<std:
 		std::wstring lname = it.second.name;
 		std::wstring desc = it.second.desc;
 		std::wstring shortcut = it.second.keys.str(L" + ");
-		transform(begin(lname), end(lname), begin(lname), ::tolower);
-		transform(begin(desc), end(desc), begin(desc), ::tolower);
-		transform(begin(shortcut), end(shortcut), begin(shortcut), ::tolower);
+		std::transform(std::begin(lname), std::end(lname), std::begin(lname), ::tolower);
+		std::transform(std::begin(desc), std::end(desc), std::begin(desc), ::tolower);
+		std::transform(std::begin(shortcut), std::end(shortcut), std::begin(shortcut), ::tolower);
 
 		bool foundAll = true;
 		for(auto& w : words)
@@ -436,10 +436,10 @@ void MenuItems::Launch(HWND hwnd, std::wstring application, Item item)
 
 void MenuItems::Save()
 {
-	std::tr2::sys::wpath pstat(std::tr2::sys::initial_path<std::tr2::sys::wpath>());
+	wpath pstat(initial_path<wpath>());
 	pstat /= CONFIG_DIR;
 	pstat /= STATS_FILENAME;
-	std:: wofstream fst(pstat.file_string(), std::ios::trunc | std::ios::out);
+	std::wofstream fst(pstat.file_string(), std::ios::trunc | std::ios::out);
 	for(auto& app : pimpl->allitems)
 	{
 		for(auto& s : app.second.items)
@@ -480,9 +480,15 @@ std::map<std::wstring, Item> MenuItems::GetWindowsItems()
 	return items;
 }
 
-void MenuItems::LoadItems(std::map<std::wstring, Item> &items, std::wstring app)
+void MenuItems::LoadItems(std::map<std::wstring, Item> &items, std::wstring app, WORD currVersion)
 {
 	auto it = pimpl->allitems.find(app);
+	if (it != pimpl->allitems.end())
+	{
+		auto &nitems = it->second.items;
+		items.insert(std::begin(nitems), std::end(nitems));
+	}
+	it = pimpl->allitems.find(app + std::to_wstring(currVersion));
 	if (it != pimpl->allitems.end())
 	{
 		auto &nitems = it->second.items;

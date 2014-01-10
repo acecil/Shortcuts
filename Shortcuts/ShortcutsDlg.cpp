@@ -212,7 +212,7 @@ void ShortcutsDlg::OnEnChangeEntry()
 	}
 
 	/* Get items. */
-	selectedItems = items->GetItems(currApp, words);
+	selectedItems = items->GetItems(currApp, currVersion[0], words);
 	shortcutList.ResetContent();
 
 	/* Pass words to list box. */

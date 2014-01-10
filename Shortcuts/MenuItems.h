@@ -52,7 +52,7 @@ public:
 
 	void UpdateMenuItems(std::wstring application, HWND currWin, WORD currVersion);
 	bool IsConfigAvailable(std::wstring application);
-	std::vector<Item> GetItems(std::wstring application, std::vector<std::wstring> text);
+	std::vector<Item> GetItems(std::wstring application, WORD currVersion, std::vector<std::wstring> text);
 	void Launch(HWND hwnd, std::wstring application, Item item);
 	void Save();
 	
@@ -60,6 +60,6 @@ private:
 	struct impl; std::unique_ptr<impl> pimpl;
 
 	std::map<std::wstring, Item> GetWindowsItems();
-	void LoadItems(std::map<std::wstring, Item> &items, std::wstring app);
+	void LoadItems(std::map<std::wstring, Item> &items, std::wstring app, WORD currVersion=0);
 
 };

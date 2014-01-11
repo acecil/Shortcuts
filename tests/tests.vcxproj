@@ -78,7 +78,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>$(TargetPath) --gtest_output="xml:gtestresults.xml"</Command>
+      <Command>"$(TargetPath)" --gtest_output=xml:gtestresults.xml</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Run tests...</Message>

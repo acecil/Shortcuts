@@ -77,6 +77,12 @@
       <AdditionalDependencies>gtest.lib;shortcuts_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>$(TargetPath) --gtest_output="xml:gtestresults.xml"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Run tests...</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

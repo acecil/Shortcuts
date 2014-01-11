@@ -21,6 +21,7 @@
 #include <memory>
 #include <future>
 
+#include "Resource.h"
 #include "EditBox.h"
 #include "ListBox.h"
 #include "MenuItems.h"

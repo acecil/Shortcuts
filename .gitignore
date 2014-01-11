@@ -2,3 +2,4 @@
 *.sdf
 *.v*.suo
 ipch/*
+*.vcxproj.filters

@@ -18,7 +18,7 @@
 //
 
 #include "stdafx.h"
-#include "shortcuts.h"
+#include "Resource.h"
 #include "ConfigDlg.h"
 #include "Config.h"
 #include "KeyCombi.h"

@@ -18,7 +18,6 @@
 //
 
 #include "stdafx.h"
-#include "shortcuts.h"
 #include "EditBox.h"
 
 

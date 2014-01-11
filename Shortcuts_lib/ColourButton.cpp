@@ -18,7 +18,6 @@
 //
 
 #include "stdafx.h"
-#include "shortcuts.h"
 #include "ColourButton.h"
 
 IMPLEMENT_DYNAMIC(ColourButton, CButton)

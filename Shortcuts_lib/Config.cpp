@@ -30,8 +30,9 @@ using std::tr2::sys::initial_path;
 
 namespace
 {
+	const std::wstring AUTHOR(L"acecil");
+	const std::wstring APP_NAME(L"Shortcuts");
 	const std::wstring CONFIG_DIR(L"Config");
-	wpath getAppDataFolder();
 };
 
 Config::Config(std::wstring filename)
@@ -42,7 +43,7 @@ Config::Config(std::wstring filename)
 		return;
 	}
 
-	wpath p(getAppDataFolder());
+	wpath p(GetAppDataFolder());
 	p /= CONFIG_DIR;
 	p /= filename;
 	std::wifstream fst(p.file_string());
@@ -78,7 +79,7 @@ Config::~Config(void)
 
 void Config::Save(std::wstring filename)
 {
-	wpath p(getAppDataFolder());
+	wpath p(GetAppDataFolder());
 	p /= CONFIG_DIR;
 	p /= filename;
 	std::wofstream fst(p.file_string());
@@ -88,22 +89,19 @@ void Config::Save(std::wstring filename)
 	}
 }
 
-namespace
+wpath Config::GetAppDataFolder()
 {
-	wpath getAppDataFolder()
+	wpath p(initial_path<wpath>());
+	wchar_t szPath[MAX_PATH];
+	if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_LOCAL_APPDATA, nullptr, 0, szPath)))
 	{
-		wpath p(initial_path<wpath>());
-		wchar_t szPath[MAX_PATH];
-		if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_LOCAL_APPDATA, nullptr, 0, szPath)))
+		p = szPath;
+		p /= AUTHOR;
+		p /= APP_NAME;
+		if (!is_directory(p))
 		{
-			p = szPath;
-			p /= L"acecil";
-			p /= L"Shortcuts";
-			if (!is_directory(p))
-			{
-				p = initial_path<wpath>();
-			}
+			p = initial_path<wpath>();
 		}
-		return p;
 	}
+	return p;
 }

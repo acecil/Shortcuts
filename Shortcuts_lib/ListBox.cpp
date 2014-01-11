@@ -18,7 +18,6 @@
 //
 
 #include "stdafx.h"
-#include "shortcuts.h"
 #include "ListBox.h"
 
 #include <algorithm>

@@ -34,6 +34,7 @@
 #include <tuple>
 #include <vector>
 
+#include "Config.h"
 #include "StringUtils.h"
 #include "KeyCombiAlt.h"
 #include "MenuItems.h"
@@ -77,7 +78,6 @@ namespace
 
 	void getAllMenuItems(std::vector<MenuItem>& menuItems, bool acc, std::wstring item, HMENU menu);
 	BOOL CALLBACK enumWindowsProc(HWND hwnd, LPARAM lParam);
-	wpath getAppDataFolder();
 }
 
 struct MenuItems::impl
@@ -96,7 +96,7 @@ MenuItems::MenuItems()
 	pimpl->modvk[MOD_WIN] = VK_LWIN;
 
 	/* Load configuration files. */
-	wpath p(getAppDataFolder());
+	wpath p(Config::GetAppDataFolder());
 	p /= CONFIG_DIR;
 	for (wdirectory_iterator di(p); di != wdirectory_iterator(); ++di)
 	{
@@ -163,7 +163,7 @@ MenuItems::MenuItems()
 	}
 
 	/* Load stats file. */
-	wpath pstat(getAppDataFolder());
+	wpath pstat(Config::GetAppDataFolder());
 	pstat /= CONFIG_DIR;
 	pstat /= STATS_FILENAME;
 	std::wifstream fst(pstat.file_string());
@@ -554,23 +554,6 @@ namespace
 		}
 
 		return TRUE;
-	}
-
-	wpath getAppDataFolder()
-	{
-		wpath p(initial_path<wpath>());
-		wchar_t szPath[MAX_PATH];
-		if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_LOCAL_APPDATA, nullptr, 0, szPath)))
-		{
-			p = szPath;
-			p /= L"acecil";
-			p /= L"Shortcuts";
-			if (!is_directory(p))
-			{
-				p = initial_path<wpath>();
-			}
-		}
-		return p;
 	}
 }
 

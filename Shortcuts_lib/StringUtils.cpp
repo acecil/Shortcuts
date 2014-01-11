@@ -18,7 +18,6 @@
 //
 
 #include "stdafx.h"
-#include "Shortcuts.h"
 
 #include <algorithm>
 

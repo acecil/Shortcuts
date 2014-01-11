@@ -18,6 +18,7 @@
 //
 #pragma once
 
+#include <filesystem>
 #include <string>
 #include <map>
 #include <stdexcept>
@@ -62,6 +63,7 @@ public:
 	~Config(void);
 	
 	void Save(std::wstring filename); 
+	static std::tr2::sys::wpath GetAppDataFolder();
 
 	template<typename T>
 	void SetParam(std::wstring name, T value)

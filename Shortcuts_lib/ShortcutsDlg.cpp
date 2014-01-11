@@ -26,7 +26,7 @@
 #include <Psapi.h>
 #pragma comment(lib, "version")
 
-#include "Shortcuts.h"
+#include "Resource.h"
 #include "ConfigDlg.h"
 #include "Config.h"
 #include "StringUtils.h"

@@ -26,30 +26,21 @@
 #endif
 
 // ShortcutsApp
-
 BEGIN_MESSAGE_MAP(ShortcutsApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 // ShortcutsApp construction
-
 ShortcutsApp::ShortcutsApp()
 {
 	// support Restart Manager
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
-
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
 }
 
-
 // The one and only ShortcutsApp object
-
 ShortcutsApp theApp;
 
-
 // ShortcutsApp initialization
-
 BOOL ShortcutsApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application

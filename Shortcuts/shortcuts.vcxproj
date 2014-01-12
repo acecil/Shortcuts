@@ -140,10 +140,6 @@
     <None Include="res\shortcuts.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\settings.ico" />
-    <Image Include="res\shortcuts.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="CHANGELOG" />
     <Text Include="Config\chrome.txt" />
     <Text Include="Config\devenv.txt" />

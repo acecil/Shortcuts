@@ -125,6 +125,10 @@
   <ItemGroup>
     <None Include="..\VERSION" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\settings.ico" />
+    <Image Include="res\shortcuts.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

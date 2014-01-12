@@ -3909,7 +3909,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\Shortcuts\res\shortcuts.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\Shortcuts_lib\res\shortcuts.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4358,7 +4358,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ARPHELPLINK</td><td>##ID_STRING5##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
-		<row><td>ARPREADME</td><td>&lt;VSSolutionFolder&gt;\Setup\README.rtf</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING2##</td><td/></row>
 		<row><td>AgreeToLicense</td><td>No</td><td/></row>

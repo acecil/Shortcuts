@@ -4428,7 +4428,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]shortcuts.Primary Output</td><td/></row>
 		<row><td>ProductCode</td><td>{58B4868B-0348-48EC-A7FA-3AAE3A69F221}</td><td/></row>
 		<row><td>ProductName</td><td>Shortcuts</td><td/></row>
-		<row><td>ProductVersion</td><td>0.3.2</td><td/></row>
+		<row><td>ProductVersion</td><td>0.3.3</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

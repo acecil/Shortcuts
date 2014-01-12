@@ -140,7 +140,6 @@
     <None Include="res\shortcuts.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CHANGELOG" />
     <Text Include="Config\chrome.txt" />
     <Text Include="Config\devenv.txt" />
     <Text Include="Config\explorer.txt" />
@@ -152,7 +151,6 @@
     <Text Include="Config\windows8.txt" />
     <Text Include="Config\windowsxp.txt" />
     <Text Include="Config\winword.txt" />
-    <Text Include="GPL" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

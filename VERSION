@@ -2,7 +2,7 @@
 
 #define SHORTCUTS_MAJOR_VERSION 0
 #define SHORTCUTS_MINOR_VERSION 3
-#define SHORTCUTS_MICRO_VERSION 2
+#define SHORTCUTS_MICRO_VERSION 3
 
 #define xstr(s) str(s)
 #define str(s) #s

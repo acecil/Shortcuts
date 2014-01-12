@@ -1,5 +1,10 @@
 Below are the significant changes between versions.
 
+V0.3.3
+#8: Add unit test project with one initial test.
+Split main body of application into separate library to support testing.
+#24: Fix icon missing bug after split into library.
+
 V0.3.2
 Add installer.
 

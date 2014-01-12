@@ -136,6 +136,8 @@
     <ResourceCompile Include="shortcuts.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\CHANGELOG" />
+    <None Include="..\GPL" />
     <None Include="..\VERSION" />
     <None Include="res\shortcuts.rc2" />
   </ItemGroup>
